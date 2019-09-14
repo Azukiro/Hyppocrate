@@ -1,7 +1,7 @@
 Nom des logiciels:
 
 UML: StarUML (.mdj)
-BDD: MySql Workbench (.mwb)
+BDD: MySql Workbench (.mwb) (C'est un MLD attention)
 
 Langages et support pour le projet:
 Front: 
