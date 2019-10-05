@@ -1,0 +1,24 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+  <xsd:element name="idHopital" type="xsd:string"/>
+  <xsd:element name="Date" type="xsd:date"/>
+  <xsd:element name="Patient" type="xsd:string"/>
+  <xsd:element name="DateEntrée" type="xsd:date"/>
+  <xsd:element name="DateSortie" type="xsd:date"/>
+  <xsd:element name="NFacture" type="xsd:long"/>
+  <xsd:complexType name="ListeElement">
+    <xsd:sequence>
+      <xsd:element name="Ligne" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Date" type="xsd:string" />
+            <xsd:element name="Price" type="xsd:float"/>
+            <xsd:element name="PourcentagePatient" type="xsd:float"/><!--Mutuelle prend une part-->
+            <xsd:element name="Description" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:attribute name="totalPrice" type="xsd:float"/>
+</xsd:schema>

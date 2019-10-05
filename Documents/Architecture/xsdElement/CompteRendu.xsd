@@ -1,0 +1,8 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+  <xsd:element name="Doctor" type="xsd:string"/>
+  <xsd:attribute name="Date" type="xsd:date"/>
+  <xsd:element name="Patient" type="xsd:string"/>
+  <xsd:attribute name="CompteRendu" type="xsd:string"/>
+  
+</xsd:schema>

@@ -1,0 +1,19 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+  <xsd:element name="Doctor" type="xsd:string"/>
+  <xsd:element name="Date" type="xsd:date"/>
+  <xsd:element name="Patient" type="xsd:string"/>
+  <xsd:complexType name="ListeMedicament">
+    <xsd:sequence>
+      <xsd:element name="Medciament" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="MedicamentName" type="xsd:string" />
+            <xsd:element name="Grammage" type="xsd:int"/>
+            <xsd:element name="NbTypePerDay" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

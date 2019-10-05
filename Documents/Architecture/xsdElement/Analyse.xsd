@@ -1,0 +1,18 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+  <xsd:element name="Doctor" type="xsd:string"/>
+  <xsd:element name="Date" type="xsd:date"/>
+  <xsd:element name="Patient" type="xsd:string"/>
+  <xsd:complexType name="ListeConstante">
+    <xsd:sequence>
+      <xsd:element name="Constante" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="idConstante" type="xsd:int" />
+            <xsd:element name="ConstanteValue" type="xsd:float"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
