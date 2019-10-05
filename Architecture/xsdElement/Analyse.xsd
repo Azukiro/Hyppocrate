@@ -1,18 +1,31 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
            elementFormDefault="qualified">
-  <xsd:element name="Doctor" type="xsd:string"/>
-  <xsd:element name="Date" type="xsd:date"/>
-  <xsd:element name="Patient" type="xsd:string"/>
-  <xsd:complexType name="ListeConstante">
+
+  <xsd:complexType name="Identite">
     <xsd:sequence>
-      <xsd:element name="Constante" maxOccurs="unbounded">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="idConstante" type="xsd:int" />
-            <xsd:element name="ConstanteValue" type="xsd:float"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
+      <xsd:element name="Nom" type="xsd:string"/>
+      <xsd:element name="Nom" type="xsd:string"/>
+      <xsd:element name="Id" type="xsd:int"/>
     </xsd:sequence>
   </xsd:complexType>
+
+  <xsd:complexType name="Constante">
+    <xsd:sequence>
+      <xsd:element name="idConstante" type="xsd:int" />
+      <xsd:element name="NameConstante" type="xsd:string" />
+      <xsd:element name="ConstanteValue" type="xsd:float"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+  <xsd:element name="Docteur" type="Identite" />
+  <xsd:element name="Patient" type="Identite" />
+  <xsd:element name="Date" type="xsd:date"/>
+  <xsd:element name="ListContante">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Constante" type="Constante" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
 </xsd:schema>

@@ -1,24 +1,45 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
            elementFormDefault="qualified">
-  <xsd:element name="idHopital" type="xsd:string"/>
-  <xsd:element name="Date" type="xsd:date"/>
-  <xsd:element name="Patient" type="xsd:string"/>
-  <xsd:element name="DateEntrée" type="xsd:date"/>
-  <xsd:element name="DateSortie" type="xsd:date"/>
-  <xsd:element name="NFacture" type="xsd:long"/>
-  <xsd:complexType name="ListeElement">
+  <xsd:complexType name="Identite">
     <xsd:sequence>
-      <xsd:element name="Ligne" maxOccurs="unbounded">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="Date" type="xsd:string" />
-            <xsd:element name="Price" type="xsd:float"/>
-            <xsd:element name="PourcentagePatient" type="xsd:float"/><!--Mutuelle prend une part-->
-            <xsd:element name="Description" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
+      <xsd:element name="Nom" type="xsd:string"/>
+      <xsd:element name="Nom" type="xsd:string"/>
+      <xsd:element name="Id" type="xsd:int"/>
     </xsd:sequence>
   </xsd:complexType>
-  <xsd:attribute name="totalPrice" type="xsd:float"/>
+
+  <xsd:complexType name="FactureLine">
+    <xsd:sequence>
+      <xsd:element name="Date" type="xsd:string" />
+      <xsd:element name="Price" type="xsd:float"/>
+      <xsd:element name="PourcentagePatient" type="xsd:float"/><!--Mutuelle prend une part-->
+      <xsd:element name="Description" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:element name="Hopital">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="idHopital" type="xsd:int"/>
+          <xsd:element name="NameHopital" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Patient" type="Identite"/>
+  
+  <xsd:element name="Date" type="xsd:date"/>
+  <xsd:element name="DateEntrÃ©e" type="xsd:date"/>
+  <xsd:element name="DateSortie" type="xsd:date"/>
+  <xsd:element name="NFacture" type="xsd:long"/>
+  
+  <xsd:element name="ListeElement">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Ligne" maxOccurs="unbounded">
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+
+  </xsd:element>
+  <xsd:element name="totalPrice" type="xsd:float"/>
 </xsd:schema>
