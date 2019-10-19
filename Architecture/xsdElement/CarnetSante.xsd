@@ -1,0 +1,45 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <xsd:complexType name="Identite">
+    <xsd:sequence>
+      <xsd:element name="Nom" type="xsd:string"/>
+      <xsd:element name="Nom" type="xsd:string"/>
+      <xsd:element name="Id" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Allergie">
+    <xsd:sequence>
+      <xsd:element name="idAllergie" type="xsd:int" />
+      <xsd:element name="nameAllergie" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Vaccin">
+    <xsd:sequence>
+      <xsd:element name="idVaccin" type="xsd:int" />
+      <xsd:element name="NameVaccin" type="xsd:string" />
+      <xsd:element name="DateVaccin" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+  <xsd:element name="Patient" type="Identite" />
+  <xsd:element name="DateExport" type="xsd:date"/>
+  <xsd:element name="ListVaccin">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Vaccin" type="Vaccin" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+   <xsd:element name="ListVaccin">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Vaccin" type="Vaccin" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

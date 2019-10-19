@@ -1,6 +1,5 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
            elementFormDefault="qualified">
-
   <xsd:complexType name="Identite">
     <xsd:sequence>
       <xsd:element name="Nom" type="xsd:string"/>
@@ -11,9 +10,10 @@
   
   <xsd:element name="Doctor" type="Identite"/>
   <xsd:element name="Patient" type="Identite"/>
-  <xsd:attribute  name="Date" type="xsd:date"/>
-  <xsd:attribute  name="duration" type="xsd:duration"/>
-  <xsd:element name="Type" type="xsd:string"/>
-  <xsd:attribute name="Motif" type="xsd:string"/>
+  <xsd:element name="IdDemande" type="xsd:int"/>
+    </xsd:sequence>
+  <xsd:element name="Unité" type="xsd:int"/>
+   <xsd:element name="Valider" type="xsd:bool"/>
+   <xsd:element name="DateExamen" type="xsd:date"/>
   
 </xsd:schema>

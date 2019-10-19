@@ -12,6 +12,13 @@
   <xsd:element name="Patient" type="Identite"/>
   <xsd:element name="Date" type="xsd:date"/>
   
+  <xsd:element name="ListImportantElement">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Important" type="xsd:string" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
   <xsd:element name="iDExamReference" type="xsd:int"/>
   <xsd:element name="CompteRendu" type="xsd:string"/>
   
