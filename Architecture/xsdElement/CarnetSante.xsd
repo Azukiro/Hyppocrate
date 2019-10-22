@@ -35,10 +35,10 @@
     </xsd:complexType>
   </xsd:element>
 
-   <xsd:element name="ListVaccin">
+   <xsd:element name="ListAllergie">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="Vaccin" type="Vaccin" maxOccurs="unbounded"/>
+        <xsd:element name="Allergie" type="Allergie" maxOccurs="unbounded"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
