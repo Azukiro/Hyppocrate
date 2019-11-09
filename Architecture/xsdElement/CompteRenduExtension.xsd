@@ -1,16 +1,6 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
            elementFormDefault="qualified">
-  <xsd:complexType name="Identite">
-    <xsd:sequence>
-      <xsd:element name="Nom" type="xsd:string"/>
-      <xsd:element name="Nom" type="xsd:string"/>
-      <xsd:element name="Id" type="xsd:int"/>
-    </xsd:sequence>
-  </xsd:complexType>
   
-  <xsd:element name="Doctor" type="Identite"/>
-  <xsd:element name="Patient" type="Identite"/>
-  <xsd:element name="Date" type="xsd:date"/>
   
   <xsd:element name="iDExamReference" type="xsd:int"/>
   <xsd:element name="CompteRendu" type="xsd:string"/>
