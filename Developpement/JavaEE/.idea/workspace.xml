@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="86a76c34-0ed5-4556-950c-ed7e5732f166" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/.jsdtscope" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jpt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.component" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.project.facet.core.prefs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.project.facet.core.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.jsdt.ui.superType.container" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.jsdt.ui.superType.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.validation.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.hibernate.eclipse.console.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.jboss.ide.eclipse.as.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.tern-project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/java/com/haduart/rest/EntryPointService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/java/com/haduart/rest/GenericReference.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/java/com/haduart/rest/decision/DecisionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/java/com/haduart/rest/decision/Purchase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/java/com/haduart/rest/decision/PurchaseResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/java/com/haduart/rest/decision/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/resources/META-INF/persistence.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/resources/import.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/webapp/WEB-INF/beans.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/webapp/WEB-INF/rest-example-ds.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/webapp/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/test/com.haduart.rest/EntryPointServiceTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/test/com.haduart.rest/decision/DecisionServiceTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hypocrate/rest/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hypocrate/rest/Connection.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1VXSWLemw3olGbgCWDHThQSIgLi" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2091954" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="mvn" />
+                <option value="package" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="86a76c34-0ed5-4556-950c-ed7e5732f166" name="Default Changelist" comment="" />
+      <created>1577397976862</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1577397976862</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="179" key="#Servers" timestamp="1577398804090">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="179" key="#Servers/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577398804090" />
+    <state x="414" y="175" width="1092" height="854" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577401193363">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" width="1092" height="854" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577401193363" />
+    <state width="938" height="213" key="GridCell.Tab.0.bottom" timestamp="1577401323503">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="213" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577401323503" />
+    <state width="938" height="213" key="GridCell.Tab.0.center" timestamp="1577401323503">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="213" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577401323503" />
+    <state width="938" height="213" key="GridCell.Tab.0.left" timestamp="1577401323503">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="213" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577401323503" />
+    <state width="938" height="213" key="GridCell.Tab.0.right" timestamp="1577401323503">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="213" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577401323503" />
+    <state x="461" y="163" key="SettingsEditor" timestamp="1577398852141">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="163" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577398852141" />
+  </component>
+</project>
