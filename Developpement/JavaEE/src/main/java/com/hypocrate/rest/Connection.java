@@ -1,3 +1,5 @@
+package com.hypocrate.rest;
+
 import java.net.URI;
 import java.util.ArrayList;
 
@@ -10,6 +12,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
+import com.hypocrate.rest.GenericReference;
 import com.hypocrate.rest.decision.DecisionService;
 
 @Path("/connection")

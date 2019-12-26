@@ -1,7 +1,0 @@
-*.iml
-*target/
-.idea/
-*.gz
-*error
-*.swp
-.DS_Store

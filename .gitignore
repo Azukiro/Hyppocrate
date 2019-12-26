@@ -26,7 +26,6 @@
 # logback
 logback.out.xml
 
-target/
 backend/src/main/webapp/static/
 backend/src/main/webapp/index.html
 frontend/dist/
@@ -42,4 +41,5 @@ selenium-debug.log
 !.mvn/wrapper/maven-wrapper.jar
 
 # ignore personnalisé:
+target/
 node_modules/

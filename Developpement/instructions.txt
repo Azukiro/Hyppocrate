@@ -19,7 +19,8 @@ le reste est à remplir par Ewen
 
 POUR TRAVAILLER SUR LE BACK:
 
-installer eclipse JEE https://www.eclipse.org/downloads/packages/release/kepler/sr2/eclipse-ide-java-ee-developers
+----installer eclipse JEE https://www.eclipse.org/downloads/packages/release/kepler/sr2/eclipse-ide-java-ee-developers---- NE PLUS FAIRE çA
+Installer Intellij à la place
 
 installer maven http://maven.apache.org/download.cgi 
 Décompresser le dossier où vous voulez, puis rajouter la variable d'environnement M2_HOME qui contient le path du dossier
@@ -33,9 +34,11 @@ Si vous ne l'avez pas déjà: Rajouter la variable d'environnement JAVA_HOME qui
 
 Rajouter le répertoire /bin du dossier maven dans la variable PATH
 
-installer plugin wildfly sur Eclipse JEE
+-----installer plugin wildfly sur Eclipse JEE-----
 
 commande: mvn clean install 
 pour compiler(je crois): mvn package 
 pour lancer le serveur: Il y a un tab en bas à côté de la console appelé "Servers" normalement, avec dedans "WildFly 18", clic droit -> start
 
+lancer standalone.cmd
+copier le fichier .war et le dossier du projet dans wildfly/standalone
