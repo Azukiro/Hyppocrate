@@ -1,17 +1,17 @@
-*.class
-
+#*.class
+#
 # Package Files #
-*.jar
-*.war
-*.ear
-
-# Eclipse #
-.settings
-.project
-.classpath
-.studio
-target
-
+#*.jar
+#*.war
+#*.ear
+#
+## Eclipse #
+#.settings
+#.project
+#.classpath
+#.studio
+#target
+#
 # Apple # 
 .DS_Store
 
@@ -26,9 +26,9 @@ target
 # logback
 logback.out.xml
 
+target/
 backend/src/main/webapp/static/
 backend/src/main/webapp/index.html
-backend/target
 frontend/dist/
 frontend/node/
 frontend/node_modules/
