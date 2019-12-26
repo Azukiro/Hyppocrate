@@ -1,0 +1,41 @@
+
+
+
+POUR TOUS:
+https://www.getpostman.com/ // Logiciel permettant de faire des requetes plus élaborés et controlés, vous pouvez l'utiliser ou utiliser simplement votre navigateur
+
+
+
+
+POUR TRAVAILLER SUR LE FRONT:
+
+npm install vue // Ewen je sais plus si faut rajouter des arguments ou non (-g )?
+npm run serve //permet de lancer le serveur vuejs
+le reste est à remplir par Ewen
+
+
+
+
+
+POUR TRAVAILLER SUR LE BACK:
+
+installer eclipse JEE https://www.eclipse.org/downloads/packages/release/kepler/sr2/eclipse-ide-java-ee-developers
+
+installer maven http://maven.apache.org/download.cgi 
+Décompresser le dossier où vous voulez, puis rajouter la variable d'environnement M2_HOME qui contient le path du dossier
+
+installer wildfly (ancien nom: JBoss)
+https://wildfly.org/downloads/
+(le lien 18.0.1.Final de 178 MB)
+Décompresser le dossier où vous voulez, puis rajouter la variable d'environnement JBOSS_HOME qui contient le path du dossier
+
+Si vous ne l'avez pas déjà: Rajouter la variable d'environnement JAVA_HOME qui référence le path de votre JDK (12.0.2 pour ma part)
+
+Rajouter le répertoire /bin du dossier maven dans la variable PATH
+
+installer plugin wildfly sur Eclipse JEE
+
+commande: mvn clean install 
+pour compiler(je crois): mvn package 
+pour lancer le serveur: Il y a un tab en bas à côté de la console appelé "Servers" normalement, avec dedans "WildFly 18", clic droit -> start
+
