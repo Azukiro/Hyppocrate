@@ -42,3 +42,4 @@ pour lancer le serveur: Il y a un tab en bas à côté de la console appelé "Se
 
 lancer standalone.cmd
 copier le fichier .war et le dossier du projet dans wildfly/standalone
+mvn org.wildfly.plugins:wildfly-maven-plugin:deploy
