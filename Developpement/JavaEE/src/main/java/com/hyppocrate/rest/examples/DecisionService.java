@@ -1,4 +1,4 @@
-package com.haduart.rest.decision;
+package com.hyppocrate.rest.examples;
 
 import javax.ejb.Stateless;
 import javax.mail.internet.AddressException;

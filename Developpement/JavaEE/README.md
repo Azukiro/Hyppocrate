@@ -21,11 +21,11 @@ Compile, test and deploy this project:
 
 In the main path you will find your normal web project. In this case you have a REST
 Console so that you can play with the REST API:
-http://localhost:8080/Hypocrate/
+http://localhost:8080/Hyppocrate/
 
 In the /api/ you find the root path where all the API is located for all the services.
 For now there's only one service, that is the purchase simulation:
-http://localhost:8080/Hypocrate/api/
+http://localhost:8080/Hyppocrate/api/
 
 The service for the purchase simulation is in the /api/decision/
 So far there's only two operations supported: GET and POST.

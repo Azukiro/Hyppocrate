@@ -1,4 +1,4 @@
-package com.haduart.rest.decision;
+package com.hyppocrate.rest.examples;
 
 public class Purchase {
     private String email;

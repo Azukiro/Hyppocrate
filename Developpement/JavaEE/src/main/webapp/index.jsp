@@ -121,7 +121,7 @@
 
 <form id="request-form">
     <p><input type="text" id="request-method" value="GET" placeholder="method"></p>
-    <p><input type="text" id="request-url" value="/Hypocrate/api/" size="80" placeholder="url"></p>
+    <p><input type="text" id="request-url" value="/Hyppocrate/api/" size="80" placeholder="url"></p>
     <p><input type="text" id="request-type" value="application/json" size="80" placeholder="media type"></p>
     <p><textarea id="request-content" cols="80" rows="10"></textarea></p>
     <p><input type="submit" id="request-send" value="Send"> <input type="submit" id="request-clear" value="Clear"></p>

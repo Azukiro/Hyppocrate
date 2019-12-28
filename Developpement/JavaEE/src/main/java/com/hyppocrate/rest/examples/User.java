@@ -1,4 +1,4 @@
-package com.haduart.rest.decision;
+package com.hyppocrate.rest.examples;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
