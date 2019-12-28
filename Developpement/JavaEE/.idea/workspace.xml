@@ -20,7 +20,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1VYwN1HWL8cI22fmOlbnPVLoFnr" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -28,6 +30,18 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/launchServerWildfly.cmd" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Vincent Buisset\Documents\Projet\Projet-Delire\Developpement\JavaEE" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Shell Script.Launch Server">
+    <list>
+      <item itemvalue="Shell Script.Build And Copy" />
+      <item itemvalue="Shell Script.Launch Server" />
+    </list>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -55,6 +69,18 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577550445127">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577550445127" />
+    <state x="706" y="310" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577547581285">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="706" y="310" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577547581285" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1577550440259">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577550440259" />
     <state x="619" y="140" width="626" height="852" key="find.popup" timestamp="1577444984969">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
