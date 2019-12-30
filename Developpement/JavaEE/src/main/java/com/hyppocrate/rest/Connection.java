@@ -2,7 +2,6 @@ package com.hyppocrate.rest;
 
 import com.hyppocrate.components.SQLManager;
 import com.hyppocrate.utilities.Utils;
-import jdk.jfr.Experimental;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -33,10 +32,11 @@ public class Connection {
         Integer a = Utils.callIfDeployed(Connection::example1, 1, 2);
         int b = Utils.callIfDeployed(example2(), 4);
         Integer c = (Integer) Utils.callIfDeployed(Utils.tryGet(SQLManager.getInstance().getActe(0), "name"), 5);
+
         listResult.add(a);
         listResult.add(b);
         listResult.add(c);
-
+        
         return Response.ok(listResult).build();
     }
 

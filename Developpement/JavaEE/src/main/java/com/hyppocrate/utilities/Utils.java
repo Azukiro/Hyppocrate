@@ -1,17 +1,21 @@
 package com.hyppocrate.utilities;
 
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.function.Function;
 
+
 public class Utils {
 
-    public static <T, V> V callIfDeployed(Function<T, V> function, V defaultValue, T parameter) {
+
+    public static <T, V> V callIfDeployed(@NotNull Function<T, V> function, V defaultValue, T parameter) {
         if (isDeployed()) {
             return function.apply(parameter);
         }
         return defaultValue;
     }
-
+    // Implementation with generic Object
     public static <V> V callIfDeployed(V value, V defaultValue) {
         if (isDeployed()) {
             if (value == null) return defaultValue;
@@ -19,12 +23,14 @@ public class Utils {
         }
         return defaultValue;
     }
+    // Implementation with int
     public static int callIfDeployed(int value, int defaultValue) {
         if (isDeployed()) {
             return value;
         }
         return defaultValue;
     }
+    // Implementation with boolean
     public static boolean callIfDeployed(boolean value, boolean defaultValue) {
         if (isDeployed()) {
             return value;
@@ -41,6 +47,4 @@ public class Utils {
         if (map == null) return null;
         return map.get(key);
     }
-
-
 }

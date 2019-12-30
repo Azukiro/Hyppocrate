@@ -67,7 +67,7 @@ public class DecisionService {
     private Response generateResponse(final boolean accepted, final String reason) {
         return Response.ok().entity(new PurchaseResponse(accepted, reason)).build();
     }
-
+    @SuppressWarnings("unchecked")
     private List<User> queryUser(String email) {
         List<User> users;
         if (email.isEmpty())

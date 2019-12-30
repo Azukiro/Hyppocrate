@@ -25,7 +25,7 @@ public class SQLManager implements ISingleton {
     public HashMap<String, Object> getStaffType(String login) {
         return null;
     }
-    public String GetString(String appelationString,String language) {
+    public String getString(String appelationString,String language) {
         return null;
     }
     public int createDMP(int idDoctor, int numSecu) {
@@ -161,7 +161,7 @@ public class SQLManager implements ISingleton {
     public boolean createProfileAndSendEmail(int typeId, String name, String lastName, int birthDate, int phoneNumber, int phoneLandline, String email) {
         return false;
     }
-    private int GetIdUser(String login) {
+    private int getIdUser(String login) {
         return 0;
     }
     private boolean patientExist(int numSecu) {
