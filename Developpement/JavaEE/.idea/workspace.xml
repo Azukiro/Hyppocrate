@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e70d126e-214a-4ad8-8551-8b3aa381fa84" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hyppocrate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Hyppocrate.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/examples/DecisionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/examples/DecisionService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,9 +18,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="AnnotationType" />
         <option value="Class" />
         <option value="Interface" />
-        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -43,8 +45,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/launchServerWildfly.cmd" />
-    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -91,14 +93,31 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="706" y="310" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577547581285" />
+    <state x="488" y="84" key="#com.intellij.ide.util.MemberChooser" timestamp="1578944085496">
+      <screen x="0" y="0" width="1366" height="736" />
+    </state>
+    <state x="488" y="84" key="#com.intellij.ide.util.MemberChooser/0.0.1366.736@0.0.1366.736" timestamp="1578944085496" />
+    <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1578580235766">
+      <screen x="0" y="0" width="1366" height="736" />
+    </state>
+    <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.736@0.0.1366.736" timestamp="1578580235766" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1577550440259">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577550440259" />
-    <state x="461" y="163" key="SettingsEditor" timestamp="1577698658693">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="187" y="19" key="SettingsEditor" timestamp="1578579989952">
+      <screen x="0" y="0" width="1366" height="736" />
     </state>
+    <state x="187" y="19" key="SettingsEditor/0.0.1366.736@0.0.1366.736" timestamp="1578579989952" />
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577698658693" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1578580576868">
+      <screen x="0" y="0" width="1366" height="736" />
+    </state>
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.736@0.0.1366.736" timestamp="1578580576868" />
+    <state x="384" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1578580119848">
+      <screen x="0" y="0" width="1366" height="736" />
+    </state>
+    <state x="384" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.736@0.0.1366.736" timestamp="1578580119848" />
     <state x="619" y="140" width="757" height="852" key="find.popup" timestamp="1577563913937">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
