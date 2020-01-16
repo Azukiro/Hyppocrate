@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+// TODO: 16/01/2020
 public class SQLManager implements ISingleton {
-
 
     // singleton pattern
     private SQLManager()
@@ -121,9 +121,21 @@ public class SQLManager implements ISingleton {
     public HashMap<String, Object> getStaffMember(int idStaffMember) {
         return null;
     }
-    public HashMap<String, Object> updatePassword(int idStaffMember, String previousPwd, String newPwd) {
+
+    public HashMap<String, Object> getStaffMember(String email) {
         return null;
     }
+    public int getEnumStaffType(int idStaffMember) {
+        return 0;
+    }
+
+    public HashMap<String, Object> updatePassword(int idStaffMember, String newPwd) {
+        return null;
+    }
+    public List<HashMap<String, Object>> patientSortItems() {
+        return null;
+    }
+
     public void affecterPatient(int nodeId, int staffId, int patientId) {
         return;
     }
