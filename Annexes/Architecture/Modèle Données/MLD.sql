@@ -63,8 +63,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`DemoInformations` (
   `Poid` DOUBLE NULL,
   `Taille` DOUBLE NULL,
   PRIMARY KEY (`NumSecu`),
-  INDEX `fk_DemoInformations_EnumNationnality1_idx` (`EnumNationnality_idNat` ASC) VISIBLE,
-  INDEX `fk_DemoInformations_City1_idx` (`City_idCity` ASC) VISIBLE,
+  INDEX `fk_DemoInformations_EnumNationnality1_idx` (`EnumNationnality_idNat` ASC),
+  INDEX `fk_DemoInformations_City1_idx` (`City_idCity` ASC),
   CONSTRAINT `fk_DemoInformations_EnumNationnality1`
     FOREIGN KEY (`EnumNationnality_idNat`)
     REFERENCES `mydb`.`EnumNationnality` (`idNat`)
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`DMP` (
   `idDoctor` INT NOT NULL,
   `DemoInformations_NumSecu` INT NOT NULL,
   PRIMARY KEY (`UUID`),
-  INDEX `fk_DMP_DemoInformations1_idx` (`DemoInformations_NumSecu` ASC) VISIBLE,
+  INDEX `fk_DMP_DemoInformations1_idx` (`DemoInformations_NumSecu` ASC),
   CONSTRAINT `fk_DMP_DemoInformations1`
     FOREIGN KEY (`DemoInformations_NumSecu`)
     REFERENCES `mydb`.`DemoInformations` (`NumSecu`)
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`EnumStaffType` (
   `WebsiteRigth` VARCHAR(45) NULL,
   `TypeRigth_idTypeRigth` INT NOT NULL,
   PRIMARY KEY (`idEnumStaffType`),
-  INDEX `fk_EnumStaffType_TypeRigth1_idx` (`TypeRigth_idTypeRigth` ASC) VISIBLE,
+  INDEX `fk_EnumStaffType_TypeRigth1_idx` (`TypeRigth_idTypeRigth` ASC),
   CONSTRAINT `fk_EnumStaffType_TypeRigth1`
     FOREIGN KEY (`TypeRigth_idTypeRigth`)
     REFERENCES `mydb`.`TypeRigth` (`idTypeRigth`)
@@ -179,9 +179,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Unit` (
   `DemandeExamen_idDemandeExamen` INT NOT NULL,
   `DMP_UUID` INT NOT NULL,
   PRIMARY KEY (`idHospital`),
-  INDEX `fk_Hospital_StaffMember1_idx` (`Director` ASC) VISIBLE,
-  INDEX `fk_Hospital_Hospital1_idx` (`rataché` ASC) VISIBLE,
-  INDEX `fk_Unit_DMP1_idx` (`DMP_UUID` ASC) VISIBLE,
+  INDEX `fk_Hospital_StaffMember1_idx` (`Director` ASC) ,
+  INDEX `fk_Hospital_Hospital1_idx` (`rataché` ASC) ,
+  INDEX `fk_Unit_DMP1_idx` (`DMP_UUID` ASC) ,
   CONSTRAINT `fk_Hospital_StaffMember1`
     FOREIGN KEY (`Director`)
     REFERENCES `mydb`.`StaffMember` (`idStaffMember`)
@@ -218,9 +218,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`StaffMember` (
   `Hospital_StaffMember_idStaffMember` INT NOT NULL,
   `NbBureau` INT NULL,
   PRIMARY KEY (`idStaffMember`),
-  INDEX `fk_StaffMember_EnumStaffType1_idx` (`EnumStaffType_idEnumStaffType` ASC) VISIBLE,
-  INDEX `fk_StaffMember_DemoInformations1_idx` (`DemoInformations_NumSecu` ASC) VISIBLE,
-  INDEX `fk_StaffMember_Hospital1_idx` (`Hospital_idHospital` ASC, `Hospital_StaffMember_idStaffMember` ASC) VISIBLE,
+  INDEX `fk_StaffMember_EnumStaffType1_idx` (`EnumStaffType_idEnumStaffType` ASC) ,
+  INDEX `fk_StaffMember_DemoInformations1_idx` (`DemoInformations_NumSecu` ASC) ,
+  INDEX `fk_StaffMember_Hospital1_idx` (`Hospital_idHospital` ASC, `Hospital_StaffMember_idStaffMember` ASC) ,
   CONSTRAINT `fk_StaffMember_EnumStaffType1`
     FOREIGN KEY (`EnumStaffType_idEnumStaffType`)
     REFERENCES `mydb`.`EnumStaffType` (`idEnumStaffType`)
@@ -232,8 +232,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`StaffMember` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_StaffMember_Hospital1`
-    FOREIGN KEY (`Hospital_idHospital` , `Hospital_StaffMember_idStaffMember`)
-    REFERENCES `mydb`.`Unit` (`idHospital` , `Director`)
+    FOREIGN KEY (`Hospital_idHospital`)
+    REFERENCES `mydb`.`Unit` (`idHospital`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -252,9 +252,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Acte` (
   `DateFin` DATE NULL,
   `Responsable` INT NOT NULL,
   `Prix` INT NULL,
-  INDEX `fk_Acte_MedicalFolder1_idx` (`MedicalFolder_idFolder` ASC) VISIBLE,
+  INDEX `fk_Acte_MedicalFolder1_idx` (`MedicalFolder_idFolder` ASC) ,
   PRIMARY KEY (`idActe`),
-  INDEX `fk_Acte_StaffMember1_idx` (`Responsable` ASC) VISIBLE,
+  INDEX `fk_Acte_StaffMember1_idx` (`Responsable` ASC) ,
   CONSTRAINT `fk_Acte_MedicalFolder1`
     FOREIGN KEY (`MedicalFolder_idFolder`)
     REFERENCES `mydb`.`DMP` (`UUID`)
@@ -284,10 +284,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`MedicalDocument` (
   `Stream_Extension` INT NOT NULL,
   `Acte_idActe` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idMedicalDocument`),
-  INDEX `fk_MedicalDocument_DocumentType1_idx` (`DocumentType_idDocumentType` ASC) VISIBLE,
-  INDEX `fk_MedicalDocument_ChampsObligatoire1_idx` (`ChampsObligatoire_Name` ASC) VISIBLE,
-  INDEX `fk_MedicalDocument_Stream2_idx` (`Stream_Extension` ASC) VISIBLE,
-  INDEX `fk_MedicalDocument_Acte1_idx` (`Acte_idActe` ASC) VISIBLE,
+  INDEX `fk_MedicalDocument_DocumentType1_idx` (`DocumentType_idDocumentType` ASC) ,
+  INDEX `fk_MedicalDocument_ChampsObligatoire1_idx` (`ChampsObligatoire_Name` ASC) ,
+  INDEX `fk_MedicalDocument_Stream2_idx` (`Stream_Extension` ASC) ,
+  INDEX `fk_MedicalDocument_Acte1_idx` (`Acte_idActe` ASC) ,
   CONSTRAINT `fk_MedicalDocument_DocumentType1`
     FOREIGN KEY (`DocumentType_idDocumentType`)
     REFERENCES `mydb`.`DocumentType` (`idDocumentType`)
@@ -359,8 +359,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Page_has_TypeRigth` (
   `Page_idPage` INT NOT NULL,
   `TypeRigth_idTypeRigth` INT NOT NULL,
   PRIMARY KEY (`Page_idPage`, `TypeRigth_idTypeRigth`),
-  INDEX `fk_Page_has_TypeRigth_TypeRigth1_idx` (`TypeRigth_idTypeRigth` ASC) VISIBLE,
-  INDEX `fk_Page_has_TypeRigth_Page1_idx` (`Page_idPage` ASC) VISIBLE,
+  INDEX `fk_Page_has_TypeRigth_TypeRigth1_idx` (`TypeRigth_idTypeRigth` ASC) ,
+  INDEX `fk_Page_has_TypeRigth_Page1_idx` (`Page_idPage` ASC) ,
   CONSTRAINT `fk_Page_has_TypeRigth_Page1`
     FOREIGN KEY (`Page_idPage`)
     REFERENCES `mydb`.`Page` (`idPage`)
@@ -396,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`String` (
   `StringContent` VARCHAR(45) NULL,
   `Langue_idLangue` VARCHAR(2) NOT NULL,
   PRIMARY KEY (`idString`),
-  INDEX `fk_String_Langue1_idx` (`Langue_idLangue` ASC) VISIBLE,
+  INDEX `fk_String_Langue1_idx` (`Langue_idLangue` ASC) ,
   CONSTRAINT `fk_String_Langue1`
     FOREIGN KEY (`Langue_idLangue`)
     REFERENCES `mydb`.`Langue` (`idLangue`)
@@ -416,8 +416,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Affectation` (
   `Acte_idActe` VARCHAR(45) NOT NULL,
   `Unit_idHospital` INT NOT NULL,
   PRIMARY KEY (`idAffectation`, `Acte_idActe`, `Unit_idHospital`),
-  INDEX `fk_Affectation_Acte1_idx` (`Acte_idActe` ASC) VISIBLE,
-  INDEX `fk_Affectation_Unit1_idx` (`Unit_idHospital` ASC) VISIBLE,
+  INDEX `fk_Affectation_Acte1_idx` (`Acte_idActe` ASC) ,
+  INDEX `fk_Affectation_Unit1_idx` (`Unit_idHospital` ASC) ,
   CONSTRAINT `fk_Affectation_Acte1`
     FOREIGN KEY (`Acte_idActe`)
     REFERENCES `mydb`.`Acte` (`idActe`)
@@ -440,8 +440,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Responsable` (
   `StaffMember_idStaffMember` INT NOT NULL,
   `DMP_UUID` INT NOT NULL,
   PRIMARY KEY (`StaffMember_idStaffMember`, `DMP_UUID`),
-  INDEX `fk_StaffMember_has_DMP_DMP1_idx` (`DMP_UUID` ASC) VISIBLE,
-  INDEX `fk_StaffMember_has_DMP_StaffMember1_idx` (`StaffMember_idStaffMember` ASC) VISIBLE,
+  INDEX `fk_StaffMember_has_DMP_DMP1_idx` (`DMP_UUID` ASC) ,
+  INDEX `fk_StaffMember_has_DMP_StaffMember1_idx` (`StaffMember_idStaffMember` ASC) ,
   CONSTRAINT `fk_StaffMember_has_DMP_StaffMember1`
     FOREIGN KEY (`StaffMember_idStaffMember`)
     REFERENCES `mydb`.`StaffMember` (`idStaffMember`)
