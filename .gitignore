@@ -12,8 +12,7 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-.idea/*
-.idea/
+
 # Generated files
 .idea/**/contentModel.xml
 
@@ -114,3 +113,7 @@ buildNumber.properties
 target/
 node_modules/
 Developpement/JavaEE/.idea/workspace.xml
+.idea/*
+.idea/
+*/.idea/
+**/.idea/
