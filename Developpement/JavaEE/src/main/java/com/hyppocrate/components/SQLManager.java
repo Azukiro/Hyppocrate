@@ -3,16 +3,41 @@ package com.hyppocrate.components;
 import com.hyppocrate.utilities.ISingleton;
 
 import java.io.File;
+import java.sql.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+
 // TODO: 16/01/2020
 public class SQLManager implements ISingleton {
 
+
+    //private static final String url = "jdbc:mysql://localhost:3306/mydb";
+    private static final String user = "root";
+    private static final String password = "mettre pwd ici";
+
     // singleton pattern
     private SQLManager()
-    {}
+    {
+        /*try {
+            //Class.forName("com.mysql.jdbc.Driver");
+            MysqlDataSource dataSource = new MysqlDataSource();
+            dataSource.setUser(user);
+            dataSource.setPassword(password);
+            dataSource.setServerName("localhost:3306");
+
+            Connection conn = dataSource.getConnection();
+            Statement stmt = conn.createStatement();
+            //ResultSet rs = stmt.executeQuery("SELECT ID FROM USERS");
+            //rs.close();
+            stmt.close();
+            conn.close();
+            //Connection connection = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            System.err.println("SQL Initialization exception : " + e.toString());
+        }*/
+    }
     private static SQLManager INSTANCE = null;
     public static SQLManager getInstance()
     {
@@ -22,12 +47,17 @@ public class SQLManager implements ISingleton {
         return INSTANCE;
     }
 
+
     public HashMap<String, Object> getStaffType(String login) {
         return null;
     }
-    public String getString(String appelationString,String language) {
+
+
+    public String getString(String idStr,String idLangue) {
         return null;
     }
+
+
     public int createDMP(int idDoctor, int numSecu) {
         return 0;
     }
@@ -40,10 +70,7 @@ public class SQLManager implements ISingleton {
     public boolean publishBrouillonActe(int staffId, int patientId, String title, int type, int description, File file) {
         return false;
     }
-    public List<String> printSortItems() {
-        return null;
-    }
-    public java.util.List<HashMap<String, Object>> getBrouillon(int patientId, String search, String sortItems, int paginationNumber, int paginationLength) {
+    public List<HashMap<String, Object>> getBrouillon(int patientId, String search, String sortItems, int paginationNumber, int paginationLength) {
         return null;
     }
     public HashMap<String, Object> getDocument(int draftId) {
@@ -52,12 +79,16 @@ public class SQLManager implements ISingleton {
     public boolean updateEtPublierBrouillon(int draftId, String title, String type, String description) {
         return false;
     }
-    public boolean updateBrouillon(int draftId, String title, String type, String description) {
+    public boolean updateDraft(int draftId, String title, String type, String description) {
         return false;
     }
-    public boolean deleteBrouillon(int draftId) {
+    public boolean deleteDraft(int draftId) {
         return false;
     }
+    public boolean createDraft(int staffId, int nodeId, int patientId, String title, String type, int description, String file) {
+        return false;
+    }
+
     public void publierMedicalDocument(int idActe, int idMedicalDocument, String name, int isADraft, Date date, String link, int type, String champsObligatoire, int extension) {
         return;
     }
@@ -79,7 +110,11 @@ public class SQLManager implements ISingleton {
     public HashMap<String, Object> connect(String login,String Password) {
         return null;
     }
-    public List<HashMap<String, Object>> printDMP(String search, String sortitem,int paginationNumber, int paginationLength ) {
+
+    public List<HashMap<String, Object>> searchPatients(int staffId, String sortColumnName, String search, int paginationNumber, int paginationLenght){
+        return null;
+    }
+    public List<HashMap<String, Object>> searchDMPs(int staffId, int patientId, String actPrintableName, String search, int paginationNumber, int paginationLenght){
         return null;
     }
     public List<HashMap<String, Object>> getMedicalDocumentType() {
@@ -109,6 +144,9 @@ public class SQLManager implements ISingleton {
     public boolean modifyContactPatient(int idPeople, String phoneNumber, String phoneLandLine, String email) {
         return false;
     }
+    public boolean createPatient(int staffId, int phoneNumber, int phoneLandline, String email, String firstname, String lastName, int identityCardNumber, String nationality, String birthDate, String file) {
+        return false;
+    }
     public List<HashMap<String, Object>> getAllStaffMembers() {
         return null;
     }
@@ -136,7 +174,15 @@ public class SQLManager implements ISingleton {
         return null;
     }
 
-    public void affecterPatient(int nodeId, int staffId, int patientId) {
+    public List<HashMap<String, Object>> dmpSortItems() {
+        return null;
+    }
+
+    public List<HashMap<String, Object>> draftSortItems() {
+        return null;
+    }
+
+    public void affectPatient(int nodeId, int staffId, int patientId) {
         return;
     }
     public boolean affecterPersonnel(int personalId, int hopitalUnitId, boolean leadUnit) {
@@ -149,9 +195,6 @@ public class SQLManager implements ISingleton {
         return false;
     }
     public boolean unaffectPersonnelLeader(int personalId, int hopitalUnitId, int leadId) {
-        return false;
-    }
-    public boolean createUnit(String name, int idRattache,int idStaffMember) {
         return false;
     }
     /* j'ai pas compris private
@@ -173,6 +216,30 @@ public class SQLManager implements ISingleton {
     public boolean createProfileAndSendEmail(int typeId, String name, String lastName, int birthDate, int phoneNumber, int phoneLandline, String email) {
         return false;
     }
+
+    // voir le formatage de la réponse dans api rest
+    public List<Object> getAllInfrastructure() {
+        return null;
+    }
+    public List<Object> getAllHospitals() {
+        return null;
+    }
+    public List<Object> getAllPoles(int idHospital) {
+        return null;
+    }
+    public List<Object> getAllSector(int nodeId) {
+        return null;
+    }
+    public List<Object> getAllUnit(int nodeId) {
+        return null;
+    }
+    public boolean createUnit(String name, int fatherId,int idStaffMember) {
+        return false;
+    }
+    public boolean deleteUnit(int nodeId) {
+        return false;
+    }
+
     private int getIdUser(String login) {
         return 0;
     }

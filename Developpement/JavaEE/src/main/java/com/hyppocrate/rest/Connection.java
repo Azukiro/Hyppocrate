@@ -2,6 +2,8 @@ package com.hyppocrate.rest;
 
 import com.hyppocrate.components.AuthentificationModule;
 import com.hyppocrate.components.SQLManager;
+import com.hyppocrate.utilities.Responses;
+import com.hyppocrate.utilities.Str;
 import com.hyppocrate.utilities.Utils;
 
 import javax.ws.rs.*;
@@ -26,8 +28,10 @@ public class Connection {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(@Context UriInfo ui,
-            @DefaultValue("") @QueryParam("email") final String email,
-            @DefaultValue("") @QueryParam("pwd") final String pwd) {
+                          @QueryParam("email") final String email,
+                          @QueryParam("pwd") final String pwd) {
+
+        if (Str.isNullOrEmpty(email) || Str.isNullOrEmpty(pwd)) return Responses.errorResponse("badConnection");
 
         // Récupère le membre du staff qui veut se connecter
         HashMap<String, Object> staffMember = Utils.callIfDeployed(SQLManager.getInstance().getStaffMember(email), getTestStaffMemberMap());
@@ -35,7 +39,7 @@ public class Connection {
 
         // Essaie de le connecter
         if (!AuthentificationModule.connect(idStaffMember, pwd)) {
-            return Response.ok(null).build(); // connexion échouée
+            return Response.ok(Responses.GENERIC_NULL).build(); // connexion échouée
         }
 
         int idStaffType = SQLManager.getInstance().getEnumStaffType(idStaffMember);
@@ -56,14 +60,23 @@ public class Connection {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     public Response forgot(@Context UriInfo ui,
-                          @DefaultValue("") @QueryParam("email") final String email) {
+                           @QueryParam("email") final String email) {
 
+        if (Str.isNullOrEmpty(email)) return Responses.nullResponse();
         // Récupère le membre du staff qui veut se connecter
         HashMap<String, Object> staffMember = Utils.callIfDeployed(SQLManager.getInstance().getStaffMember(email), getTestStaffMemberMap());
         Integer idStaffMember = (Integer) Utils.tryGet(staffMember, "id");
+        int idStaffType = SQLManager.getInstance().getEnumStaffType(idStaffMember);
 
-        //SQLManager.getInstance().updatePassword(idStaffMember);
-        return null;
+        // Génère un nouveau mot de passe, l'envoie par mail et modifie l'entrée
+        String newPassword = Str.randomString(8);
+        SQLManager.getInstance().updatePassword(idStaffMember, newPassword);
+        // TODO: 17/01/2020 Envoie un mail ici
+        
+        HashMap<String, Object> hashResult = new HashMap<>();
+        hashResult.put("id", idStaffMember);
+        hashResult.put("type", idStaffType);
+        return Response.ok(hashResult).build();
     }
 
 
@@ -71,7 +84,9 @@ public class Connection {
     @Path("/test")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response testPage(@Context UriInfo ui) {
+    public Response testPage(@Context UriInfo ui,
+                            @QueryParam("email") final String email,
+                            @HeaderParam("Connection") final String co) {
 
         ArrayList<Object> listResult = new ArrayList<>();
 
@@ -82,6 +97,10 @@ public class Connection {
         listResult.add(a);
         listResult.add(b);
         listResult.add(c);
+        listResult.add(ui.getQueryParameters());
+        listResult.add(ui.getPathParameters());
+        listResult.add(email);
+        listResult.add(co);
         return Response.ok(listResult).build();
     }
 

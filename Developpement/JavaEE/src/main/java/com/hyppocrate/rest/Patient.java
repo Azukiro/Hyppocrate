@@ -8,8 +8,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-@Path("/staff/search")
-public class Staff {
+@Path("/patient/search")
+public class Patient {
 
     // FIXME: 16/01/2020
     @Path("/all")
@@ -33,4 +33,6 @@ public class Staff {
 
         return Response.ok(SQLManager.getInstance().patientSortItems()).build();
     }
+
+
 }
