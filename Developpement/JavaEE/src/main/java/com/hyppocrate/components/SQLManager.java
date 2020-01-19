@@ -3,16 +3,25 @@ package com.hyppocrate.components;
 import com.hyppocrate.utilities.ISingleton;
 
 import java.io.File;
+import java.sql.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 public class SQLManager implements ISingleton {
 
-
+    private Connection con;
     // singleton pattern
     private SQLManager() {
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con= DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/Delire","root","");
+//here sonoo is database name, root is username and password
+
+        }catch(Exception e){ System.out.println(e);}
     }
+
 
     private static SQLManager INSTANCE = null;
 
@@ -27,9 +36,16 @@ public class SQLManager implements ISingleton {
         return null;
     }
 
-    public String getString(String appelationString, String language) throws IllegalAccessException {
+    public String getString(String appelationString, String language) throws IllegalAccessException, SQLException {
+        String result="";
+        PreparedStatement ps = con.prepareStatement("select StringContent from String where idString =? and Langue = ?");
+        ps.setString(1, appelationString);
+        ps.setString(2, language);
+        ResultSet rs=ps.executeQuery();
+        while(rs.next())
+           result+=rs.toString();
 
-        throw new IllegalAccessException();
+        return result;
 
     }
 
