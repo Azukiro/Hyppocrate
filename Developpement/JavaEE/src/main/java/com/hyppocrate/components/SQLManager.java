@@ -58,14 +58,15 @@ public class SQLManager implements ISingleton {
 
     public String getString(String appelationString, String language) throws IllegalAccessException, SQLException {
         String result="";
-        PreparedStatement ps = con.prepareStatement("select StringContent from String where idString =? and Langue = ?");
+        /*PreparedStatement ps = con.prepareStatement("select StringContent from String where idString =? and Langue = ?");
         ps.setString(1, appelationString);
         ps.setString(2, language);
         ResultSet rs=ps.executeQuery();
         while(rs.next())
            result+=rs.toString();
 
-        return result;
+        return result;*/
+        return null;
 
     }
 
@@ -85,7 +86,8 @@ public class SQLManager implements ISingleton {
         return false;
     }
     public List<HashMap<String, Object>> getBrouillon(int patientId, String search, String sortItems, int paginationNumber, int paginationLength) {
-
+        return null;
+    }
     public List<String> printSortItems() {
         return null;
     }

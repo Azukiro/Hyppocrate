@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e70d126e-214a-4ad8-8551-8b3aa381fa84" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/JavaEE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/JavaEE.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hyppocrate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Hyppocrate.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/LangManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/LangManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/CONSTANTS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/CONSTANTS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,6 +50,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Vincent Buisset\Documents\Projet\ProjetDelire\Developpement\JavaEE\src\main\java\com\hyppocrate\utilities" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Vincent Buisset\Documents\Projet\Projet-Delire\Developpement\JavaEE" />
     </key>
@@ -106,22 +110,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577550440259" />
-    <state width="1323" height="135" key="GridCell.Tab.0.bottom" timestamp="1579859584934">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="207" key="GridCell.Tab.0.bottom" timestamp="1579883366941">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="135" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1579859584934" />
-    <state width="1323" height="135" key="GridCell.Tab.0.center" timestamp="1579859584933">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="207" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579883366941" />
+    <state width="1877" height="207" key="GridCell.Tab.0.center" timestamp="1579883366941">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="135" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1579859584933" />
-    <state width="1323" height="135" key="GridCell.Tab.0.left" timestamp="1579859584933">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="207" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579883366941" />
+    <state width="1877" height="207" key="GridCell.Tab.0.left" timestamp="1579883366941">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="135" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1579859584933" />
-    <state width="1323" height="135" key="GridCell.Tab.0.right" timestamp="1579859584934">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="207" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579883366941" />
+    <state width="1877" height="207" key="GridCell.Tab.0.right" timestamp="1579883366941">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="135" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1579859584934" />
+    <state width="1877" height="207" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579883366941" />
     <state x="187" y="19" key="SettingsEditor" timestamp="1578579989952">
       <screen x="0" y="0" width="1366" height="736" />
     </state>

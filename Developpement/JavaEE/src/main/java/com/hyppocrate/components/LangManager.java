@@ -10,7 +10,7 @@ public class LangManager {
             throw new IllegalArgumentException();
         }
 
-        return SQLManager.getInstance().getString(idString, idLangue);
+        return null;// SQLManager.getInstance().getString(idString, idLangue);
     }
 
     // FIXME: 18/01/2020
