@@ -53,7 +53,7 @@
       <recent name="C:\Users\Vincent Buisset\Documents\Projet\Projet-Delire\Developpement\JavaEE" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.Build And Copy">
+  <component name="RunManager" selected="Shell Script.Launch Server">
     <list>
       <item itemvalue="Shell Script.Build And Copy" />
       <item itemvalue="Shell Script.Launch Server" />
@@ -97,14 +97,31 @@
       <screen x="0" y="0" width="1366" height="736" />
     </state>
     <state x="488" y="84" key="#com.intellij.ide.util.MemberChooser/0.0.1366.736@0.0.1366.736" timestamp="1578944085496" />
-    <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1578580235766">
-      <screen x="0" y="0" width="1366" height="736" />
+    <state x="526" y="254" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1579859539764">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="526" y="254" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.728@0.0.1366.728" timestamp="1579859539764" />
     <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.736@0.0.1366.736" timestamp="1578580235766" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1577550440259">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577550440259" />
+    <state width="1323" height="135" key="GridCell.Tab.0.bottom" timestamp="1579859584934">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="135" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1579859584934" />
+    <state width="1323" height="135" key="GridCell.Tab.0.center" timestamp="1579859584933">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="135" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1579859584933" />
+    <state width="1323" height="135" key="GridCell.Tab.0.left" timestamp="1579859584933">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="135" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1579859584933" />
+    <state width="1323" height="135" key="GridCell.Tab.0.right" timestamp="1579859584934">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="135" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1579859584934" />
     <state x="187" y="19" key="SettingsEditor" timestamp="1578579989952">
       <screen x="0" y="0" width="1366" height="736" />
     </state>

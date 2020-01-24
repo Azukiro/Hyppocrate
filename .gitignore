@@ -112,3 +112,4 @@ buildNumber.properties
 # ignore personnalisé:
 target/
 node_modules/
+Developpement/JavaEE/.idea/workspace.xml
