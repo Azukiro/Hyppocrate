@@ -2,6 +2,10 @@ package com.hyppocrate.components;
 
 import com.hyppocrate.utilities.ISingleton;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.io.File;
 import java.sql.*;
 import java.util.Date;
@@ -12,31 +16,29 @@ import java.util.List;
 // TODO: 16/01/2020
 public class SQLManager implements ISingleton {
 
-
     //private static final String url = "jdbc:mysql://localhost:3306/mydb";
     private static final String user = "root";
     private static final String password = "mettre pwd ici";
 
+    //https://stackoverflow.com/questions/2839321/connect-java-to-a-mysql-database/2839563#2839563
+    Context context;
+    DataSource dataSource;
+    Connection conn;
     // singleton pattern
     private SQLManager()
     {
-        /*try {
-            //Class.forName("com.mysql.jdbc.Driver");
-            MysqlDataSource dataSource = new MysqlDataSource();
-            dataSource.setUser(user);
-            dataSource.setPassword(password);
-            dataSource.setServerName("localhost:3306");
-
-            Connection conn = dataSource.getConnection();
+        try {
+            context = new InitialContext();
+            DataSource dataSource = (DataSource) context.lookup("java:comp/env/jdbc/mydb");
+            Connection conn = dataSource.getConnection(user, password);
             Statement stmt = conn.createStatement();
-            //ResultSet rs = stmt.executeQuery("SELECT ID FROM USERS");
-            //rs.close();
+            ResultSet rs = stmt.executeQuery("SELECT ID FROM USERS");
+            rs.close();
             stmt.close();
             conn.close();
-            //Connection connection = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            System.err.println("SQL Initialization exception : " + e.toString());
-        }*/
+        } catch (NamingException | SQLException e) {
+            e.printStackTrace();
+        }
     }
     private static SQLManager INSTANCE = null;
     public static SQLManager getInstance()
