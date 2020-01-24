@@ -113,7 +113,3 @@ buildNumber.properties
 target/
 node_modules/
 Developpement/JavaEE/.idea/workspace.xml
-.idea/*
-.idea/
-*/.idea/
-**/.idea/
