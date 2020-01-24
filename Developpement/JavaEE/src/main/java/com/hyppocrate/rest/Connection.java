@@ -4,6 +4,8 @@ import com.hyppocrate.components.AuthentificationModule;
 import com.hyppocrate.components.SQLManager;
 import com.hyppocrate.utilities.Responses;
 import com.hyppocrate.utilities.Str;
+import com.hyppocrate.components.SQLUnitTest;
+import com.hyppocrate.components.TestParameters;
 import com.hyppocrate.utilities.Utils;
 
 import javax.ws.rs.*;
@@ -103,7 +105,29 @@ public class Connection {
         listResult.add(co);
         return Response.ok(listResult).build();
     }
+    @Path("/SQLTest")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response SQLTest(@Context UriInfo ui)  {
 
+        ArrayList<Object> listResult = new ArrayList<Object>();
+
+            ArrayList<Object> x=new ArrayList<Object>();
+            x.add("Train");
+            x.add("Voiture");
+            /*
+            String voiture = SQLUnitTest.TestFonction(SQLUnitTest::getString, "Voiture", new TestParameters(x,null));
+        String voiture2 = SQLUnitTest.TestFonction(SQLUnitTest::getString, "Pate", new TestParameters(x,null));
+        x.add("histoire");
+        String voiture3 = SQLUnitTest.TestFonction(SQLUnitTest::getString, "Voiture", new TestParameters(x,null));
+        */
+
+            ArrayList<Exception> exceptions=new ArrayList<Exception>();
+            exceptions.add(new IllegalAccessException());
+        listResult.add(Utils.UnitTest(()-> {
+                 return SQLManager.getInstance().getString("test","test"); },"voiture,",exceptions ));
+        return Response.ok(listResult).build();
+    }
     private static Integer example1(Integer i) {
         return i;
     }

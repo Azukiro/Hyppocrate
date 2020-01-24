@@ -2,6 +2,7 @@ package com.hyppocrate.utilities;
 
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Function;
 
@@ -48,5 +49,25 @@ public class Utils {
         return map.get(key);
     }
 
+    public static <V> String UnitTest(@NotNull ThrowableSupplier<V> function, V attemptedResult, ArrayList<Exception> exceptions){
+        try{
+            V result=function.get();
 
+            if(attemptedResult==result){
+                return "true";
+            }else{
+                return  "false, Not Same Value :\n\t attemptedResult: "+attemptedResult+"\n\t result: "+result;
+            }
+        }catch (Exception e){
+            if(exceptions!=null){
+                for (Exception except:exceptions) {
+                    if(e.getClass()==except.getClass()){
+                        return  "true";
+                    }
+                }
+            }
+
+            return "false, exception: "+e.getMessage();
+        }
+    }
 }
