@@ -1,12 +1,6 @@
 package com.hyppocrate.components;
 
-import com.hyppocrate.utilities.ThrowableSupplier;
 import com.hyppocrate.utilities.Utils;
-
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 
 public class SQLUnitTest {

@@ -1,7 +1,6 @@
 package com.hyppocrate.rest;
 
 import com.hyppocrate.components.LangManager;
-import com.hyppocrate.components.SQLManager;
 import com.hyppocrate.utilities.ERRORS;
 import com.hyppocrate.utilities.Responses;
 import com.hyppocrate.utilities.Str;

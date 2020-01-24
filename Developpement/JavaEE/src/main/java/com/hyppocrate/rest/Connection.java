@@ -4,8 +4,6 @@ import com.hyppocrate.components.AuthentificationModule;
 import com.hyppocrate.components.SQLManager;
 import com.hyppocrate.utilities.Responses;
 import com.hyppocrate.utilities.Str;
-import com.hyppocrate.components.SQLUnitTest;
-import com.hyppocrate.components.TestParameters;
 import com.hyppocrate.utilities.Utils;
 
 import javax.ws.rs.*;

@@ -1,10 +1,9 @@
 package com.hyppocrate.components;
 
 import com.hyppocrate.utilities.ISingleton;
+import com.mysql.cj.jdbc.MysqlDataSource;
 
 import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.io.File;
 import java.sql.*;
@@ -12,32 +11,44 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-
 // TODO: 16/01/2020
 public class SQLManager implements ISingleton {
 
     //private static final String url = "jdbc:mysql://localhost:3306/mydb";
-    private static final String user = "root";
-    private static final String password = "mettre pwd ici";
+    private static final String username = "root";
+    private static final String password = "MOT DE PASSE MYSQL LOCALHOST A METTRE ICI "; // le mien c'était le mot de passe de mon compte windows
+    private static final String serverName = "localhost";
+    private static final String database = "mydb";
 
     //https://stackoverflow.com/questions/2839321/connect-java-to-a-mysql-database/2839563#2839563
     Context context;
     DataSource dataSource;
-    Connection conn;
+    Connection  conn;
+    
     // singleton pattern
     private SQLManager()
     {
         try {
-            context = new InitialContext();
-            DataSource dataSource = (DataSource) context.lookup("java:comp/env/jdbc/mydb");
-            Connection conn = dataSource.getConnection(user, password);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT ID FROM USERS");
+            MysqlDataSource dataSource = new MysqlDataSource();
+            dataSource.setUser(username);
+            dataSource.setPassword(password);
+            dataSource.setServerName(serverName);
+            dataSource.setDatabaseName(database);
+            dataSource.setServerTimezone("UTC");
+            System.out.println("Tentative de connexion...");
+            conn = dataSource.getConnection();
+            Statement stmt = conn.createStatement(); // C'est mieux les PreparedStatement
+            ResultSet rs = stmt.executeQuery("SELECT * FROM String");
             rs.close();
             stmt.close();
+            System.out.println("Connection = " + conn);
             conn.close();
-        } catch (NamingException | SQLException e) {
-            e.printStackTrace();
+
+        } catch (SQLException e) {
+            System.err.println("[ERROR]");
+            System.err.println("MySQL Connexion exception: " + e.toString());
+
+            //throw new IllegalStateException();
         }
     }
 
@@ -56,18 +67,16 @@ public class SQLManager implements ISingleton {
     }
 
 
-    public String getString(String appelationString, String language) throws IllegalAccessException, SQLException {
-        String result="";
-        /*PreparedStatement ps = con.prepareStatement("select StringContent from String where idString =? and Langue = ?");
+    public String getString(String appelationString, String language) throws SQLException {
+        String result = "";
+        PreparedStatement ps = conn.prepareStatement("select StringContent from String where idString =? and Langue = ?");
         ps.setString(1, appelationString);
         ps.setString(2, language);
         ResultSet rs=ps.executeQuery();
         while(rs.next())
-           result+=rs.toString();
+           result += rs.toString();
 
-        return result;*/
-        return null;
-
+        return result;
     }
 
     public int createDMP(int idDoctor, int numSecu) {

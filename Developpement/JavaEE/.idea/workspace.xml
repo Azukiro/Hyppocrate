@@ -3,18 +3,25 @@
   <component name="ChangeListManager">
     <list default="true" id="e70d126e-214a-4ad8-8551-8b3aa381fa84" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/JavaEE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/JavaEE.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/CONSTANTS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/CONSTANTS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/LangManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/LangManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/CONSTANTS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/CONSTANTS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Langue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Langue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Hyprocrate" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -32,6 +39,7 @@
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="importAutomatically" value="true" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
       </MavenImportingSettings>
     </option>
   </component>
@@ -45,19 +53,29 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/mysql-connector-java-8.0.15.jar!/" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.3576087" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Vincent Buisset\Documents\Projet\ProjetDelire\Developpement\JavaEE\src\main" />
+      <recent name="C:\Users\Vincent Buisset\Documents\Projet\ProjetDelire\Developpement\JavaEE\src" />
+      <recent name="C:\Users\Vincent Buisset\Documents\Projet\ProjetDelire\Developpement\JavaEE\src\main\java" />
       <recent name="C:\Users\Vincent Buisset\Documents\Projet\ProjetDelire\Developpement\JavaEE\src\main\java\com\hyppocrate\utilities" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Vincent Buisset\Documents\Projet\Projet-Delire\Developpement\JavaEE" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.Launch Server">
+  <component name="RunManager" selected="Shell Script.Build And Copy">
     <list>
       <item itemvalue="Shell Script.Build And Copy" />
       <item itemvalue="Shell Script.Launch Server" />
@@ -89,6 +107,14 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="179" width="928" height="682" key="#Project_Structure" timestamp="1579894428164">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="179" width="928" height="682" key="#Project_Structure/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579894428164" />
+    <state x="552" y="179" key="#Servers" timestamp="1579889496988">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="179" key="#Servers/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579889496988" />
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577555781688">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -106,35 +132,55 @@
     </state>
     <state x="526" y="254" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.728@0.0.1366.728" timestamp="1579859539764" />
     <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.736@0.0.1366.736" timestamp="1578580235766" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1577550440259">
+    <state x="826" y="143" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1579896273590">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577550440259" />
-    <state width="1877" height="207" key="GridCell.Tab.0.bottom" timestamp="1579883366941">
+    <state x="826" y="143" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579896273590" />
+    <state x="144" y="127" key="DBNavigator.ConnectionInfoDialog" timestamp="1579890159912">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="144" y="127" key="DBNavigator.ConnectionInfoDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579890159912" />
+    <state x="490" y="175" key="DBNavigator.ProjectSettingsDialog" timestamp="1579890093859">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="490" y="175" key="DBNavigator.ProjectSettingsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579890093859" />
+    <state x="75" y="82" width="1804" height="856" key="DiffContextDialog" timestamp="1579892750244">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="75" y="82" width="1804" height="856" key="DiffContextDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579892750244" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1579895925263">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579895925263" />
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom" timestamp="1579896534826">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="135" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1579859584934" />
-    <state width="1877" height="207" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579883366941" />
-    <state width="1877" height="207" key="GridCell.Tab.0.center" timestamp="1579883366941">
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579896534826" />
+    <state width="1877" height="280" key="GridCell.Tab.0.center" timestamp="1579896534826">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="135" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1579859584933" />
-    <state width="1877" height="207" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579883366941" />
-    <state width="1877" height="207" key="GridCell.Tab.0.left" timestamp="1579883366941">
+    <state width="1877" height="280" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579896534826" />
+    <state width="1877" height="280" key="GridCell.Tab.0.left" timestamp="1579896534826">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="135" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1579859584933" />
-    <state width="1877" height="207" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579883366941" />
-    <state width="1877" height="207" key="GridCell.Tab.0.right" timestamp="1579883366941">
+    <state width="1877" height="280" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579896534826" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right" timestamp="1579896534826">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="135" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1579859584934" />
-    <state width="1877" height="207" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579883366941" />
-    <state x="187" y="19" key="SettingsEditor" timestamp="1578579989952">
-      <screen x="0" y="0" width="1366" height="736" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579896534826" />
+    <state x="490" y="175" key="Maven.ArtifactSearchDialog" timestamp="1579894964679">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="490" y="175" key="Maven.ArtifactSearchDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579894964679" />
+    <state x="131" y="50" width="1336" height="857" key="SettingsEditor" timestamp="1579896393033">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="187" y="19" key="SettingsEditor/0.0.1366.736@0.0.1366.736" timestamp="1578579989952" />
-    <state x="461" y="163" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577698658693" />
+    <state x="131" y="50" width="1336" height="857" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579896393033" />
     <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1578580576868">
       <screen x="0" y="0" width="1366" height="736" />
     </state>
@@ -143,13 +189,17 @@
       <screen x="0" y="0" width="1366" height="736" />
     </state>
     <state x="384" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.736@0.0.1366.736" timestamp="1578580119848" />
-    <state x="619" y="140" width="757" height="852" key="find.popup" timestamp="1577563913937">
+    <state x="668" y="445" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1579895021644">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="619" y="140" width="757" height="852" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577563913937" />
-    <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1577697805965">
+    <state x="668" y="445" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579895021644" />
+    <state x="619" y="140" width="757" height="852" key="find.popup" timestamp="1579889128486">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577697805965" />
+    <state x="619" y="140" width="757" height="852" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579889128486" />
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1579897275444">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579897275444" />
   </component>
 </project>

@@ -1,4 +1,4 @@
-package java.com.hyppocrate;
+package com.hyppocrate.utilities;
 
 public class CONSTANTS {
 

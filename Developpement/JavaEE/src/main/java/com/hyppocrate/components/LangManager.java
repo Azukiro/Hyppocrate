@@ -2,6 +2,8 @@ package com.hyppocrate.components;
 
 import com.hyppocrate.utilities.Str;
 
+import java.sql.SQLException;
+
 public class LangManager {
 
     public String getString(String idString, String idLangue) {
@@ -10,7 +12,11 @@ public class LangManager {
             throw new IllegalArgumentException();
         }
 
-        return null;// SQLManager.getInstance().getString(idString, idLangue);
+        try {
+            return SQLManager.getInstance().getString(idString, idLangue);
+        } catch (SQLException e) {
+            return "Exception";
+        }
     }
 
     // FIXME: 18/01/2020
