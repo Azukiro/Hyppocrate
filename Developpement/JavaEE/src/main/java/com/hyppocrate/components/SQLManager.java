@@ -275,8 +275,99 @@ public class SQLManager implements ISingleton {
     public boolean createPatient(int staffId, Contact contact, Private private) {
         return null;
     }*/
-    public List<HashMap<String, Object>> getNodeChild(int nodeId) {
+    public List<HashMap<String, Object>> getNodeChild() throws SQLException {
+
+        return getNodeChild(-1);
+    }
+
+    private String IntToTypeStringConverter(int Type) {
+        switch (Type) {
+            case 1:
+
+                return "hospital";
+            case 2:
+
+                return "pole";
+            case 3:
+
+                return "sector";
+
+            default:
+                return "Unknow";
+        }
+    }
+
+    private boolean _firstAboParcour=true;
+
+
+
+    public List<HashMap<String, Object>> getArchitecture(int nodeId) throws SQLException {
+        String sqlString = "SELECT ratache From Unit WHERE idHospital=?";
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        ps.setInt(1, nodeId);
+        ResultSet rSet = ps.executeQuery();
+        rSet.next();
+        int parent=rSet.getInt("ratache");
+        System.out.println(parent);
+        if(parent!=-1) {
+            return getNodeChild(parent);
+        }
         return null;
+    }
+    public List<HashMap<String, Object>> getNodeChild(int nodeId) throws SQLException {
+
+        List<HashMap<String, Object>> hasmaList = new ArrayList<HashMap<String, Object>>();
+        String sqlString = null;
+        if (nodeId < 0) {
+            sqlString = "SELECT idHospital, Name, Type From Unit WHERE ratache=?";
+            nodeId=17;
+        } else {
+            if(_firstAboParcour) {
+                sqlString = "SELECT idHospital, Name,Type From Unit WHERE idHospital=?";
+                PreparedStatement ps = con.prepareStatement(sqlString);
+                ps.setInt(1, nodeId);
+                ResultSet rSet = ps.executeQuery();
+
+                _firstAboParcour=false;
+                if (rSet.next()) {
+                    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+                    String name=IntToTypeStringConverter(rSet.getInt("Type"));
+                    hashMap.put(name+"Id", rSet.getInt("idHospital"));
+                    hashMap.put(name+"Name", rSet.getString("Name"));
+                    var x=getNodeChild(rSet.getInt("idHospital"));
+                    String name2=IntToTypeStringConverter(rSet.getInt("Type")+1);
+                    if(x.size()>0)
+                        hashMap.put(name2, x);
+                    hasmaList.add(hashMap);
+                    _firstAboParcour=true;
+                    return hasmaList;
+                }
+            }
+            sqlString = "SELECT idHospital, Name, Type From Unit WHERE ratache=?";
+
+
+        }
+
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        ps.setInt(1, nodeId);
+        ResultSet rSet = ps.executeQuery();
+
+        while (rSet.next()) {
+            HashMap<String, Object> hashMap = new HashMap<String, Object>();
+            String name=IntToTypeStringConverter(rSet.getInt("Type")+1);
+
+            hashMap.put("nameId", rSet.getInt("idHospital"));
+            hashMap.put("nameName", rSet.getString("Name"));
+
+            System.out.println(rSet.getInt("idHospital"));
+            var x=getNodeChild(rSet.getInt("idHospital"));
+            if(x.size()>0)
+                hashMap.put(name, x);
+            hasmaList.add(hashMap);
+        }
+
+        return hasmaList;
+
     }
 
     public List<HashMap<String, Object>> getPersonnalForPatient(int patientId) {
@@ -292,12 +383,12 @@ public class SQLManager implements ISingleton {
     }
 
     public boolean createProfileAndSendEmail(int typeId, String name, String lastName, int birthDate, int phoneNumber, int phoneLandline, String email) {
-        String login=name+lastName;
+        /*String login=name+lastName;
         String profile="INSERT INTO applicationuser VALUES ('?', '?', '?');";
         PreparedStatement ps=con.prepareStatement(profile);
         ps.setString(1,login);
         ps.setString(2,login);
-        ps.setString();
+        ps.setString();/*
         return false;
     }
 
