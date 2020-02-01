@@ -1,7 +1,6 @@
 package com.hyppocrate.components;
 
 import com.hyppocrate.utilities.ISingleton;
-
 import java.io.File;
 import java.sql.*;
 import java.util.Date;
@@ -12,20 +11,20 @@ public class SQLManager implements ISingleton {
 
     private Connection con;
     // singleton pattern
-    private SQLManager() {
-        try{
+    private SQLManager() throws ClassNotFoundException, SQLException {
+
             Class.forName("com.mysql.jdbc.Driver");
             con= DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/Delire","root","");
+                    "jdbc:mysql://localhost:3308/mydb?characterEncoding=latin1","root","");
 //here sonoo is database name, root is username and password
 
-        }catch(Exception e){ System.out.println(e);}
+
     }
 
 
     private static SQLManager INSTANCE = null;
 
-    public static SQLManager getInstance() {
+    public static SQLManager getInstance() throws SQLException, ClassNotFoundException {
         if (INSTANCE == null) {
             INSTANCE = new SQLManager();
         }
@@ -38,13 +37,15 @@ public class SQLManager implements ISingleton {
 
     public String getString(String appelationString, String language) throws IllegalAccessException, SQLException {
         String result="";
-        PreparedStatement ps = con.prepareStatement("select StringContent from String where idString =? and Langue = ?");
+        PreparedStatement ps = con.prepareStatement("SELECT StringContent FROM string WHERE idString =? AND Langue_idLangue = ?");
         ps.setString(1, appelationString);
         ps.setString(2, language);
         ResultSet rs=ps.executeQuery();
-        while(rs.next())
-           result+=rs.toString();
 
+        while(rs.next()) {
+            result+=rs.getString(1);
+        }
+        System.out.println(result);
         return result;
 
     }
@@ -53,13 +54,21 @@ public class SQLManager implements ISingleton {
         return 0;
     }
 
-    public void deleteDMP(int UUID) {
-        return;
+    public void deleteDMP(int UUID) throws SQLException {
+
     }
 
     public boolean publishActe(int staffId, int patientId, String title, int type, int description, File file) {
         return false;
     }
+
+    /*public void createActe(int idFolder, String idActe, String nom, Date debut, Date fin, int idStaffMember, int prix) {
+
+        String sqlString="INSERT INTO acte VALUES (?, '?', '?', '?', '?', ?, ?)";
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        ps.setInt(1, idFolder);
+
+    }*/
 
     public boolean publishBrouillonActe(int staffId, int patientId, String title, int type, int description, File file) {
         return false;
@@ -114,7 +123,37 @@ public class SQLManager implements ISingleton {
         return false;
     }
 
-    public HashMap<String, Object> connect(String login, String Password) {
+    public HashMap<String, Object> connect(String login, String Password) throws SQLException {
+        HashMap<String, Object> result=new HashMap<String, Object>();
+        String getPasswordString="SELECT PassWord From ApplicationUser Where Login=?;";
+        PreparedStatement pStatement=con.prepareStatement(getPasswordString);
+        pStatement.setString(1, login);
+        ResultSet rSet=pStatement.executeQuery();
+        String userPassWordString="";
+        if(rSet.next()) {
+            userPassWordString=rSet.getNString(1);
+        }
+        System.out.println(userPassWordString);
+        if(userPassWordString.equals(Password)) {
+            String getPeopleString="SELECT * FROM StaffMember WHERE Login=?";
+            pStatement=con.prepareStatement(getPeopleString);
+            pStatement.setString(1, login);
+            ResultSet resultSet=pStatement.executeQuery();
+            System.out.println(resultSet);
+            resultSet.next();
+            result.put("type",resultSet.getString("EnumStaffType_idEnumStaffType"));
+            result.put("id",resultSet.getInt("idStaffMember"));
+            getPeopleString="SELECT Name,FirstName FROM demoinformations WHERE NumSecu=?";
+            pStatement=con.prepareStatement(getPeopleString);
+            pStatement.setInt(1, resultSet.getInt("DemoInformations_NumSecu"));
+            resultSet=pStatement.executeQuery();
+
+            resultSet.next();
+            result.put("name",resultSet.getString("FirstName"));
+            result.put("lastName",resultSet.getString("Name"));
+
+            return result;
+        }
         return null;
     }
 
@@ -143,6 +182,10 @@ public class SQLManager implements ISingleton {
     }
 
     public boolean modifyDemoStaff(int idPeople, int profileType, String name, String lastName, Date birthday, String Adress, String city, String family) {
+        String demoCreate="INSERT INTO demoinformations\n" +
+                "VALUES ('numSecu', 'lastName', 'firstName', 'birthday'," +
+                " 'Adress', 'sexe', 'profession', 'family', 'contact', 'phoneNumber', 'idNat', 'idCity', 'poids', 'taille');";
+
         return false;
     }
 
@@ -198,8 +241,34 @@ public class SQLManager implements ISingleton {
         return false;
     }
 
-    public boolean createUnit(String name, int idRattache, int idStaffMember) {
-        return false;
+    public boolean createUnit(String name, int idRattache, int idStaffMember) throws SQLException {
+        int type=0;
+
+        if(idRattache!=-1) {
+            String result="";
+            PreparedStatement ps = con.prepareStatement("SELECT Type FROM Unit WHERE idHospital =?;");
+            ps.setLong(1, idRattache);
+            ResultSet rs=ps.executeQuery();
+
+            if(rs.next()) {
+                type=rs.getInt(1)+1;
+            }else {
+                throw new IllegalArgumentException();
+            }
+            System.out.println(type);
+
+        }
+
+        String sqlRequest="INSERT INTO Unit(Name, Type, Director, ratache) VALUES (?, ?, ?,?); ";
+        PreparedStatement ps = con.prepareStatement(sqlRequest);
+        ps.setString(1, name);
+        ps.setLong(2, type);
+        ps.setLong(3, idStaffMember);
+        ps.setLong(4, idRattache);
+        System.out.println(ps);
+        int rs=ps.executeUpdate();
+
+        return rs!=0;
     }
 
     /* j'ai pas compris private
@@ -223,11 +292,21 @@ public class SQLManager implements ISingleton {
     }
 
     public boolean createProfileAndSendEmail(int typeId, String name, String lastName, int birthDate, int phoneNumber, int phoneLandline, String email) {
+        String login=name+lastName;
+        String profile="INSERT INTO applicationuser VALUES ('?', '?', '?');";
+        PreparedStatement ps=con.prepareStatement(profile);
+        ps.setString(1,login);
+        ps.setString(2,login);
+        ps.setString();
         return false;
     }
 
-    private int getIdUser(String login) {
-        return 0;
+    private int getIdUser(String login) throws SQLException {
+        String sql="SELECT idStaffMember  FROM staffmember WHERE Login=?;";
+        PreparedStatement ps= con.prepareStatement(sql);
+        ps.setString(1,login);
+        ResultSet rs=ps.executeQuery();
+        return rs.getInt(0);
     }
 
     private boolean patientExist(int numSecu) {
@@ -263,3 +342,4 @@ public class SQLManager implements ISingleton {
     }
 
 }
+

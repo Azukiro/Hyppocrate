@@ -33,18 +33,18 @@ public class Connection {
 
         Integer a = Utils.callIfDeployed(Connection::example1, 1, 2);
         int b = Utils.callIfDeployed(example2(), 4);
-        Integer c = (Integer) Utils.callIfDeployed(Utils.tryGet(SQLManager.getInstance().getActe(0), "name"), 5);
+        //Integer c = (Integer) Utils.callIfDeployed(Utils.tryGet(SQLManager.getInstance().getActe(0), "name"), 5);
 
         listResult.add(a);
         listResult.add(b);
-        listResult.add(c);
+        //listResult.add(c);
         
         return Response.ok(listResult).build();
     }
     @Path("/SQLTest")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response SQLTest(@Context UriInfo ui)  {
+    public Response SQLTest(@Context UriInfo ui) throws Exception {
 
         ArrayList<Object> listResult = new ArrayList<Object>();
 
@@ -57,11 +57,13 @@ public class Connection {
         x.add("histoire");
         String voiture3 = SQLUnitTest.TestFonction(SQLUnitTest::getString, "Voiture", new TestParameters(x,null));
         */
-
+        listResult.add(SQLManager.getInstance());
             ArrayList<Exception> exceptions=new ArrayList<Exception>();
             exceptions.add(new IllegalAccessException());
         listResult.add(Utils.UnitTest(()-> {
-                 return SQLManager.getInstance().getString("test","test"); },"voiture,",exceptions ));
+                 return SQLManager.getInstance().getString("Test","fr"); },"Test",exceptions ));
+
+
         return Response.ok(listResult).build();
     }
     private static Integer example1(Integer i) {
