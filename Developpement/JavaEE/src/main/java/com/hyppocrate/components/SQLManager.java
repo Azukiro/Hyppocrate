@@ -3,6 +3,7 @@ package com.hyppocrate.components;
 import com.hyppocrate.utilities.ISingleton;
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -334,7 +335,7 @@ public class SQLManager implements ISingleton {
                     String name=IntToTypeStringConverter(rSet.getInt("Type"));
                     hashMap.put(name+"Id", rSet.getInt("idHospital"));
                     hashMap.put(name+"Name", rSet.getString("Name"));
-                    var x=getNodeChild(rSet.getInt("idHospital"));
+                    List<HashMap<String, Object>> x=getNodeChild(rSet.getInt("idHospital"));
                     String name2=IntToTypeStringConverter(rSet.getInt("Type")+1);
                     if(x.size()>0)
                         hashMap.put(name2, x);
@@ -360,7 +361,7 @@ public class SQLManager implements ISingleton {
             hashMap.put("nameName", rSet.getString("Name"));
 
             System.out.println(rSet.getInt("idHospital"));
-            var x=getNodeChild(rSet.getInt("idHospital"));
+            List<HashMap<String, Object>> x=getNodeChild(rSet.getInt("idHospital"));
             if(x.size()>0)
                 hashMap.put(name, x);
             hasmaList.add(hashMap);
@@ -370,8 +371,38 @@ public class SQLManager implements ISingleton {
 
     }
 
-    public List<HashMap<String, Object>> getPersonnalForPatient(int patientId) {
-        return null;
+    public List<HashMap<String, Object>> getPersonnalForPatient(int patientId) throws SQLException {
+
+        List<HashMap<String, Object>> list=new ArrayList<HashMap<String,Object>>();
+        HashMap<String, Object> hashMap;
+        String idsActe="SELECT\r\n" +
+                "    staffmember.idStaffMember,\r\n" +
+                "    enumstafftype.JobName,\r\n" +
+                "    demoinformations.Name,\r\n" +
+                "    demoinformations.FirstName\r\n" +
+                "FROM\r\n" +
+                "    staffmember,\r\n" +
+                "    acte,\r\n" +
+                "    demoinformations,\r\n" +
+                "    enumstafftype\r\n" +
+                "WHERE\r\n" +
+                "    acte.Responsable = staffmember.idStaffMember AND demoinformations.NumSecu = staffmember.DemoInformations_NumSecu \r\n" +
+                "AND acte.MedicalFolder_idFolder = ? \r\n" +
+                "AND enumstafftype.idEnumStaffType = staffmember.EnumStaffType_idEnumStaffType;";
+        PreparedStatement ps=con.prepareStatement(idsActe);
+        ps.setInt(1, patientId);
+        ResultSet rSet=ps.executeQuery();
+        while (rSet.next()) {
+            hashMap=new HashMap<String, Object>();
+            hashMap.put("id", rSet.getInt("idStaffMember"));
+            hashMap.put("name", rSet.getString("FirstName"));
+            hashMap.put("lastname", rSet.getString("Name"));
+            hashMap.put("type", rSet.getString("JobName"));
+            list.add(hashMap);
+
+        }
+        return list;
+
     }
 
     public boolean deletePersonnalForPatient(int nodeId, int staffId, int patientId) {
@@ -388,7 +419,7 @@ public class SQLManager implements ISingleton {
         PreparedStatement ps=con.prepareStatement(profile);
         ps.setString(1,login);
         ps.setString(2,login);
-        ps.setString();/*
+        ps.setString();*/
         return false;
     }
 
