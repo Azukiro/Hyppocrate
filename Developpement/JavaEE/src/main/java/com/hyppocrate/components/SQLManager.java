@@ -36,58 +36,19 @@ public class SQLManager implements ISingleton {
         return null;
     }
 
-    public String getString(String appelationString, String language) throws IllegalAccessException, SQLException {
-        String result="";
-        PreparedStatement ps = con.prepareStatement("SELECT StringContent FROM string WHERE idString =? AND Langue_idLangue = ?");
-        ps.setString(1, appelationString);
-        ps.setString(2, language);
-        ResultSet rs=ps.executeQuery();
 
-        while(rs.next()) {
-            result+=rs.getString(1);
-        }
-        System.out.println(result);
-        return result;
 
-    }
-
+ //Si le temps
     public int createDMP(int idDoctor, int numSecu) {
         return 0;
     }
 
-    public void deleteDMP(int UUID) throws SQLException {
 
-    }
 
     public boolean publishActe(int staffId, int patientId, String title, int type, int description, File file) {
         return false;
     }
-
-    /*public void createActe(int idFolder, String idActe, String nom, Date debut, Date fin, int idStaffMember, int prix) {
-
-        String sqlString="INSERT INTO acte VALUES (?, '?', '?', '?', '?', ?, ?)";
-        PreparedStatement ps = con.prepareStatement(sqlString);
-        ps.setInt(1, idFolder);
-
-    }*/
-
-    public boolean publishBrouillonActe(int staffId, int patientId, String title, int type, int description, File file) {
-        return false;
-    }
-
-    public List<String> printSortItems() {
-        return null;
-    }
-
-    public java.util.List<HashMap<String, Object>> getBrouillon(int patientId, String search, String sortItems, int paginationNumber, int paginationLength) {
-        return null;
-    }
-
-    public HashMap<String, Object> getDocument(int draftId) {
-        return null;
-    }
-
-    public boolean updateEtPublierBrouillon(int draftId, String title, String type, String description) {
+    public boolean updateEtPublierBrouillon(int draftId, String title, String type, String description, File file) {
         return false;
     }
 
@@ -95,11 +56,111 @@ public class SQLManager implements ISingleton {
         return false;
     }
 
-    public boolean deleteBrouillon(int draftId) {
 
+    /*public boolean publishBrouillonActe(int staffId, int patientId, String title, int type, int description, File file) {
         return false;
     }
+    Fonction en double
+    */
 
+
+
+    private HashMap<String, String> addSortItem(String key, String print,String bonus){
+        HashMap<String, String> hashMap=new HashMap<String, String>();
+        hashMap.put(bonus+"sortColumnName", key);
+        hashMap.put(bonus+"printableName", print);
+        return hashMap;
+    }
+
+    public List<HashMap<String, String>> printSortDmpItems() {
+        ArrayList<HashMap<String, String>> list=new ArrayList<HashMap<String, String>>();
+
+        list.add(addSortItem("Name", "Nom",""));
+        list.add(addSortItem("FirstName", "Prénom",""));
+        list.add(addSortItem("BirthDate", "Date de naissance",""));
+        return list;
+    }
+
+
+    public List<HashMap<String, Object>> printDMP( int staffId,String search, String sortitem, int paginationNumber,
+                                                   int paginationLength) throws SQLException {
+
+        List<HashMap<String, Object>> list=new ArrayList<HashMap<String,Object>>();
+        if(search==null) {
+            search="";
+        }
+        search="%"+search+"%";
+
+        String reqString="SELECT NAME\r\n" +
+                "    ,\r\n" +
+                "    FirstName,\r\n" +
+                "    BirthDate,\r\n" +
+                "    UUID\r\n" +
+                "FROM\r\n" +
+                "    DMP,\r\n" +
+                "    demoinformations\r\n" +
+                "WHERE (NAME LIKE ?\r\n" +
+                "    OR FirstName LIKE ? \r\n" +
+                "    OR BirthDate LIKE ?)\r\n" +
+                "    AND demoinformations.NumSecu=DMP.DemoInformations_NumSecu\r\n" +
+                "ORDER BY ?\r\n" +
+                "LIMIT ?; ";
+        PreparedStatement pStatement=con.prepareStatement(reqString);
+        pStatement.setString(1, search);
+        pStatement.setString(2, search);
+        pStatement.setString(3, search);
+        pStatement.setString(4, sortitem);
+
+        pStatement.setInt(5, paginationLength*paginationNumber);
+        System.out.println(pStatement);
+        ResultSet rSet=pStatement.executeQuery();
+        int count=0;
+
+        HashMap<String, Object> hashMap;
+        while (rSet.next()) {
+            count++;
+            if(!(count>=(paginationLength*(paginationNumber-1)))){
+                continue;
+            }
+            hashMap= new HashMap<String, Object>();
+            hashMap.put("patientId", rSet.getInt("UUID"));
+            hashMap.put("firstname", rSet.getString("FirstName"));
+            hashMap.put("lastname", rSet.getString("Name"));
+            hashMap.put("birthdayDate ", rSet.getString("BirthDate"));
+            list.add(hashMap);
+
+        }
+
+        return list;
+    }
+
+    public java.util.List<HashMap<String, Object>> getBrouillon(int patientId, String search, String sortItems, int paginationNumber, int paginationLength) {
+        return null;
+    }
+
+    /*//Jsp à quoi sa sert à oublier
+    public HashMap<String, Object> getDocument(int draftId) {
+        return null;
+    }
+*/
+
+
+    public boolean deleteBrouillon(int draftId) throws SQLException {
+        /*INSERT INTO `medicaldocument` (`idMedicalDocument`, `DocumentName`, `IsADraft`, `Date`, `DocumentLink`, `DocumentType_idDocumentType`, `ChampsObligatoire_Name`, `Stream_Extension`, `Acte_idActe`) VALUES ('', 'Icic', '1', '2020-02-05', '//document//link', '1', 'Symptômes', '1', '1'); */
+        String verifyDraftString="SELECT idActe FROM acte WHERE idActe=? AND IsADraft=1 ";
+        PreparedStatement pStatement=con.prepareStatement(verifyDraftString);
+        pStatement.setInt(1, draftId);
+        ResultSet rSet=pStatement.executeQuery();
+        if(rSet.next()) {
+            String delString="DELETE FROM medicaldocument WHERE idMedicalDocument=? AND IsADraft=1;";
+            pStatement=con.prepareStatement(delString);
+            pStatement.setInt(1, draftId);
+            int i=pStatement.executeUpdate();
+            return true;
+        }
+        return false;
+    }
+/*
     public void publierMedicalDocument(int idActe, int idMedicalDocument, String name, int isADraft, Date date, String link, int type, String champsObligatoire, int extension) {
         return;
     }
@@ -123,6 +184,8 @@ public class SQLManager implements ISingleton {
     public boolean findMDP(String login) {
         return false;
     }
+    */
+ 
 
     public HashMap<String, Object> connect(String login, String Password) throws SQLException {
         HashMap<String, Object> result=new HashMap<String, Object>();
@@ -158,26 +221,25 @@ public class SQLManager implements ISingleton {
         return null;
     }
 
-    public List<HashMap<String, Object>> printDMP(String search, String sortitem, int paginationNumber, int paginationLength) {
-        return null;
-    }
 
-    public List<HashMap<String, Object>> getMedicalDocumentType() {
-        return null;
-    }
 
+    /*public List<HashMap<String, Object>> getMedicalDocumentType() {
+        return null;
+    }*/
+/*
     public List<HashMap<String, Object>> printStaff(int patientId, String search, String sortItem, int paginationNumber, int paginationLength) {
         return null;
-    }
+    }*/
 
     public List<HashMap<String, Object>> printActe(int patientId, String search, String sortItem, int paginationNumber, int paginationLength) {
         return null;
     }
 
-    public HashMap<String, Object> getActe(int documentId) {
+   /* public HashMap<String, Object> getActe(int documentId) {
         return null;
-    }
+    }*/
 
+   /*Uniquement si le temps
     public void createProfile(int idStaffMember, String skills, int idStaffType, int idUser, int numSecu, String IBAN, String BIC, int idHospital, int nbBureau) {
         return;
     }
@@ -242,6 +304,8 @@ public class SQLManager implements ISingleton {
         return false;
     }
 
+    */
+
     public boolean createUnit(String name, int idRattache, int idStaffMember) throws SQLException {
         int type=0;
 
@@ -276,7 +340,7 @@ public class SQLManager implements ISingleton {
     public boolean createPatient(int staffId, Contact contact, Private private) {
         return null;
     }*/
-    public List<HashMap<String, Object>> getNodeChild() throws SQLException {
+    public List<HashMap<String, Object>> getHospitalArchitecture() throws SQLException {
 
         return getNodeChild(-1);
     }
@@ -405,23 +469,23 @@ public class SQLManager implements ISingleton {
 
     }
 
-    public boolean deletePersonnalForPatient(int nodeId, int staffId, int patientId) {
+    /*public boolean deletePersonnalForPatient(int nodeId, int staffId, int patientId) {
         return false;
-    }
+    }*/
 
-    public List<HashMap<String, Object>> getPersonnalType() {
+    /*public List<HashMap<String, Object>> getPersonnalType() {
         return null;
-    }
-
+    }*/
+/*
     public boolean createProfileAndSendEmail(int typeId, String name, String lastName, int birthDate, int phoneNumber, int phoneLandline, String email) {
-        /*String login=name+lastName;
+        String login=name+lastName;
         String profile="INSERT INTO applicationuser VALUES ('?', '?', '?');";
         PreparedStatement ps=con.prepareStatement(profile);
         ps.setString(1,login);
         ps.setString(2,login);
-        ps.setString();*/
+        ps.setString();
         return false;
-    }
+    }*/
 
     private int getIdUser(String login) throws SQLException {
         String sql="SELECT idStaffMember  FROM staffmember WHERE Login=?;";
@@ -430,7 +494,7 @@ public class SQLManager implements ISingleton {
         ResultSet rs=ps.executeQuery();
         return rs.getInt(0);
     }
-
+/*
     private boolean patientExist(int numSecu) {
         return false;
     }
@@ -462,6 +526,8 @@ public class SQLManager implements ISingleton {
     private boolean modifyContactPatient(int idPeople, String phoneNumber, String phoneLandLine, String email, boolean isPatient) {
         return false;
     }
+    */
+
 
 }
 
