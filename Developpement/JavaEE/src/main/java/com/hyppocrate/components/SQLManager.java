@@ -134,9 +134,7 @@ public class SQLManager implements ISingleton {
         return list;
     }
 
-    public java.util.List<HashMap<String, Object>> getBrouillon(int patientId, String search, String sortItems, int paginationNumber, int paginationLength) {
-        return null;
-    }
+   
 
     /*//Jsp à quoi sa sert à oublier
     public HashMap<String, Object> getDocument(int draftId) {
@@ -231,9 +229,106 @@ public class SQLManager implements ISingleton {
         return null;
     }*/
 
-    public List<HashMap<String, Object>> printActe(int patientId, String search, String sortItem, int paginationNumber, int paginationLength) {
-        return null;
+    public List<HashMap<String, Object>> printDraft(int patientId, String search, String sortItems,
+                                                    int paginationNumber, int paginationLength) throws SQLException {
+        return printActe(patientId, search, sortItems, paginationNumber, paginationLength, true);
     }
+
+    public List<HashMap<String, Object>> printSortActeItems() throws SQLException {
+        ArrayList<HashMap<String, Object>> list=new ArrayList<HashMap<String, Object>>();
+
+        String reString="SELECT * FROM `documenttype`;";
+        PreparedStatement pStatement=con.prepareStatement(reString);
+        ResultSet rs=pStatement.executeQuery();
+        while (rs.next()) {
+            HashMap<String, Object> hashMap=new HashMap<String, Object>();
+            hashMap.put("acTypeId", rs.getInt("idDocumentType"));
+            hashMap.put("actPrintableName", rs.getString("Name"));
+            list.add(hashMap);
+        }
+        return list;
+    }
+
+    private List<HashMap<String, Object>> printActe(int patientId, String search, String sortItem, int paginationNumber,
+                                                    int paginationLength,boolean draft) throws SQLException {
+        List<HashMap<String, Object>> list=new ArrayList<HashMap<String,Object>>();
+
+
+
+        String reqString="SELECT\r\n" +
+                "    `idActe`,\r\n" +
+                "    `Nom`,\r\n" +
+                "    `Responsable`,\r\n" +
+                "    dmp.UUID,\r\n" +
+                "    DateDebut,\r\n" +
+                "    Description,\r\n" +
+                "    DocumentLink,\r\n" +
+                "    documenttype.Name,\r\n" +
+                "    unit.idHospital\r\n" +
+                "FROM\r\n" +
+                "    `acte`,\r\n" +
+                "    dmp,\r\n" +
+                "    staffmember,\r\n" +
+                "    unit,\r\n" +
+                "    documenttype\r\n" +
+                "WHERE\r\n" +
+                "    acte.MedicalFolder_idFolder = dmp.UUID \r\n" +
+                "    AND acte.Responsable = staffmember.idStaffMember \r\n" +
+                "    AND unit.idHospital = staffmember.Hospital_idHospital \r\n"+
+                "    AND IsADraft = ? \r\n";
+        if(search!=null) {
+            reqString+="    AND documenttype.idDocumentType = ? \r\n";
+        }
+
+        reqString+="    AND documenttype.idDocumentType = acte.DocumentType_idDocumentType\r\n" +
+                "    AND dmp.UUID=?\r\n" +
+                "ORDER BY\r\n" +
+                "    DateDebut\r\n "+
+                "LIMIT ?;";
+        PreparedStatement pStatement=con.prepareStatement(reqString);
+        pStatement.setInt(1, draft?1:0);
+        if(search!=null) {
+            pStatement.setInt(2, Integer.parseInt(search));
+            pStatement.setInt(3, patientId);
+            pStatement.setInt(4, paginationLength*paginationNumber);
+        }else {
+            pStatement.setInt(2, patientId);
+            pStatement.setInt(3, paginationLength*paginationNumber);
+        }
+
+
+        System.out.println(pStatement);
+        ResultSet rSet=pStatement.executeQuery();
+        int count=0;
+
+        HashMap<String, Object> hashMap;
+        while (rSet.next()) {
+            count++;
+            if(!(count>=(paginationLength*(paginationNumber-1)))){
+                continue;
+            }
+            hashMap= new HashMap<String, Object>();
+            hashMap.put("acteId", rSet.getInt("idActe"));
+            hashMap.put("nodeId", rSet.getString("idHospital"));
+            hashMap.put("patientId", rSet.getString("UUID"));
+            hashMap.put("medecinId ", rSet.getString("Responsable"));
+            hashMap.put("description ", rSet.getString("Description"));
+            hashMap.put("date", rSet.getTimestamp("DateDebut"));
+            hashMap.put("link", rSet.getString("DocumentLink"));
+            hashMap.put("type", rSet.getString("Name"));
+            hashMap.put("title", rSet.getString("Nom"));
+            list.add(hashMap);
+
+        }
+
+        return list;
+    }
+    public List<HashMap<String, Object>> printActe(int patientId, String search, String sortItem, int paginationNumber,
+                                                   int paginationLength) throws SQLException {
+
+        return printActe(patientId, search, sortItem, paginationNumber, paginationLength, false);
+    }
+
 
    /* public HashMap<String, Object> getActe(int documentId) {
         return null;
