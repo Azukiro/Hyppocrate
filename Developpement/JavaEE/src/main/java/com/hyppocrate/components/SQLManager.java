@@ -65,19 +65,19 @@ public class SQLManager implements ISingleton {
 
 
 
-    private HashMap<String, String> addSortItem(String key, String print,String bonus){
+    private HashMap<String, String> addSortItem(String key, String print){
         HashMap<String, String> hashMap=new HashMap<String, String>();
-        hashMap.put(bonus+"sortColumnName", key);
-        hashMap.put(bonus+"printableName", print);
+        hashMap.put("sortColumnName", key);
+        hashMap.put("printableName", print);
         return hashMap;
     }
 
     public List<HashMap<String, String>> printSortDmpItems() {
         ArrayList<HashMap<String, String>> list=new ArrayList<HashMap<String, String>>();
 
-        list.add(addSortItem("Name", "Nom",""));
-        list.add(addSortItem("FirstName", "Prénom",""));
-        list.add(addSortItem("BirthDate", "Date de naissance",""));
+        list.add(addSortItem("Name", "Nom"));
+        list.add(addSortItem("FirstName", "Prénom"));
+        list.add(addSortItem("BirthDate", "Date de naissance"));
         return list;
     }
 
@@ -88,9 +88,11 @@ public class SQLManager implements ISingleton {
         List<HashMap<String, Object>> list=new ArrayList<HashMap<String,Object>>();
         if(search==null) {
             search="";
+        }if(sortitem==null) {
+            sortitem="Name";
         }
         search="%"+search+"%";
-
+        search=search.toUpperCase();
         String reqString="SELECT NAME\r\n" +
                 "    ,\r\n" +
                 "    FirstName,\r\n" +
@@ -99,9 +101,9 @@ public class SQLManager implements ISingleton {
                 "FROM\r\n" +
                 "    DMP,\r\n" +
                 "    demoinformations\r\n" +
-                "WHERE (NAME LIKE ?\r\n" +
-                "    OR FirstName LIKE ? \r\n" +
-                "    OR BirthDate LIKE ?)\r\n" +
+                "WHERE (UPPER(NAME) LIKE ?\r\n" +
+                "    OR UPPER(FirstName) LIKE ? \r\n" +
+                "    OR UPPER(BirthDate) LIKE ?)\r\n" +
                 "    AND demoinformations.NumSecu=DMP.DemoInformations_NumSecu\r\n" +
                 "ORDER BY ?\r\n" +
                 "LIMIT ?; ";
@@ -134,6 +136,7 @@ public class SQLManager implements ISingleton {
         return list;
     }
 
+
    
 
     /*//Jsp à quoi sa sert à oublier
@@ -142,7 +145,6 @@ public class SQLManager implements ISingleton {
     }
 */
 
-
     public boolean deleteBrouillon(int draftId) throws SQLException {
         /*INSERT INTO `medicaldocument` (`idMedicalDocument`, `DocumentName`, `IsADraft`, `Date`, `DocumentLink`, `DocumentType_idDocumentType`, `ChampsObligatoire_Name`, `Stream_Extension`, `Acte_idActe`) VALUES ('', 'Icic', '1', '2020-02-05', '//document//link', '1', 'Symptômes', '1', '1'); */
         String verifyDraftString="SELECT idActe FROM acte WHERE idActe=? AND IsADraft=1 ";
@@ -150,7 +152,7 @@ public class SQLManager implements ISingleton {
         pStatement.setInt(1, draftId);
         ResultSet rSet=pStatement.executeQuery();
         if(rSet.next()) {
-            String delString="DELETE FROM medicaldocument WHERE idMedicalDocument=? AND IsADraft=1;";
+            String delString="DELETE FROM acte WHERE idActe=? AND IsADraft=1;";
             pStatement=con.prepareStatement(delString);
             pStatement.setInt(1, draftId);
             int i=pStatement.executeUpdate();
@@ -234,18 +236,14 @@ public class SQLManager implements ISingleton {
         return printActe(patientId, search, sortItems, paginationNumber, paginationLength, true);
     }
 
-    public List<HashMap<String, Object>> printSortActeItems() throws SQLException {
-        ArrayList<HashMap<String, Object>> list=new ArrayList<HashMap<String, Object>>();
+    public ArrayList<HashMap<String, String>> printSortActeItems() throws SQLException {
+        ArrayList<HashMap<String, String>> list=new ArrayList<HashMap<String, String>>();
 
-        String reString="SELECT * FROM `documenttype`;";
-        PreparedStatement pStatement=con.prepareStatement(reString);
-        ResultSet rs=pStatement.executeQuery();
-        while (rs.next()) {
-            HashMap<String, Object> hashMap=new HashMap<String, Object>();
-            hashMap.put("acTypeId", rs.getInt("idDocumentType"));
-            hashMap.put("actPrintableName", rs.getString("Name"));
-            list.add(hashMap);
-        }
+        list.add(addSortItem("documenttype.idDocumentType", "Type d'acte"));
+        list.add(addSortItem("Nom", "Nom"));
+        list.add(addSortItem("DateDebut", "Date de creation"));
+
+
         return list;
     }
 
@@ -253,7 +251,14 @@ public class SQLManager implements ISingleton {
                                                     int paginationLength,boolean draft) throws SQLException {
         List<HashMap<String, Object>> list=new ArrayList<HashMap<String,Object>>();
 
-
+        if(search==null) {
+            search="";
+        }
+        if(sortItem==null) {
+            sortItem="DateDebut";
+        }
+        search=search.toUpperCase();
+        search="%"+search+"%";
 
         String reqString="SELECT\r\n" +
                 "    `idActe`,\r\n" +
@@ -275,26 +280,23 @@ public class SQLManager implements ISingleton {
                 "    acte.MedicalFolder_idFolder = dmp.UUID \r\n" +
                 "    AND acte.Responsable = staffmember.idStaffMember \r\n" +
                 "    AND unit.idHospital = staffmember.Hospital_idHospital \r\n"+
-                "    AND IsADraft = ? \r\n";
-        if(search!=null) {
-            reqString+="    AND documenttype.idDocumentType = ? \r\n";
-        }
-
-        reqString+="    AND documenttype.idDocumentType = acte.DocumentType_idDocumentType\r\n" +
-                "    AND dmp.UUID=?\r\n" +
+                "    AND IsADraft = ? \r\n"+
+                "    AND documenttype.idDocumentType = acte.DocumentType_idDocumentType\r\n" +
+                "    AND dmp.UUID=?\r\n"
+                + "	AND (UPPER(Nom) LIKE ? OR UPPER(documenttype.Name LIKE) ?) \r\n" +
                 "ORDER BY\r\n" +
-                "    DateDebut\r\n "+
+                "    ?\r\n "+
                 "LIMIT ?;";
         PreparedStatement pStatement=con.prepareStatement(reqString);
         pStatement.setInt(1, draft?1:0);
-        if(search!=null) {
-            pStatement.setInt(2, Integer.parseInt(search));
-            pStatement.setInt(3, patientId);
-            pStatement.setInt(4, paginationLength*paginationNumber);
-        }else {
-            pStatement.setInt(2, patientId);
-            pStatement.setInt(3, paginationLength*paginationNumber);
-        }
+
+        pStatement.setInt(2, patientId);
+        pStatement.setString(3, search);
+        pStatement.setString(4, search);
+        pStatement.setString(5, sortItem);
+
+        pStatement.setInt(6, paginationLength*paginationNumber);
+
 
 
         System.out.println(pStatement);
