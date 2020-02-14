@@ -97,10 +97,8 @@ public class SQLManager implements ISingleton {
         pStatement.setInt(1, uuid);
         pStatement.setInt(2, idDoctor);
         pStatement.setInt(3, numSecu);
-        if (pStatement.execute()) {
-            return 1;
-        }
-        return 0;
+        pStatement.execute();
+        return uuid;
     }
 
     public boolean publishActe(int staffId, int patientId, String title, int type, int description, File file) throws SQLException {
