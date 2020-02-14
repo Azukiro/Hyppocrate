@@ -8,15 +8,17 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.sql.SQLException;
 
 @Path("/draft")
 public class Draft {
 
+    // FIXME: 14/02/2020 retirer le throws ici
     @Path("/actions/delete")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@Context UriInfo ui,
-                             @QueryParam("draftId") final int draftId) {
+                             @QueryParam("draftId") final int draftId) throws SQLException {
 
         return Response.ok(SQLManager.getInstance().deleteDraft(draftId)).build();
     }

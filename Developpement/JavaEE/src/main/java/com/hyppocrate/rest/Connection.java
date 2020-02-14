@@ -96,7 +96,7 @@ public class Connection {
 
         listResult.add(a);
         listResult.add(b);
-        listResult.add(c);
+        //listResult.add(c);
         listResult.add(ui.getQueryParameters());
         listResult.add(ui.getPathParameters());
         listResult.add(email);

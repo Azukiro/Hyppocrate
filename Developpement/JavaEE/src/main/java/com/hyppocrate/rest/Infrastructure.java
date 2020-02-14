@@ -8,6 +8,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.sql.SQLException;
 
 @Path("/infrastructure")
 public class Infrastructure {
@@ -54,7 +55,11 @@ public class Infrastructure {
                                 @QueryParam("unitName") final String unitName,
                                 @QueryParam("staffChiefId") final int staffChiefId) {
 
-        return Responses.objectOrCustomNull(SQLManager.getInstance().createUnit(unitName, fatherId, staffChiefId));
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().createUnit(unitName, fatherId, staffChiefId));
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
     }
 
     @Path("/unit")

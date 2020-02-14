@@ -24,7 +24,7 @@ public class SQLManager implements ISingleton {
     //https://stackoverflow.com/questions/2839321/connect-java-to-a-mysql-database/2839563#2839563
     Context context;
     DataSource dataSource;
-    Connection  conn;
+    Connection  con;
     
     // singleton pattern
     private SQLManager()
@@ -37,13 +37,13 @@ public class SQLManager implements ISingleton {
             dataSource.setDatabaseName(database);
             dataSource.setServerTimezone("UTC");
             System.out.println("Tentative de connexion...");
-            conn = dataSource.getConnection();
-            Statement stmt = conn.createStatement(); // C'est mieux les PreparedStatement
+            con = dataSource.getConnection();
+            Statement stmt = con.createStatement(); // C'est mieux les PreparedStatement
             ResultSet rs = stmt.executeQuery("SELECT * FROM String");
             rs.close();
             stmt.close();
-            System.out.println("Connection = " + conn);
-            conn.close();
+            System.out.println("Connection = " + con);
+            con.close();
 
         } catch (SQLException e) {
             System.err.println("[ERROR]");
@@ -55,7 +55,7 @@ public class SQLManager implements ISingleton {
 
     private static SQLManager INSTANCE = null;
 
-    public static SQLManager getInstance() throws SQLException, ClassNotFoundException {
+    public static SQLManager getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new SQLManager();
         }
@@ -70,7 +70,7 @@ public class SQLManager implements ISingleton {
 
     public String getString(String appelationString, String language) throws SQLException {
         String result = "";
-        PreparedStatement ps = conn.prepareStatement("select StringContent from String where idString =? and Langue = ?");
+        PreparedStatement ps = con.prepareStatement("select StringContent from String where idString =? and Langue = ?");
         ps.setString(1, appelationString);
         ps.setString(2, language);
         ResultSet rs=ps.executeQuery();
@@ -129,7 +129,7 @@ public class SQLManager implements ISingleton {
         String update="UPDATE medicaldocument SET DocumentName=?, DocumentType_idDocumentType=?, ChampsObligatoire_Name=? WHERE idMedicalDocument=? AND IsADraft=1;";
         PreparedStatement pStatement = con.prepareStatement(update);
         pStatement.setString(1, title);
-        pStatement.setInt(2, type);
+        //pStatement.setInt(2, type);
         pStatement.setString(3, description);
         pStatement.setInt(4, draftId);
         return !(pStatement.execute());
@@ -214,15 +214,13 @@ public class SQLManager implements ISingleton {
     }
 
    
-
-    /*//Jsp à quoi sa sert à oublier
+    // ne pas faire !! Elle est juste là pour pas avoir d'erreur de compilations
     public HashMap<String, Object> getDocument(int draftId) {
         return null;
     }
-*/
 
 
-    public boolean deleteBrouillon(int draftId) throws SQLException {
+    public boolean deleteDraft(int draftId) throws SQLException {
         /*INSERT INTO `medicaldocument` (`idMedicalDocument`, `DocumentName`, `IsADraft`, `Date`, `DocumentLink`, `DocumentType_idDocumentType`, `ChampsObligatoire_Name`, `Stream_Extension`, `Acte_idActe`) VALUES ('', 'Icic', '1', '2020-02-05', '//document//link', '1', 'Symptômes', '1', '1'); */
         String verifyDraftString="SELECT idActe FROM acte WHERE idActe=? AND IsADraft=1 ";
         PreparedStatement pStatement=con.prepareStatement(verifyDraftString);
@@ -467,7 +465,7 @@ public class SQLManager implements ISingleton {
     public HashMap<String, Object> getStaffMember(int idStaffMember) {
         return null;
     }
-
+*/
     public HashMap<String, Object> getStaffMember(String email) {
         return null;
     }
@@ -478,6 +476,7 @@ public class SQLManager implements ISingleton {
     public HashMap<String, Object> updatePassword(int idStaffMember, String newPwd) {
         return null;
     }
+
     public List<HashMap<String, Object>> patientSortItems() {
         return null;
     }
@@ -489,7 +488,7 @@ public class SQLManager implements ISingleton {
     public List<HashMap<String, Object>> draftSortItems() {
         return null;
     }
-
+/*
     public void affectPatient(int nodeId, int staffId, int patientId) {
         return;
     }
@@ -712,9 +711,8 @@ public class SQLManager implements ISingleton {
     public List<Object> getAllUnit(int nodeId) {
         return null;
     }
-    public boolean createUnit(String name, int fatherId,int idStaffMember) {
-        return false;
-    }
+
+
     public boolean deleteUnit(int nodeId) {
         return false;
     }
@@ -726,6 +724,16 @@ public class SQLManager implements ISingleton {
         ResultSet rs=ps.executeQuery();
         return rs.getInt(0);
     }
+
+    public Object createDraft(int staffId, int nodeId, int patientId, String title, String type, int description, String file) {
+        return null;
+    }
+
+    public Object searchDMPs(int staffId, int patientId, String actPrintableName, String search, int paginationNumber, int paginationLength) {
+        return null;
+    }
+
+
 /*
     private boolean patientExist(int numSecu) {
         return false;
