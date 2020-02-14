@@ -44,7 +44,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/com.mysql.jdbc.jar!/" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.6828909" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -119,19 +119,21 @@
     </state>
     <state x="526" y="195" key="FileChooserDialogImpl/0.0.1366.736@0.0.1366.736" timestamp="1579890534687" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577550440259" />
-    <state x="187" y="0" key="SettingsEditor" timestamp="1579890566798">
-      <screen x="0" y="0" width="1366" height="736" />
+    <state x="263" y="0" key="SettingsEditor" timestamp="1580561001040">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="187" y="0" key="SettingsEditor/0.0.1366.736@0.0.1366.736" timestamp="1579890566798" />
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577698658693" />
+    <state x="263" y="0" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1580561001040" />
     <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1578580576868">
       <screen x="0" y="0" width="1366" height="736" />
     </state>
     <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.736@0.0.1366.736" timestamp="1578580576868" />
-    <state x="384" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1578580119848">
-      <screen x="0" y="0" width="1366" height="736" />
+    <state x="540" y="271" key="com.intellij.ide.util.TipDialog" timestamp="1581678027180">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="384" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.736@0.0.1366.736" timestamp="1578580119848" />
+    <state x="540" y="271" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581678027180" />
     <state x="619" y="140" width="757" height="852" key="find.popup" timestamp="1577563913937">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
