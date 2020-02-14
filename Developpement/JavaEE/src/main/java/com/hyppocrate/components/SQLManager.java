@@ -39,13 +39,44 @@ public class SQLManager implements ISingleton {
 
 
  //Si le temps
-    public int createDMP(int idDoctor, int numSecu) {
+    public int createDMP(int idDoctor, int numSecu) throws SQLException {
+        int uuid = 1;
+        String searchNewUUID = "SELECT uuid FROM dmp;";
+        Statement s = con.createStatement();
+        ResultSet rs = s.executeQuery(searchNewUUID);
+        while (rs.next()) {
+            if (uuid != rs.getInt("UUID")) {
+                break;
+            }
+            uuid++;
+        }
+        String create="INSERT INTO dmp VALUES(?,?,?);";
+        PreparedStatement pStatement = con.prepareStatement(create);
+        pStatement.setInt(1, uuid);
+        pStatement.setInt(2, idDoctor);
+        pStatement.setInt(3, numSecu);
+        if (pStatement.execute()) {
+            return 1;
+        }
         return 0;
     }
 
-
-
-    public boolean publishActe(int staffId, int patientId, String title, int type, int description, File file) {
+    public boolean publishActe(int staffId, int patientId, String title, int type, int description, File file) throws SQLException {
+        int id = 1;
+        String searchNewID = "SELECT idActe FROM acte;";
+        Statement s = con.createStatement();
+        ResultSet rs = s.executeQuery(searchNewID);
+        while (rs.next()) {
+            if (id != rs.getInt("idActe")) {
+                break;
+            }
+            id++;
+        }
+        /*String publish = "INSERT INTO acte VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        PreparedStatement pStatement = con.prepareStatement(publish);
+        pStatement.setInt(1, );
+        pStatement.setInt(2, idDoctor);
+        pStatement.setInt(3, numSecu);*/
         return false;
     }
     public boolean updateEtPublierBrouillon(int draftId, String title, String type, String description, File file) {
