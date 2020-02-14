@@ -86,7 +86,7 @@ public class SQLManager implements ISingleton {
 
     public boolean updateBrouillon(int draftId, String title, int type, String description) throws SQLException {
 
-        String update="UPDATE acte SET Name=?, DocumentType_idDocumentType=?, Description=? WHERE idActe=? AND IsADraft=1;";
+        String update="UPDATE acte SET Nom=?, DocumentType_idDocumentType=?, Description=? WHERE idActe=? AND IsADraft=1;";
 
 
         PreparedStatement pStatement = con.prepareStatement(update);
