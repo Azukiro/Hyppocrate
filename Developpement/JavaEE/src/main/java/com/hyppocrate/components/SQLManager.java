@@ -7,10 +7,8 @@ import javax.naming.Context;
 import javax.sql.DataSource;
 import java.io.File;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 // TODO: 16/01/2020
 public class SQLManager implements ISingleton {
@@ -101,7 +99,7 @@ public class SQLManager implements ISingleton {
         return uuid;
     }
 
-    public boolean publishActe(int staffId, int patientId, String title, int type, int description, File file) throws SQLException {
+    public boolean publishActe(int staffId, int patientId, String title, int type, String description, int price, File file) throws SQLException {
         int id = 1;
         String searchNewID = "SELECT idActe FROM acte;";
         Statement s = con.createStatement();
@@ -112,12 +110,22 @@ public class SQLManager implements ISingleton {
             }
             id++;
         }
-        /*String publish = "INSERT INTO acte VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String publish = "INSERT INTO acte VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement pStatement = con.prepareStatement(publish);
-        pStatement.setInt(1, );
-        pStatement.setInt(2, idDoctor);
-        pStatement.setInt(3, numSecu);*/
-        return false;
+        pStatement.setInt(1, patientId);
+        pStatement.setInt(2, id);
+        pStatement.setString(3, title);
+        Calendar calendar = Calendar.getInstance();
+
+        pStatement.setDate(4, new java.sql.Date(calendar.getTime().getTime())); //Je suis pas sur si ca marche
+        pStatement.setDate(5, new java.sql.Date(calendar.getTime().getTime()));
+        pStatement.setInt(6, staffId);
+        pStatement.setInt(7, price);
+        pStatement.setString(8,""); //Lien du document
+        pStatement.setInt(9, 0); //isADraft?
+        pStatement.setInt(10, type);
+        pStatement.setString(11, description);
+        return !(pStatement.execute());
     }
     public boolean updateEtPublierBrouillon(int draftId, String title, String type, String description, File file) {
         return false;
