@@ -52,7 +52,7 @@ public class Utils {
         try{
             V result=function.get();
 
-            if(attemptedResult==result){
+            if(attemptedResult.equals(result)){
                 return "true";
             }else{
                 return  "false, Not Same Value :\n\t attemptedResult: "+attemptedResult+"\n\t result: "+result;
@@ -66,7 +66,7 @@ public class Utils {
                 }
             }
 
-            return "false, exception: "+e.getMessage();
+            return "false, exception: "+e.getMessage()+e.getClass();
         }
     }
 }
