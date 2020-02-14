@@ -36,70 +36,135 @@ public class SQLManager implements ISingleton {
         return null;
     }
 
-    public String getString(String appelationString, String language) throws IllegalAccessException, SQLException {
-        String result="";
-        PreparedStatement ps = con.prepareStatement("SELECT StringContent FROM string WHERE idString =? AND Langue_idLangue = ?");
-        ps.setString(1, appelationString);
-        ps.setString(2, language);
-        ResultSet rs=ps.executeQuery();
 
-        while(rs.next()) {
-            result+=rs.getString(1);
-        }
-        System.out.println(result);
-        return result;
 
-    }
-
+ //Si le temps
     public int createDMP(int idDoctor, int numSecu) {
         return 0;
     }
 
-    public void deleteDMP(int UUID) throws SQLException {
 
-    }
 
     public boolean publishActe(int staffId, int patientId, String title, int type, int description, File file) {
         return false;
     }
-
-    /*public void createActe(int idFolder, String idActe, String nom, Date debut, Date fin, int idStaffMember, int prix) {
-
-        String sqlString="INSERT INTO acte VALUES (?, '?', '?', '?', '?', ?, ?)";
-        PreparedStatement ps = con.prepareStatement(sqlString);
-        ps.setInt(1, idFolder);
-
-    }*/
-
-    public boolean publishBrouillonActe(int staffId, int patientId, String title, int type, int description, File file) {
-        return false;
-    }
-
-    public List<String> printSortItems() {
-        return null;
-    }
-
-    public java.util.List<HashMap<String, Object>> getBrouillon(int patientId, String search, String sortItems, int paginationNumber, int paginationLength) {
-        return null;
-    }
-
-    public HashMap<String, Object> getDocument(int draftId) {
-        return null;
-    }
-
-    public boolean updateEtPublierBrouillon(int draftId, String title, String type, String description) {
+    public boolean updateEtPublierBrouillon(int draftId, String title, String type, String description, File file) {
         return false;
     }
 
     public boolean updateBrouillon(int draftId, String title, String type, String description) {
-        return false;
+        String update="UPDATE medicaldocument SET DocumentName=?, DocumentType_idDocumentType=?, ChampsObligatoire_Name=? WHERE idMedicalDocument=? AND IsADraft=1;";
+        PreparedStatement pStatement = con.prepareStatement(update);
+        pStatement.setString(1, title);
+        pStatement.setInt(2, type);
+        pStatement.setString(3, description);
+        pStatement.setInt(4, draftId);
+        return !(pStatement.execute());
     }
 
-    public boolean deleteBrouillon(int draftId) {
 
+    /*public boolean publishBrouillonActe(int staffId, int patientId, String title, int type, int description, File file) {
         return false;
     }
+    Fonction en double
+    */
 
+
+
+    private HashMap<String, String> addSortItem(String key, String print,String bonus){
+        HashMap<String, String> hashMap=new HashMap<String, String>();
+        hashMap.put(bonus+"sortColumnName", key);
+        hashMap.put(bonus+"printableName", print);
+        return hashMap;
+    }
+
+    public List<HashMap<String, String>> printSortDmpItems() {
+        ArrayList<HashMap<String, String>> list=new ArrayList<HashMap<String, String>>();
+
+        list.add(addSortItem("Name", "Nom",""));
+        list.add(addSortItem("FirstName", "Prénom",""));
+        list.add(addSortItem("BirthDate", "Date de naissance",""));
+        return list;
+    }
+
+
+    public List<HashMap<String, Object>> printDMP( int staffId,String search, String sortitem, int paginationNumber,
+                                                   int paginationLength) throws SQLException {
+
+        List<HashMap<String, Object>> list=new ArrayList<HashMap<String,Object>>();
+        if(search==null) {
+            search="";
+        }
+        search="%"+search+"%";
+
+        String reqString="SELECT NAME\r\n" +
+                "    ,\r\n" +
+                "    FirstName,\r\n" +
+                "    BirthDate,\r\n" +
+                "    UUID\r\n" +
+                "FROM\r\n" +
+                "    DMP,\r\n" +
+                "    demoinformations\r\n" +
+                "WHERE (NAME LIKE ?\r\n" +
+                "    OR FirstName LIKE ? \r\n" +
+                "    OR BirthDate LIKE ?)\r\n" +
+                "    AND demoinformations.NumSecu=DMP.DemoInformations_NumSecu\r\n" +
+                "ORDER BY ?\r\n" +
+                "LIMIT ?; ";
+        PreparedStatement pStatement=con.prepareStatement(reqString);
+        pStatement.setString(1, search);
+        pStatement.setString(2, search);
+        pStatement.setString(3, search);
+        pStatement.setString(4, sortitem);
+
+        pStatement.setInt(5, paginationLength*paginationNumber);
+        System.out.println(pStatement);
+        ResultSet rSet=pStatement.executeQuery();
+        int count=0;
+
+        HashMap<String, Object> hashMap;
+        while (rSet.next()) {
+            count++;
+            if(!(count>=(paginationLength*(paginationNumber-1)))){
+                continue;
+            }
+            hashMap= new HashMap<String, Object>();
+            hashMap.put("patientId", rSet.getInt("UUID"));
+            hashMap.put("firstname", rSet.getString("FirstName"));
+            hashMap.put("lastname", rSet.getString("Name"));
+            hashMap.put("birthdayDate ", rSet.getString("BirthDate"));
+            list.add(hashMap);
+
+        }
+
+        return list;
+    }
+
+   
+
+    /*//Jsp à quoi sa sert à oublier
+    public HashMap<String, Object> getDocument(int draftId) {
+        return null;
+    }
+*/
+
+
+    public boolean deleteBrouillon(int draftId) throws SQLException {
+        /*INSERT INTO `medicaldocument` (`idMedicalDocument`, `DocumentName`, `IsADraft`, `Date`, `DocumentLink`, `DocumentType_idDocumentType`, `ChampsObligatoire_Name`, `Stream_Extension`, `Acte_idActe`) VALUES ('', 'Icic', '1', '2020-02-05', '//document//link', '1', 'Symptômes', '1', '1'); */
+        String verifyDraftString="SELECT idActe FROM acte WHERE idActe=? AND IsADraft=1 ";
+        PreparedStatement pStatement=con.prepareStatement(verifyDraftString);
+        pStatement.setInt(1, draftId);
+        ResultSet rSet=pStatement.executeQuery();
+        if(rSet.next()) {
+            String delString="DELETE FROM medicaldocument WHERE idMedicalDocument=? AND IsADraft=1;";
+            pStatement=con.prepareStatement(delString);
+            pStatement.setInt(1, draftId);
+            int i=pStatement.executeUpdate();
+            return true;
+        }
+        return false;
+    }
+/*
     public void publierMedicalDocument(int idActe, int idMedicalDocument, String name, int isADraft, Date date, String link, int type, String champsObligatoire, int extension) {
         return;
     }
@@ -123,6 +188,8 @@ public class SQLManager implements ISingleton {
     public boolean findMDP(String login) {
         return false;
     }
+    */
+ 
 
     public HashMap<String, Object> connect(String login, String Password) throws SQLException {
         HashMap<String, Object> result=new HashMap<String, Object>();
@@ -201,55 +268,115 @@ public class SQLManager implements ISingleton {
         return res;
     }
 
-    public List<HashMap<String, Object>> printStaff(int patientId, String search, String sortItem, int paginationNumber, int paginationLength) {
-        return null;
+
+    public List<HashMap<String, Object>> printDraft(int patientId, String search, String sortItems,
+                                                    int paginationNumber, int paginationLength) throws SQLException {
+        return printActe(patientId, search, sortItems, paginationNumber, paginationLength, true);
     }
 
-    public List<HashMap<String, Object>> printActe(String patientId, String search, String sortItem, int paginationNumber, int paginationLength) throws SQLException{
-        List<HashMap<String, Object>> res = new ArrayList<>();
-        String getMedDocType = "SELECT * FROM acte JOIN dmp WHERE dmp.UUID=acte.MedicalFolder_idFolder AND dmp.DemoInformations_NumSecu=?;";
-        PreparedStatement ps = con.prepareStatement(getMedDocType);
-        ps.setString(1, patientId);
-        ResultSet rs = ps.executeQuery();
+
+    public List<HashMap<String, Object>> printSortActeItems() throws SQLException {
+        ArrayList<HashMap<String, Object>> list=new ArrayList<HashMap<String, Object>>();
+
+        String reString="SELECT * FROM `documenttype`;";
+        PreparedStatement pStatement=con.prepareStatement(reString);
+        ResultSet rs=pStatement.executeQuery();
         while (rs.next()) {
-            String id = rs.getString("idActe");
-            String name = rs.getString("Nom");
-            String dateDebut = rs.getString("DateDebut");
-            String dateFin = rs.getString("DateFin");
-            String prix = rs.getString("Prix");
-            HashMap<String, Object> acte = new HashMap<>();
-            acte.put("idActe",id);
-            acte.put("Nom",name);
-            acte.put("DateDebut",dateDebut);
-            acte.put("DateFin",dateFin);
-            acte.put("Prix",prix);
-            res.add(acte);
+            HashMap<String, Object> hashMap=new HashMap<String, Object>();
+            hashMap.put("acTypeId", rs.getInt("idDocumentType"));
+            hashMap.put("actPrintableName", rs.getString("Name"));
+            list.add(hashMap);
         }
-        if (res.size() == 0) {
-            return null;
-        }
-        return res;
+        return list;
     }
 
-    public HashMap<String, Object> getActe(int documentId) throws SQLException {
-        String getActe = "SELECT * FROM acte WHERE idActe=?;";
-        PreparedStatement ps = con.prepareStatement(getActe);
-        ps.setString(1, documentId+"");
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            HashMap<String, Object> acte = new HashMap<>();
-            acte.put("idActe", rs.getString("idActe"));
-            acte.put("MedicalFolder_idFolder", rs.getString("MedicalFolder_idFolder"));
-            acte.put("Nom", rs.getString("Nom"));
-            acte.put("DateDebut", rs.getString("DateDebut"));
-            acte.put("DateFin", rs.getString("DateFin"));
-            acte.put("Responsable", rs.getString("Responsable"));
-            acte.put("Prix", rs.getString("Prix"));
-            return acte;
+    private List<HashMap<String, Object>> printActe(int patientId, String search, String sortItem, int paginationNumber,
+                                                    int paginationLength,boolean draft) throws SQLException {
+        List<HashMap<String, Object>> list=new ArrayList<HashMap<String,Object>>();
+
+
+
+        String reqString="SELECT\r\n" +
+                "    `idActe`,\r\n" +
+                "    `Nom`,\r\n" +
+                "    `Responsable`,\r\n" +
+                "    dmp.UUID,\r\n" +
+                "    DateDebut,\r\n" +
+                "    Description,\r\n" +
+                "    DocumentLink,\r\n" +
+                "    documenttype.Name,\r\n" +
+                "    unit.idHospital\r\n" +
+                "FROM\r\n" +
+                "    `acte`,\r\n" +
+                "    dmp,\r\n" +
+                "    staffmember,\r\n" +
+                "    unit,\r\n" +
+                "    documenttype\r\n" +
+                "WHERE\r\n" +
+                "    acte.MedicalFolder_idFolder = dmp.UUID \r\n" +
+                "    AND acte.Responsable = staffmember.idStaffMember \r\n" +
+                "    AND unit.idHospital = staffmember.Hospital_idHospital \r\n"+
+                "    AND IsADraft = ? \r\n";
+        if(search!=null) {
+            reqString+="    AND documenttype.idDocumentType = ? \r\n";
         }
-        return null; //Envoyer une exception InvalidIdActe
+
+        reqString+="    AND documenttype.idDocumentType = acte.DocumentType_idDocumentType\r\n" +
+                "    AND dmp.UUID=?\r\n" +
+                "ORDER BY\r\n" +
+                "    DateDebut\r\n "+
+                "LIMIT ?;";
+        PreparedStatement pStatement=con.prepareStatement(reqString);
+        pStatement.setInt(1, draft?1:0);
+        if(search!=null) {
+            pStatement.setInt(2, Integer.parseInt(search));
+            pStatement.setInt(3, patientId);
+            pStatement.setInt(4, paginationLength*paginationNumber);
+        }else {
+            pStatement.setInt(2, patientId);
+            pStatement.setInt(3, paginationLength*paginationNumber);
+        }
+
+
+        System.out.println(pStatement);
+        ResultSet rSet=pStatement.executeQuery();
+        int count=0;
+
+        HashMap<String, Object> hashMap;
+        while (rSet.next()) {
+            count++;
+            if(!(count>=(paginationLength*(paginationNumber-1)))){
+                continue;
+            }
+            hashMap= new HashMap<String, Object>();
+            hashMap.put("acteId", rSet.getInt("idActe"));
+            hashMap.put("nodeId", rSet.getString("idHospital"));
+            hashMap.put("patientId", rSet.getString("UUID"));
+            hashMap.put("medecinId ", rSet.getString("Responsable"));
+            hashMap.put("description ", rSet.getString("Description"));
+            hashMap.put("date", rSet.getTimestamp("DateDebut"));
+            hashMap.put("link", rSet.getString("DocumentLink"));
+            hashMap.put("type", rSet.getString("Name"));
+            hashMap.put("title", rSet.getString("Nom"));
+            list.add(hashMap);
+
+        }
+
+        return list;
+    }
+    public List<HashMap<String, Object>> printActe(int patientId, String search, String sortItem, int paginationNumber,
+                                                   int paginationLength) throws SQLException {
+
+        return printActe(patientId, search, sortItem, paginationNumber, paginationLength, false);
+
     }
 
+
+   /* public HashMap<String, Object> getActe(int documentId) {
+        return null;
+    }*/
+
+   /*Uniquement si le temps
     public void createProfile(int idStaffMember, String skills, int idStaffType, int idUser, int numSecu, String IBAN, String BIC, int idHospital, int nbBureau) {
         return;
     }
@@ -314,6 +441,8 @@ public class SQLManager implements ISingleton {
         return false;
     }
 
+    */
+
     public boolean createUnit(String name, int idRattache, int idStaffMember) throws SQLException {
         int type=0;
 
@@ -348,23 +477,148 @@ public class SQLManager implements ISingleton {
     public boolean createPatient(int staffId, Contact contact, Private private) {
         return null;
     }*/
-    public List<HashMap<String, Object>> getNodeChild(int nodeId) {
-        return null;
+    public List<HashMap<String, Object>> getHospitalArchitecture() throws SQLException {
+
+        return getNodeChild(-1);
     }
 
-    public List<HashMap<String, Object>> getPersonnalForPatient(int patientId) {
-        return null;
+    private String IntToTypeStringConverter(int Type) {
+        switch (Type) {
+            case 1:
+
+                return "hospital";
+            case 2:
+
+                return "pole";
+            case 3:
+
+                return "sector";
+
+            default:
+                return "Unknow";
+        }
     }
 
-    public boolean deletePersonnalForPatient(int nodeId, int staffId, int patientId) {
+    private boolean _firstAboParcour=true;
+
+
+
+    public List<HashMap<String, Object>> getArchitecture(int nodeId) throws SQLException {
+        String sqlString = "SELECT ratache From Unit WHERE idHospital=?";
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        ps.setInt(1, nodeId);
+        ResultSet rSet = ps.executeQuery();
+        rSet.next();
+        int parent=rSet.getInt("ratache");
+        System.out.println(parent);
+        if(parent!=-1) {
+            return getNodeChild(parent);
+        }
+        return null;
+    }
+    public List<HashMap<String, Object>> getNodeChild(int nodeId) throws SQLException {
+
+        List<HashMap<String, Object>> hasmaList = new ArrayList<HashMap<String, Object>>();
+        String sqlString = null;
+        if (nodeId < 0) {
+            sqlString = "SELECT idHospital, Name, Type From Unit WHERE ratache=?";
+            nodeId=17;
+        } else {
+            if(_firstAboParcour) {
+                sqlString = "SELECT idHospital, Name,Type From Unit WHERE idHospital=?";
+                PreparedStatement ps = con.prepareStatement(sqlString);
+                ps.setInt(1, nodeId);
+                ResultSet rSet = ps.executeQuery();
+
+                _firstAboParcour=false;
+                if (rSet.next()) {
+                    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+                    String name=IntToTypeStringConverter(rSet.getInt("Type"));
+                    hashMap.put(name+"Id", rSet.getInt("idHospital"));
+                    hashMap.put(name+"Name", rSet.getString("Name"));
+                    List<HashMap<String, Object>> x=getNodeChild(rSet.getInt("idHospital"));
+                    String name2=IntToTypeStringConverter(rSet.getInt("Type")+1);
+                    if(x.size()>0)
+                        hashMap.put(name2, x);
+                    hasmaList.add(hashMap);
+                    _firstAboParcour=true;
+                    return hasmaList;
+                }
+            }
+            sqlString = "SELECT idHospital, Name, Type From Unit WHERE ratache=?";
+
+
+        }
+
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        ps.setInt(1, nodeId);
+        ResultSet rSet = ps.executeQuery();
+
+        while (rSet.next()) {
+            HashMap<String, Object> hashMap = new HashMap<String, Object>();
+            String name=IntToTypeStringConverter(rSet.getInt("Type")+1);
+
+            hashMap.put("nameId", rSet.getInt("idHospital"));
+            hashMap.put("nameName", rSet.getString("Name"));
+
+            System.out.println(rSet.getInt("idHospital"));
+            List<HashMap<String, Object>> x=getNodeChild(rSet.getInt("idHospital"));
+            if(x.size()>0)
+                hashMap.put(name, x);
+            hasmaList.add(hashMap);
+        }
+
+        return hasmaList;
+
+    }
+
+    public List<HashMap<String, Object>> getPersonnalForPatient(int patientId) throws SQLException {
+
+        List<HashMap<String, Object>> list=new ArrayList<HashMap<String,Object>>();
+        HashMap<String, Object> hashMap;
+        String idsActe="SELECT\r\n" +
+                "    staffmember.idStaffMember,\r\n" +
+                "    enumstafftype.JobName,\r\n" +
+                "    demoinformations.Name,\r\n" +
+                "    demoinformations.FirstName\r\n" +
+                "FROM\r\n" +
+                "    staffmember,\r\n" +
+                "    acte,\r\n" +
+                "    demoinformations,\r\n" +
+                "    enumstafftype\r\n" +
+                "WHERE\r\n" +
+                "    acte.Responsable = staffmember.idStaffMember AND demoinformations.NumSecu = staffmember.DemoInformations_NumSecu \r\n" +
+                "AND acte.MedicalFolder_idFolder = ? \r\n" +
+                "AND enumstafftype.idEnumStaffType = staffmember.EnumStaffType_idEnumStaffType;";
+        PreparedStatement ps=con.prepareStatement(idsActe);
+        ps.setInt(1, patientId);
+        ResultSet rSet=ps.executeQuery();
+        while (rSet.next()) {
+            hashMap=new HashMap<String, Object>();
+            hashMap.put("id", rSet.getInt("idStaffMember"));
+            hashMap.put("name", rSet.getString("FirstName"));
+            hashMap.put("lastname", rSet.getString("Name"));
+            hashMap.put("type", rSet.getString("JobName"));
+            list.add(hashMap);
+
+        }
+        return list;
+
+    }
+
+    /*public boolean deletePersonnalForPatient(int nodeId, int staffId, int patientId) {
         return false;
-    }
+    }*/
 
-    public List<HashMap<String, Object>> getPersonnalType() {
-        return null;
-    }
 
     /*public boolean createProfileAndSendEmail(int typeId, String name, String lastName, int birthDate, int phoneNumber, int phoneLandline, String email) throws SQLException {
+
+    /*public List<HashMap<String, Object>> getPersonnalType() {
+        return null;
+    }*/
+/*
+    public boolean createProfileAndSendEmail(int typeId, String name, String lastName, int birthDate, int phoneNumber, int phoneLandline, String email) {
+
         String login=name+lastName;
         String profile="INSERT INTO applicationuser VALUES ('?', '?', '?');";
         PreparedStatement ps=con.prepareStatement(profile);
@@ -380,7 +634,7 @@ public class SQLManager implements ISingleton {
         ResultSet rs=ps.executeQuery();
         return rs.getInt(0);
     }
-
+/*
     private boolean patientExist(int numSecu) {
         return false;
     }
@@ -436,6 +690,8 @@ public class SQLManager implements ISingleton {
     private boolean modifyContactPatient(int idPeople, String phoneNumber, String phoneLandLine, String email, boolean isPatient) {
         return false;
     }
+    */
+
 
 }
 
