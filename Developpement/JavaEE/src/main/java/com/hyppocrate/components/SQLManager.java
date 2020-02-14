@@ -225,30 +225,6 @@ public class SQLManager implements ISingleton {
         return null;
     }
 
-    public List<HashMap<String, Object>> printDMP(String staffId, String patientId, String actPrintableName,  String search, int paginationNumber, int paginationLength) throws SQLException{
-        //Les parametres apres patientId n'ont pas encore ete implante dans la methode
-        List<HashMap<String, Object>> res = new ArrayList<>();
-        String getMedDocType = "SELECT * FROM dmp WHERE idDoctor=? AND DemoInformations_NumSecu=?;";
-        PreparedStatement ps = con.prepareStatement(getMedDocType);
-        ps.setString(1, staffId);
-        ps.setString(2, patientId);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            String id = rs.getString("UUID");
-            String staff = rs.getString("idDoctor");
-            String patient = rs.getString("DemoInformations_NumSecu");
-            HashMap<String, Object> type = new HashMap<>();
-            type.put("UUID",id);
-            type.put("idDoctor",staff);
-            type.put("DemoInformations_NumSecu",patient);
-            res.add(type);
-        }
-        if (res.size() == 0) {
-            return null;
-        }
-        return res;
-    }
-
     public List<HashMap<String, Object>> getMedicalDocumentType() throws SQLException{
         List<HashMap<String, Object>> res = new ArrayList<>();
         String getMedDocType = "SELECT * FROM documenttype;";
