@@ -52,7 +52,7 @@ public class SQLManager implements ISingleton {
         return false;
     }
 
-    public boolean updateBrouillon(int draftId, String title, String type, String description) {
+    public boolean updateBrouillon(int draftId, String title, String type, String description) throws SQLException{
         String update="UPDATE medicaldocument SET DocumentName=?, DocumentType_idDocumentType=?, ChampsObligatoire_Name=? WHERE idMedicalDocument=? AND IsADraft=1;";
         PreparedStatement pStatement = con.prepareStatement(update);
         pStatement.setString(1, title);
