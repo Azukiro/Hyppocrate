@@ -174,7 +174,7 @@ public class SQLManager implements ISingleton {
         return direcoryPatientString;
     }
 
-    public boolean CreateDraft(int staffId, int patientId, String title, int type, String description, File file) throws SQLException, IOException {
+    public boolean CreateDraftt(int staffId, int patientId, String title, int type, String description, File file) throws SQLException, IOException {
 
         return publishActe(staffId, patientId, title, type, description, file, true);
     }
@@ -865,9 +865,7 @@ public class SQLManager implements ISingleton {
         return rs.getInt(0);
     }
 
-    public Object createDraft(int staffId, int nodeId, int patientId, String title, String type, int description, String file) {
-        return null;
-    }
+
 
     public Object searchDMPs(int staffId, int patientId, String actPrintableName, String search, int paginationNumber, int paginationLength) {
         return null;

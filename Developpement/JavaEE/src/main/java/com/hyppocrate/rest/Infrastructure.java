@@ -26,7 +26,12 @@ public class Infrastructure {
     @Produces(MediaType.APPLICATION_JSON)
     public Response hospital(@Context UriInfo ui) {
 
-        return Responses.objectOrCustomNull(SQLManager.getInstance().getAllHospitals());
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getHospitalArchitecture());
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
+
     }
 
     @Path("/pole")
@@ -35,7 +40,11 @@ public class Infrastructure {
     public Response pole(@Context UriInfo ui,
                          @QueryParam("id") final int id) {
 
-        return Responses.objectOrCustomNull(SQLManager.getInstance().getAllPoles(id));
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getArchitecture(id));
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
     }
 
     @Path("/sector")
@@ -44,7 +53,11 @@ public class Infrastructure {
     public Response sector(@Context UriInfo ui,
                            @QueryParam("nodeId") final int nodeId) {
 
-        return Responses.objectOrCustomNull(SQLManager.getInstance().getAllSector(nodeId));
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getArchitecture(nodeId));
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
     }
 
     @Path("/unit")

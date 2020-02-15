@@ -9,6 +9,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Path("/medical-act")
@@ -23,11 +25,17 @@ public class MedicalAct {
                           @QueryParam("nodeId") final int nodeId,
                           @QueryParam("patientId") final int patientId,
                           @QueryParam("title") final String title,
-                          @QueryParam("type") final String type,
-                          @QueryParam("description") final int description,
-                          @QueryParam("file") final String file) {
+                          @QueryParam("type") final int type,
+                          @QueryParam("description") final String description,
+                          @QueryParam("file") final File file) {
 
-        return Responses.objectOrCustomNull(SQLManager.getInstance().createDraft(staffId, nodeId, patientId, title, type, description, file));
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().CreateDraftt(staffId, patientId, title, type, description, file));
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        } catch (IOException e) {
+            return Responses.nullResponse();
+        }
     }
 
     // FIXME: 18/01/2020
