@@ -14,12 +14,12 @@ public class AuthentificationModule {
     public String getConnected() {
         return login;
     }
-    public HashMap<String, Object> getUser() {
+    /*public HashMap<String, Object> getUser() {
         if (login == null) {
             return null;
         }
         return null;
-    }
+    }*/
     public static boolean connect(String id, String password) throws SQLException {
         if (login == null) {
             return false;
