@@ -599,11 +599,23 @@ public class SQLManager implements ISingleton {
             HashMap<String, Object> member = new HashMap<>();
             member.put("idStaffMember",rs.getInt("idStaffMember"));
             member.put("Skills",rs.getString("Skills"));
-            member.put("EnumStaffType_idEnumStaffType",rs.getInt("EnumStaffType_idEnumStaffType"));
+
+            String staffType = "SELECT * FROM enumstafftype WHERE idEnumStaffType=?;";
+            PreparedStatement psType = con.prepareStatement(staffType);
+            psType.setInt(1, rs.getInt("EnumStaffType_idEnumStaffType"));
+            ResultSet rsType = psType.executeQuery();
+            rsType.next();
+            member.put("EnumStaffType_idEnumStaffType",rsType.getString("JobName"));
             member.put("DemoInformations_NumSecu",rs.getLong("DemoInformations_NumSecu"));
             member.put("IBAN",rs.getString("IBAN"));
             member.put("BIC",rs.getString("BIC"));
-            member.put("Hospital_idHospital",rs.getInt("Hospital_idHospital"));
+
+            String staffHospital = "SELECT * FROM unit WHERE idHospital=?;";
+            PreparedStatement psHospital = con.prepareStatement(staffHospital);
+            psHospital.setInt(1, rs.getInt("Hospital_idHospital"));
+            ResultSet rsHospital = psHospital.executeQuery();
+            rsHospital.next();
+            member.put("Hospital_idHospital",rsHospital.getString("Name"));
             member.put("NbBureau",rs.getInt("NbBureau"));
             member.put("Login",rs.getString("Login"));
 
