@@ -15,6 +15,9 @@ public class AuthentificationModule {
         return login;
     }
     public HashMap<String, Object> getUser() {
+        if (login == null) {
+            return null;
+        }
         return null;
     }
     public static boolean connect(String id, String password) throws SQLException {
