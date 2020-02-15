@@ -15,7 +15,7 @@ public class LangManager {
         try {
             return SQLManager.getInstance().getString(idString, idLangue);
         } catch (SQLException e) {
-            return "Exception";
+            return e.toString();
         }
     }
 

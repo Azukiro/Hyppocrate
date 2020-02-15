@@ -1,12 +1,14 @@
 package com.hyppocrate.rest;
 
 import com.hyppocrate.components.SQLManager;
+import com.hyppocrate.utilities.Responses;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.sql.SQLException;
 
 @Path("/patient/search")
 public class Patient {
@@ -23,7 +25,11 @@ public class Patient {
                         @DefaultValue("") @QueryParam("paginationLenght") final int paginationLenght) {
 
         //SQLManager.getInstance().
-        return null;
+        try {
+              return Responses.objectOrCustomNull(SQLManager.getInstance().printDMP(staffId,search,sortColumnName,paginationNumber,paginationLenght));
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
     }
 
     @Path("/sort-items")
@@ -31,7 +37,7 @@ public class Patient {
     @Produces(MediaType.APPLICATION_JSON)
     public Response sortItems(@Context UriInfo ui) {
 
-        return Response.ok(SQLManager.getInstance().patientSortItems()).build();
+        return Response.ok(SQLManager.getInstance().printSortDmpItems()).build();
     }
 
 
