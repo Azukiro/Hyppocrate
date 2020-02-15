@@ -14,10 +14,10 @@ import java.util.Date;
 public class SQLManager implements ISingleton {
 
     //private static final String url = "jdbc:mysql://localhost:3306/mydb";
-    private static final String username = "root";
-    private static final String password = "MOT DE PASSE MYSQL LOCALHOST A METTRE ICI "; // le mien c'était le mot de passe de mon compte windows
+    private static final String username = "hyppocrytos";
+    private static final String password = "hyppocrytos-SQL2019"; // le mien c'était le mot de passe de mon compte windows
     private static final String serverName = "localhost";
-    private static final String database = "mydb";
+    private static final String database = "hyppocrytos";
 
     //https://stackoverflow.com/questions/2839321/connect-java-to-a-mysql-database/2839563#2839563
     Context context;
@@ -37,11 +37,8 @@ public class SQLManager implements ISingleton {
             System.out.println("Tentative de connexion...");
             con = dataSource.getConnection();
             Statement stmt = con.createStatement(); // C'est mieux les PreparedStatement
-            ResultSet rs = stmt.executeQuery("SELECT * FROM String");
-            rs.close();
             stmt.close();
             System.out.println("Connection = " + con);
-            con.close();
 
         } catch (SQLException e) {
             System.err.println("[ERROR]");
@@ -68,12 +65,12 @@ public class SQLManager implements ISingleton {
 
     public String getString(String appelationString, String language) throws SQLException {
         String result = "";
-        PreparedStatement ps = con.prepareStatement("select StringContent from String where idString =? and Langue = ?");
+        PreparedStatement ps = con.prepareStatement("select StringContent from string where idString =? and Langue_idLangue = ?");
         ps.setString(1, appelationString);
         ps.setString(2, language);
         ResultSet rs=ps.executeQuery();
         while(rs.next())
-           result += rs.toString();
+           result += rs.getString("StringContent");
 
         return result;
     }
