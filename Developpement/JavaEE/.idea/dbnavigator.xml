@@ -151,21 +151,21 @@
       </connection>
       <connection id="e61b667e-287d-416c-8035-7a1e9cf7cda0" active="true">
         <database>
-          <name value="Connection" />
+          <name value="Hyppocrate" />
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
-          <database-version value="9999.0" />
+          <database-version value="5.7" />
           <driver-source value="BUILTIN" />
           <driver-library value="" />
           <driver value="" />
           <url-type value="DATABASE" />
-          <host value="localhost" />
+          <host value="51.178.45.82" />
           <port value="3306" />
-          <database value="mysql" />
+          <database value="hyppocrytos" />
           <type value="USER_PASSWORD" />
-          <user value="" />
-          <deprecated-pwd value="" />
+          <user value="hyppocrytos" />
+          <deprecated-pwd value="aHlwcG9jcnl0b3MtU1FMMjAxOQ==" />
         </database>
         <properties>
           <auto-commit value="false" />
