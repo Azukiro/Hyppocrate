@@ -27,7 +27,7 @@ public class MedicalAct {
                           @QueryParam("title") final String title,
                           @QueryParam("type") final int type,
                           @QueryParam("description") final String description,
-                          @QueryParam("file") final File file) {
+                          @QueryParam("file") final String file) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().CreateDraftt(staffId, patientId, title, type, description, file));

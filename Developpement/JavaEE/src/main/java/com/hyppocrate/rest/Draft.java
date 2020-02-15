@@ -26,7 +26,7 @@ public class Draft {
     }
 
     // TODO: 17/01/2020
-    @Path("/actions/publishUpdate")
+    @Path("/actions/publish")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response publish(@Context UriInfo ui,
@@ -34,7 +34,7 @@ public class Draft {
                             @QueryParam("patientId") final int patientId,
                             @QueryParam("title") final String title,
                             @QueryParam("description") final String description,
-                            @QueryParam("file") final File file) {
+                            @QueryParam("file") final String file) {
 
         //SQLManager.getInstance().pu
         try {
@@ -46,28 +46,7 @@ public class Draft {
         }
     }
 
-    // TODO: 17/01/2020
-    @Path("/actions/Create")
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response publish(@Context UriInfo ui,
-                            @QueryParam("staffId") final int staffId,
-                            @QueryParam("nodeId") final int nodeId,
-                            @QueryParam("patientId") final int patientId,
-                            @QueryParam("title") final String title,
-                            @QueryParam("type") final int type,
-                            @QueryParam("description") final String description,
-                            @QueryParam("file") final File file) {
-
-        //SQLManager.getInstance().pu
-        try {
-            return Response.ok(SQLManager.getInstance().CreateDraftt(staffId,patientId,title,type,description,file)).build();
-        } catch (SQLException e) {
-            return Responses.nullResponse();
-        } catch (IOException e) {
-            return Responses.nullResponse();
-        }
-    }
+  
 
     // TODO: 17/01/2020
     @Path("/actions/update")
@@ -78,7 +57,7 @@ public class Draft {
                            @QueryParam("patientId") final int patientId,
                            @QueryParam("title") final String title,
                            @QueryParam("description") final String description,
-                           @QueryParam("file") final File file) {
+                           @QueryParam("file") final String file) {
 
         try {
             return Response.ok(SQLManager.getInstance().updateBrouillon(patientId,draftId,title,description,file)).build();
