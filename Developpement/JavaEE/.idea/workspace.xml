@@ -69,7 +69,7 @@
       <recent name="C:\Users\Vincent Buisset\Documents\Projet\Projet-Delire\Developpement\JavaEE" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.Build And Copy">
+  <component name="RunManager" selected="Shell Script.Launch Server">
     <list>
       <item itemvalue="Shell Script.Build And Copy" />
       <item itemvalue="Shell Script.Launch Server" />
@@ -121,11 +121,12 @@
       <screen x="0" y="0" width="1366" height="736" />
     </state>
     <state x="488" y="84" key="#com.intellij.ide.util.MemberChooser/0.0.1366.736@0.0.1366.736" timestamp="1578944085496" />
+
     <state x="739" y="363" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1581760764486">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="526" y="254" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.728@0.0.1366.728" timestamp="1579859539764" />
-    <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.736@0.0.1366.736" timestamp="1578580235766" />
+    <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.736@0.0.1366.736" timestamp="1581771281890" />
     <state x="739" y="363" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1581760764486" />
     <state x="826" y="143" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1579896273590">
       <screen x="0" y="0" width="1920" height="1040" />
