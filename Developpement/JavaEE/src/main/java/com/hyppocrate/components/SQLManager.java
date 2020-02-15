@@ -589,14 +589,32 @@ public class SQLManager implements ISingleton {
     public List getStaffMembers(int idStaffType) {
         return null;
     }
-
-    public HashMap<String, Object> getStaffMember(int idStaffMember) {
-        return null;
-    }
 */
-    public HashMap<String, Object> getStaffMember(String email) {
+    public HashMap<String, Object> getStaffMember(int idStaffMember) throws SQLException {
+        String staff = "SELECT * FROM staffmember WHERE idStaffMember=?;";
+        PreparedStatement ps = con.prepareStatement(staff);
+        ps.setInt(1, idStaffMember);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            HashMap<String, Object> member = new HashMap<>();
+            member.put("idStaffMember",rs.getInt("idStaffMember"));
+            member.put("Skills",rs.getString("Skills"));
+            member.put("EnumStaffType_idEnumStaffType",rs.getInt("EnumStaffType_idEnumStaffType"));
+            member.put("DemoInformations_NumSecu",rs.getLong("DemoInformations_NumSecu"));
+            member.put("IBAN",rs.getString("IBAN"));
+            member.put("BIC",rs.getString("BIC"));
+            member.put("Hospital_idHospital",rs.getInt("Hospital_idHospital"));
+            member.put("NbBureau",rs.getInt("NbBureau"));
+            member.put("Login",rs.getString("Login"));
+
+            return member;
+        }
         return null;
     }
+
+    /*public HashMap<String, Object> getStaffMember(String email) {
+        return null;
+    }*/
     public int getEnumStaffType(int idStaffMember) {
         return 0;
     }
