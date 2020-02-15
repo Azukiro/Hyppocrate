@@ -121,8 +121,9 @@
       <screen x="0" y="0" width="1366" height="736" />
     </state>
     <state x="488" y="84" key="#com.intellij.ide.util.MemberChooser/0.0.1366.736@0.0.1366.736" timestamp="1578944085496" />
-    <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1581771281890">
-      <screen x="0" y="0" width="1366" height="736" />
+
+    <state x="739" y="363" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1581760764486">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="526" y="254" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.728@0.0.1366.728" timestamp="1579859539764" />
     <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.736@0.0.1366.736" timestamp="1581771281890" />
@@ -171,21 +172,21 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="490" y="175" key="Maven.ArtifactSearchDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1581693995666" />
-    <state x="131" y="50" width="1336" height="857" key="SettingsEditor" timestamp="1581708981437">
+    <state x="131" y="50" width="1336" height="857" key="SettingsEditor" timestamp="1581767498516">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="187" y="19" key="SettingsEditor/0.0.1366.736@0.0.1366.736" timestamp="1578579989952" />
     <state x="131" y="50" width="1336" height="857" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579896393033" />
-    <state x="131" y="50" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1581708981437" />
+    <state x="131" y="50" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1581767498516" />
     <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1578580576868">
       <screen x="0" y="0" width="1366" height="736" />
     </state>
     <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.736@0.0.1366.736" timestamp="1578580576868" />
-    <state x="540" y="271" key="com.intellij.ide.util.TipDialog" timestamp="1581712037266">
+    <state x="540" y="271" key="com.intellij.ide.util.TipDialog" timestamp="1581765800153">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="384" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.736@0.0.1366.736" timestamp="1578580119848" />
-    <state x="540" y="271" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581712037266" />
+    <state x="540" y="271" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581765800153" />
     <state x="668" y="445" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1579895021644">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
