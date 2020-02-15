@@ -1,20 +1,35 @@
 package com.hyppocrate.components;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class AuthentificationModule {
 
-    public static int getConnected() {
-        return 0;
+    private static String login;
+
+    public AuthentificationModule() {
+        login = null;
     }
-    public static HashMap<String, Object> getUser() {
+
+    public String getConnected() {
+        return login;
+    }
+    public HashMap<String, Object> getUser() {
         return null;
     }
-    public static boolean connect(int id, String password) {
-        return false;
+    public static boolean connect(String id, String password) throws SQLException {
+        if (login == null) {
+            return false;
+        }
+        if (SQLManager.getInstance().connect(id, password) == null) {
+            return false;
+        }
+        login = id;
+        return true;
     }
+
     public static void disconnect() {
-        return;
+        login = null;
     }
 
 }
