@@ -20,18 +20,24 @@ public class AuthentificationModule {
         }
         return null;
     }*/
-    public static boolean connect(String id, String password) throws SQLException {
-        if (login == null) {
+    public boolean connect(String id, String password) throws SQLException, ClassNotFoundException {
+        if (id == null || password == null) {
             return false;
         }
+        if (password.equals("")) {
+            return false; //do nothing
+        }
+        if (login != null) {
+            return false; //already connected so no need to connect again
+        }
         if (SQLManager.getInstance().connect(id, password) == null) {
-            return false;
+            return false; //user not found
         }
         login = id;
         return true;
     }
 
-    public static void disconnect() {
+    public void disconnect() {
         login = null;
     }
 
