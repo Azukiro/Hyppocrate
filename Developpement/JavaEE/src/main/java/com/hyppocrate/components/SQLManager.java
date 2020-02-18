@@ -21,7 +21,7 @@ public class SQLManager implements ISingleton {
     private static final String username = "hyppocrytos";
     private static final String password = "hyppocrytos-SQL2019"; // le mien c'était le mot de passe de mon compte windows
     private static final String serverName = "localhost";
-    private static final String database = "hyppocrytos";
+    private static final String database = "hyppocrate";
 
     //https://stackoverflow.com/questions/2839321/connect-java-to-a-mysql-database/2839563#2839563
     Context context;
@@ -899,7 +899,7 @@ public class SQLManager implements ISingleton {
 
 
     public List<HashMap<String, Object>> getArchitecture(int nodeId) throws SQLException {
-        String sqlString = "SELECT ratache From Unit WHERE idHospital=?";
+        String sqlString = "SELECT ratache From unit WHERE idHospital=?";
         PreparedStatement ps = con.prepareStatement(sqlString);
         ps.setInt(1, nodeId);
         ResultSet rSet = ps.executeQuery();
@@ -916,11 +916,11 @@ public class SQLManager implements ISingleton {
         List<HashMap<String, Object>> hasmaList = new ArrayList<HashMap<String, Object>>();
         String sqlString = null;
         if (nodeId < 0) {
-            sqlString = "SELECT idHospital, Name, Type From Unit WHERE ratache=?";
+            sqlString = "SELECT idHospital, Name, Type From unit WHERE ratache=?";
             nodeId=17;
         } else {
             if(_firstAboParcour) {
-                sqlString = "SELECT idHospital, Name,Type From Unit WHERE idHospital=?";
+                sqlString = "SELECT idHospital, Name,Type From unit WHERE idHospital=?";
                 PreparedStatement ps = con.prepareStatement(sqlString);
                 ps.setInt(1, nodeId);
                 ResultSet rSet = ps.executeQuery();
@@ -940,7 +940,7 @@ public class SQLManager implements ISingleton {
                     return hasmaList;
                 }
             }
-            sqlString = "SELECT idHospital, Name, Type From Unit WHERE ratache=?";
+            sqlString = "SELECT idHospital, Name, Type From unit WHERE ratache=?";
 
 
         }

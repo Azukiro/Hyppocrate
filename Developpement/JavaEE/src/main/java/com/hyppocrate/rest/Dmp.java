@@ -13,7 +13,6 @@ import java.util.HashMap;
 @Path("/dmp")
 public class Dmp {
 
-    // FIXME: 18/01/2020 rajouter les explications d'erreurs
     @Path("/print/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,7 +37,6 @@ public class Dmp {
         return Responses.objectOrCustomNull(SQLManager.getInstance().getDocument(id));
     }
 
-    // TODO: 16/01/2020
     @Path("/print/sort-items")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

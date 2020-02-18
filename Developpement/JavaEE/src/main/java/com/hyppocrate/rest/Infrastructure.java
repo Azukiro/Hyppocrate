@@ -34,7 +34,7 @@ public class Infrastructure {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllHospitals());
         } catch (SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
 
     }
