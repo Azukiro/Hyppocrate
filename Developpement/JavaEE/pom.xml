@@ -187,7 +187,11 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-archiver</artifactId>
+            <version>4.2.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -221,6 +225,7 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>

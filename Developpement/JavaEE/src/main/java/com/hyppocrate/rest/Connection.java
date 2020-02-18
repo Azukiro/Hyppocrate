@@ -8,6 +8,7 @@ import com.hyppocrate.utilities.Utils;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -29,20 +30,27 @@ public class Connection {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(@Context UriInfo ui,
                           @QueryParam("email") final String email,
-                          @QueryParam("pwd") final String pwd) {
+                          @QueryParam("pwd") final String pwd) throws SQLException {
 
         if (Str.isNullOrEmpty(email) || Str.isNullOrEmpty(pwd)) return Responses.errorResponse("badConnection");
 
+        AuthentificationModule authModule = new AuthentificationModule();
+
+
         // Récupère le membre du staff qui veut se connecter
         HashMap<String, Object> staffMember = Utils.callIfDeployed(SQLManager.getInstance().getStaffMember(email), getTestStaffMemberMap());
-        Integer idStaffMember = (Integer) Utils.tryGet(staffMember, "id");
+        String idStaffMember = (String) Utils.tryGet(staffMember, "id");
 
         // Essaie de le connecter
-        if (!AuthentificationModule.connect(idStaffMember, pwd)) {
-            return Response.ok(Responses.GENERIC_NULL).build(); // connexion échouée
+        try {
+            if (!authModule.connect(idStaffMember, pwd)) {
+                return Response.ok(Responses.GENERIC_NULL).build(); // connexion échouée
+            }
+        } catch (Exception e) {
+            return Responses.errorResponse(e.toString());
         }
 
-        int idStaffType = SQLManager.getInstance().getEnumStaffType(idStaffMember);
+        int idStaffType = SQLManager.getInstance().getEnumStaffType(Integer.parseInt(idStaffMember));
         HashMap<String, Object> hashResult = new HashMap<>();
         hashResult.put("id", idStaffMember);
         hashResult.put("type", idStaffType);
@@ -60,7 +68,7 @@ public class Connection {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     public Response forgot(@Context UriInfo ui,
-                           @QueryParam("email") final String email) {
+                           @QueryParam("email") final String email) throws SQLException {
 
         if (Str.isNullOrEmpty(email)) return Responses.nullResponse();
         // Récupère le membre du staff qui veut se connecter

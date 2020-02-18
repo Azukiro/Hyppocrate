@@ -587,9 +587,40 @@ public class SQLManager implements ISingleton {
         return null;
     }
 
-    /*public HashMap<String, Object> getStaffMember(String email) {
+    // TODO: 18/02/2020
+    public HashMap<String, Object> getStaffMember(String email) throws SQLException {
+        String staff = "SELECT * FROM staffmember WHERE email=?;";
+        PreparedStatement ps = con.prepareStatement(staff);
+        ps.setString(1, email);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            HashMap<String, Object> member = new HashMap<>();
+            member.put("idStaffMember",rs.getInt("idStaffMember"));
+            member.put("Skills",rs.getString("Skills"));
+
+            String staffType = "SELECT * FROM enumstafftype WHERE idEnumStaffType=?;";
+            PreparedStatement psType = con.prepareStatement(staffType);
+            psType.setInt(1, rs.getInt("EnumStaffType_idEnumStaffType"));
+            ResultSet rsType = psType.executeQuery();
+            rsType.next();
+            member.put("EnumStaffType_idEnumStaffType",rsType.getString("JobName"));
+            member.put("DemoInformations_NumSecu",rs.getLong("DemoInformations_NumSecu"));
+            member.put("IBAN",rs.getString("IBAN"));
+            member.put("BIC",rs.getString("BIC"));
+
+            String staffHospital = "SELECT * FROM unit WHERE idHospital=?;";
+            PreparedStatement psHospital = con.prepareStatement(staffHospital);
+            psHospital.setInt(1, rs.getInt("Hospital_idHospital"));
+            ResultSet rsHospital = psHospital.executeQuery();
+            rsHospital.next();
+            member.put("Hospital_idHospital",rsHospital.getString("Name"));
+            member.put("NbBureau",rs.getInt("NbBureau"));
+            member.put("Login",rs.getString("Login"));
+
+            return member;
+        }
         return null;
-    }*/
+    }
     public int getEnumStaffType(int idStaffMember) {
         return 0;
     }
@@ -647,7 +678,7 @@ public class SQLManager implements ISingleton {
                 throw new IllegalArgumentException();
             }
             System.out.println(type);
-            var sqlRequest = "INSERT INTO Unit(Name, Type, Director, ratache) VALUES (?, ?, ?,?); ";
+            String sqlRequest = "INSERT INTO Unit(Name, Type, Director, ratache) VALUES (?, ?, ?,?); ";
             System.err.println(con);
             ps = con.prepareStatement(sqlRequest);
             ps.setString(1, name);
@@ -656,7 +687,7 @@ public class SQLManager implements ISingleton {
             ps.setLong(4, idRattache);
             System.out.println(ps);
         } else {
-            var sqlRequest = "INSERT INTO Unit(Name, Type, Director) VALUES (?, ?, ?); ";
+            String sqlRequest = "INSERT INTO Unit(Name, Type, Director) VALUES (?, ?, ?); ";
             System.err.println(con);
             ps = con.prepareStatement(sqlRequest);
             ps.setString(1, name);

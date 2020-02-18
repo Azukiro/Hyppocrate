@@ -26,7 +26,7 @@ public class Patient {
 
         //SQLManager.getInstance().
         try {
-              return Responses.objectOrCustomNull(SQLManager.getInstance().printDMP(staffId,search,sortColumnName,paginationNumber,paginationLenght));
+              return Responses.objectOrCustomNull(SQLManager.getInstance().printDMP(search,sortColumnName,paginationNumber,paginationLenght));
         } catch (SQLException e) {
             return Responses.nullResponse();
         }
@@ -39,6 +39,5 @@ public class Patient {
 
         return Response.ok(SQLManager.getInstance().printSortDmpItems()).build();
     }
-
 
 }

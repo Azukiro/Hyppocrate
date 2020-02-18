@@ -20,7 +20,7 @@ public class AuthentificationModule {
         }
         return null;
     }*/
-    public boolean connect(String id, String password) throws SQLException, ClassNotFoundException {
+    public boolean connect(String id, String password) throws SQLException {
         if (id == null || password == null) {
             return false;
         }
