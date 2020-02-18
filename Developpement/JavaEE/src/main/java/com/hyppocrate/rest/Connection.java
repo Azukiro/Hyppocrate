@@ -130,8 +130,8 @@ public class Connection {
         listResult.add(SQLManager.getInstance());
             ArrayList<Exception> exceptions=new ArrayList<Exception>();
             exceptions.add(new IllegalAccessException());
-        listResult.add(Utils.UnitTest(()-> {
-                 return SQLManager.getInstance().getString("Test","fr"); },"Test",exceptions ));
+        //listResult.add(Utils.UnitTest(()-> {
+           //      return SQLManager.getInstance().getString("Test","fr"); },"Test",exceptions ));
 
 
         return Response.ok(listResult).build();
