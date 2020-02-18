@@ -18,7 +18,12 @@ public class Infrastructure {
     @Produces(MediaType.APPLICATION_JSON)
     public Response all(@Context UriInfo ui) {
 
-        return Responses.objectOrCustomNull(SQLManager.getInstance().getAllInfrastructure());
+
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllArchitecture());
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
     }
 
     @Path("/hospital")
@@ -27,7 +32,7 @@ public class Infrastructure {
     public Response hospital(@Context UriInfo ui) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().getHospitalArchitecture());
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllHospitals());
         } catch (SQLException e) {
             return Responses.nullResponse();
         }
@@ -41,7 +46,7 @@ public class Infrastructure {
                          @QueryParam("id") final int id) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().getArchitecture(id));
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllPoles(id));
         } catch (SQLException e) {
             return Responses.nullResponse();
         }
@@ -54,7 +59,20 @@ public class Infrastructure {
                            @QueryParam("nodeId") final int nodeId) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().getArchitecture(nodeId));
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllSectors(nodeId));
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
+    }
+
+    @Path("/labo")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response labo(@Context UriInfo ui,
+                           @QueryParam("nodeId") final int nodeId) {
+
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllLabos(nodeId));
         } catch (SQLException e) {
             return Responses.nullResponse();
         }

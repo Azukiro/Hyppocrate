@@ -424,17 +424,14 @@ public class SQLManager implements ISingleton {
                 "    Description,\r\n" +
                 "    DocumentLink,\r\n" +
                 "    documenttype.Name,\r\n" +
-                "    unit.Name as 'hospi'\r\n" +
                 "FROM\r\n" +
                 "    `acte`,\r\n" +
                 "    dmp,\r\n" +
                 "    staffmember,\r\n" +
-                "    unit,\r\n" +
                 "    documenttype\r\n" +
                 "WHERE\r\n" +
                 "    acte.MedicalFolder_idFolder = dmp.UUID \r\n" +
                 "    AND acte.Responsable = staffmember.idStaffMember \r\n" +
-                "    AND unit.idHospital = staffmember.Hospital_idHospital \r\n"+
                 "    AND IsADraft = ? \r\n";
         if(doctorId!=-1){
             reqString+="AND staffmember.idStaffMember = ? \r\n";
@@ -489,8 +486,8 @@ public class SQLManager implements ISingleton {
             }
             hashMap= new HashMap<String, Object>();
             hashMap.put("acteId", rSet.getInt("idActe"));
-            hashMap.put("nodeName", rSet.getString("hospi"));
-            hashMap.put("medecinId ", rSet.getString("Responsable"));
+            hashMap.put("staffName ", rSet.getString("Responsable"));
+            hashMap.put("staffLastName ", rSet.getString("Responsable"));
             hashMap.put("description ", rSet.getString("Description"));
             hashMap.put("date", rSet.getTimestamp("DateDebut"));
             hashMap.put("link", rSet.getString("DocumentLink"));
@@ -506,6 +503,89 @@ public class SQLManager implements ISingleton {
                                                    int paginationLength) throws SQLException {
 
         return printActe(patientId, search, sortItem, paginationNumber, paginationLength, false, -1);
+
+    }
+
+    public boolean createProfile(long numsecu,String name, String lastName, String birthday,
+                                 String Adress,String email,String phone) throws SQLException {
+        if(CreateDemoInfo(numsecu, name, lastName, birthday, Adress, email, phone)) {
+            String resultString="INSERT INTO `staffmember`(\r\n" +
+                    "    `UUID`,\r\n" +
+                    "    `idDoctor`,\r\n" +
+                    "    `EnumStaffType_idEnumStaffType`,\r\n" +
+                    "    `DemoInformations_NumSecu`,\r\n" +
+                    "VALUES(\r\n" +
+                    "    NULL,\r\n" +
+                    "    NULL,\r\n" +
+                    "    ?,\r\n" +
+
+                    ");";
+            PreparedStatement pStatement=con.prepareStatement(resultString);
+            pStatement.setLong(1, numsecu);
+            System.out.println(pStatement);
+            return !pStatement.execute();
+
+        }
+        return false;
+    }
+
+    public boolean CreateStaff(long numsecu,String name, String lastName, String birthday,
+                               String Adress,String email,String phone,int typeId) throws SQLException {
+        String loginReq="INSERT INTO `applicationuser` (`Login`, `PassWord`, `Mail`) VALUES (?, ?, ?);";
+        PreparedStatement pStatement=con.prepareStatement(loginReq);
+        String login=name.substring(0,1)+lastName;
+        pStatement.setString(1, login);
+        pStatement.setString(2, login);
+        pStatement.setString(3, email);
+        if(!pStatement.execute()) {
+            if(CreateDemoInfo(numsecu, name, lastName, birthday, Adress, email, phone)) {
+                String resultString="INSERT INTO `staffmember`(\r\n" +
+                        "    `idStaffMember`,\r\n" +
+                        "    `Skills`,\r\n" +
+                        "    `EnumStaffType_idEnumStaffType`,\r\n" +
+                        "    `DemoInformations_NumSecu`,\r\n" +
+                        "    `IBAN`,\r\n" +
+                        "    `BIC`,\r\n" +
+                        "    `Hospital_idHospital`,\r\n" +
+                        "    `Login`\r\n" +
+                        ")\r\n" +
+                        "VALUES(\r\n" +
+                        "    NULL,\r\n" +
+                        "    NULL,\r\n" +
+                        "    ?,\r\n" +
+                        "    ?,\r\n" +
+                        "    NULL,\r\n" +
+                        "    NULL,\r\n" +
+                        "    NULL,\r\n" +
+                        "    ?\r\n" +
+                        ");";
+                pStatement=con.prepareStatement(resultString);
+                pStatement.setInt(1, typeId);
+                pStatement.setLong(2, numsecu);
+                pStatement.setString(3, login);
+                System.out.println(pStatement);
+                return !pStatement.execute();
+
+            }else {
+                System.out.println("échec");
+            }
+        }
+
+        return false;
+    }
+
+    private boolean CreateDemoInfo(long numsecu,String name, String lastName, String birthday,
+                                   String Adress,String email,String phone) throws SQLException {
+        String demoReqString="INSERT INTO `demoinformations` (`NumSecu`, `Name`, `FirstName`, `BirthDate`, `Adress`, `Sexe`, `Profession`, `FamilialSituation`, `PersonToContact_idPatient`, `PhoneNumber`, `EnumNationnality_idNat`, `City_idCity`, `Poid`, `Taille`) VALUES (?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, ?, NULL, NULL, NULL, NULL);";
+        PreparedStatement pStatement=con.prepareStatement(demoReqString);
+        String login=name.substring(0,1)+lastName;
+        pStatement.setLong(1, numsecu);
+        pStatement.setString(2, lastName);
+        pStatement.setString(3, name);
+        pStatement.setString(4, birthday);
+        pStatement.setString(5, Adress);
+        pStatement.setString(6, name);
+        return !pStatement.execute();
 
     }
 
@@ -705,10 +785,93 @@ public class SQLManager implements ISingleton {
     /* j'ai pas compris private
     public boolean createPatient(int staffId, Contact contact, Private private) {
         return null;
-    }*/
+    }
     public List<HashMap<String, Object>> getHospitalArchitecture() throws SQLException {
 
         return getNodeChild(-1);
+    }*/
+
+    public List<HashMap<String, Object>> getNodeByType(int type) throws SQLException {
+        List<HashMap<String, Object>> hasmaList = new ArrayList<HashMap<String, Object>>();
+        String sqlString = "SELECT idHospital, Name,Type From Unit WHERE Type=?";
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        ps.setInt(1, type);
+        ResultSet rSet = ps.executeQuery();
+
+        if (rSet.next()) {
+            HashMap<String, Object> hashMap = new HashMap<String, Object>();
+            String name = IntToTypeStringConverter(rSet.getInt("Type"));
+            hashMap.put(name + "Id", rSet.getInt("idHospital"));
+            hashMap.put(name + "Name", rSet.getString("Name"));
+            hasmaList.add(hashMap);
+        }else {
+            return null;
+        }
+
+        return hasmaList;
+    }
+
+    public List<HashMap<String, Object>> getNodeByTypeAndFather(int type,int father) throws SQLException {
+        List<HashMap<String, Object>> hasmaList = new ArrayList<HashMap<String, Object>>();
+
+        String sqlString = "SELECT idHospital, Name,Type From Unit WHERE Type=? AND ratache=?";
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        ps.setInt(1, type);
+        ps.setInt(2, father);
+        ResultSet rSet = ps.executeQuery();
+
+        if (rSet.next()) {
+            HashMap<String, Object> hashMap = new HashMap<String, Object>();
+            String name = IntToTypeStringConverter(rSet.getInt("Type"));
+            hashMap.put(name + "Id", rSet.getInt("idHospital"));
+            hashMap.put(name + "Name", rSet.getString("Name"));
+            hasmaList.add(hashMap);
+        }else {
+            return null;
+        }
+
+        return hasmaList;
+    }
+
+    public List<HashMap<String, Object>> getAllHospitals() throws SQLException{
+        return getNodeByType(1);
+    }
+
+    public List<HashMap<String, Object>> getAllPoles(int hospitalId) throws SQLException{
+        return getNodeByTypeAndFather(2,hospitalId);
+    }
+
+    public List<HashMap<String, Object>> getAllSectors(int poleId) throws SQLException{
+        return getNodeByTypeAndFather(3,poleId);
+    }
+
+    public List<HashMap<String, Object>> getAllLabos(int poleId) throws SQLException{
+        return getNodeByTypeAndFather(4,poleId);
+    }
+
+    public List<HashMap<String, Object>> getAllArchitecture() throws SQLException{
+        List<HashMap<String, Object>> hasmaList = new ArrayList<HashMap<String, Object>>();
+        for (var hospi : getAllHospitals()) {
+
+
+            List<HashMap<String, Object>> hasmaListPole = new ArrayList<HashMap<String, Object>>();
+            hospi.put("pole", hasmaListPole);
+            hasmaList.add(hospi);
+            for (var pole : getAllPoles((int)(hospi.get("hospitalId")))) {
+                List<HashMap<String, Object>> hasmaSector = new ArrayList<HashMap<String, Object>>();
+                pole.put("sector", hasmaSector);
+                List<HashMap<String, Object>> hasmaLabo = new ArrayList<HashMap<String, Object>>();
+                pole.put("labo", hasmaLabo);
+                hasmaListPole.add(pole);
+                for (var sector : getAllSectors((int)(pole.get("poleId")))) {
+                    hasmaSector.add(sector);
+                }
+                for (var labo : getAllLabos((int)(pole.get("poleId")))) {
+                    hasmaLabo.add(labo);
+                }
+            }
+        }
+        return hasmaList;
     }
 
     private String IntToTypeStringConverter(int Type) {
@@ -722,6 +885,9 @@ public class SQLManager implements ISingleton {
             case 3:
 
                 return "sector";
+            case 4:
+
+                return "labo";
 
             default:
                 return "Unknow";
@@ -854,7 +1020,7 @@ public class SQLManager implements ISingleton {
         ps.setString(1,login);
         ps.setString(2,login);
         return false;
-    }*/
+    }
 
     // voir le formatage de la réponse dans api rest
     public List<Object> getAllInfrastructure() {
@@ -866,12 +1032,12 @@ public class SQLManager implements ISingleton {
     public List<Object> getAllPoles(int idHospital) {
         return null;
     }
-    public List<Object> getAllSector(int nodeId) {
+    public List<Object> getAllSectors(int nodeId) {
         return null;
     }
     public List<Object> getAllUnit(int nodeId) {
         return null;
-    }
+    }*/
 
 
     public boolean deleteUnit(int nodeId) {
