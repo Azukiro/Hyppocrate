@@ -1,0 +1,113 @@
+<template>
+  <v-card color="transparent" outlined width="90%">
+    <div>
+      <p class="headline pt-5 text-center black--text">Consulter le dossier médical</p>
+
+      <SelectedPatient />
+
+      <div class="d-flex justify-center align-center">
+        <v-card
+          width="50%"
+          color="transparent"
+          outlined
+          class="d-flex justify-space-around align-center"
+        >
+          <div width="40%">
+            <v-text-field label="Rechercher" outlined v-model="form.search" @change="fetch"></v-text-field>
+          </div>
+
+          <div width="40%">
+            <v-select
+              v-model="form.columnName"
+              :items="selectItems"
+              label="Trier par"
+              outlined
+              @change="fetch"
+            ></v-select>
+          </div>
+        </v-card>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row justify-space-around align-center">
+      <v-card color="transparent" outlined width="20%" class="d-flex justify-end">
+        <v-btn icon color="black" @click="onPaginate_Left">
+          <v-icon large>mdi-arrow-left-bold</v-icon>
+        </v-btn>
+      </v-card>
+
+      <v-card
+        color="transparent"
+        outlined
+        class="d-flex flex-column justify-space-around align-start"
+      >
+        <v-list-item
+          style="width: 100%;"
+          v-for="({ icon, title, staffLastName, staffName, staffType, date }, i) in acts"
+          :key="i"
+          @click="onSelection(i)"
+          class="onAction"
+        >
+          <v-avatar class="ma-3" width="90px" height="90px" tile>
+            <v-img :src="icon" />
+          </v-avatar>
+
+          <v-card color="transparent" outlined>
+            <v-card-title class="headline black--text">{{ title }}</v-card-title>
+
+            <v-card-text class="headline-2 black--text">
+              <ul>
+                <li>{{ staffLastName }} {{ staffName }}</li>
+                <li>{{ staffType }}</li>
+                <li>Fait le {{ date }}</li>
+              </ul>
+            </v-card-text>
+          </v-card>
+        </v-list-item>
+      </v-card>
+
+      <v-card color="transparent" outlined width="20%">
+        <v-btn icon color="black" @click="onPaginate_Right">
+          <v-icon large>mdi-arrow-right-bold</v-icon>
+        </v-btn>
+      </v-card>
+    </div>
+  </v-card>
+</template>
+
+<script>
+import SelectedPatient from "@/components/All/SelectedPatient.vue";
+
+export default {
+  name: "PrintDmp",
+  components: { SelectedPatient },
+  props: ["form", "selectItems", "acts"],
+  methods: {
+    fetch() {
+      this.$emit("change");
+    },
+    onSelection(i) {
+      this.$emit("selection", i);
+    },
+    onPaginate_Left() {
+      this.form.paginationNumber -=
+        this.form.paginationNumber <= 0 ? 0 : this.form.paginationLength;
+      this.fetch();
+    },
+    onPaginate_Right() {
+      this.form.paginationNumber +=
+        this.acts.length < this.form.paginationLength
+          ? 0
+          : this.form.paginationLength;
+      this.fetch();
+    }
+  }
+};
+</script>
+
+<style>
+.onAction:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+</style>

@@ -1,0 +1,137 @@
+<template>
+  <div class="d-flex flex-column justify-space-around align-center my-5">
+    <v-card color="transparent" outlined width="50%" class="my-5">
+      <v-card-actions class="d-flex justify-space-around align-center">
+        <v-btn text to="/create-hospital">Ajouter un hôpital</v-btn>
+        <v-btn text to="/create-sector">Créer un secteur</v-btn>
+        <v-btn text to="/create-pole">Saisir un pôle</v-btn>
+      </v-card-actions>
+    </v-card>
+
+    <v-card color="transparent" outlined width="50%">
+      <APHPStructure
+        :structure="structure"
+        :infrastructureAddHandler="onInfrastructureCreate"
+        :infrastructureDeleteHandler="onInfrastructureDelete"
+        :staffDeleteHandler="onAffectationDelete"
+        :poleAddButton="true"
+        @update="fetchStructure"
+      />
+    </v-card>
+  </div>
+</template>
+
+<script>
+import APHPStructure from "@/components/All/APHPStructure.vue";
+import { mutations } from "@/store.js";
+
+export default {
+  name: "StructurateAPHP",
+  components: { APHPStructure },
+  created() {
+    this.fetchStructure();
+  },
+  data() {
+    return {
+      structure: [
+        {
+          hospitalName: "Hôpital 1",
+          poles: [
+            {
+              poleName: "Pole 1",
+              sectors: [
+                {
+                  sectorName: "Secteur 1"
+                },
+                {
+                  sectorName: "Secteur 2"
+                },
+                {
+                  sectorName: "Secteur 3"
+                }
+              ]
+            },
+            {
+              poleName: "Pole 2",
+              sectors: [
+                {
+                  sectorName: "Secteur 4"
+                },
+                {
+                  sectorName: "Secteur 5"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          hospitalName: "Hôpital 2",
+          poles: [
+            {
+              poleName: "Pole 3"
+            },
+            {
+              poleName: "Pole 4",
+              sectors: [
+                {
+                  sectorName: "Secteur 6"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+  },
+  methods: {
+    ...mutations,
+    fetchStructure() {
+      this.$request(
+        "GET",
+        "/infrastructure/all",
+        {},
+        "L'infrastructure de l'APHP a été chargée !",
+        () => {},
+        // response => (this.structure = response),
+        "Erreur lors du chargement de l'infrastructure de l'APHP !",
+        () => {}
+      );
+    },
+    onInfrastructureCreate(data) {
+      this.setSelectedUnit(data);
+      this.$router.push(data.link);
+    },
+    onInfrastructureDelete({ nodeId }) {
+      this.$request(
+        "DELETE",
+        "/infrastructures/delete",
+        {
+          nodeId
+        },
+        "L'infrastructure a bien été supprimée !",
+        () => {
+          this.$emit("update");
+        },
+        "Echec de la suppression de l'infrastructure !",
+        () => {}
+      );
+    },
+    onAffectationDelete(data) {
+      this.$request(
+        "DELETE",
+        "/staff/infos/assignment",
+        data,
+        "L'affectation a bien été supprimée !",
+        () => {
+          this.$emit("update");
+        },
+        "Echec de la suppression de l'affectation !",
+        () => {}
+      );
+    }
+  }
+};
+</script>
+
+<style>
+</style>
