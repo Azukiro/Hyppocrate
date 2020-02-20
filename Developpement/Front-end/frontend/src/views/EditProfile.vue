@@ -16,8 +16,8 @@
             <v-text-field
               label="Téléphone portable"
               outlined
-              v-model="form.address"
-              :rules="$rules('Phone landline')"
+              v-model="form.phone"
+              :rules="$rules('Phone')"
             ></v-text-field>
 
             <v-text-field
@@ -154,6 +154,7 @@ export default {
           {},
           "Vos informations de contact ont bien été modifiées !",
           () => {},
+          // empty
           "Erreur lors de la modification des informations de contact !",
           () => {}
         );

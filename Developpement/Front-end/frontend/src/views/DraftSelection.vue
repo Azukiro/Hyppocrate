@@ -80,8 +80,13 @@ export default {
         "GET",
         "/draft/print/sort-items",
         {},
+        // empty
         "Chargement de la liste de critère de tri effectuée !",
-        response => (this.selectItems = response), // sortColumnName, printableName
+        response => (this.selectItems = response),
+        // {
+        //   sortColumnName,
+        //   printableName
+        // },
         "Impossible de charger la liste des critères de tri !",
         () => {}
       );

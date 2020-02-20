@@ -64,8 +64,10 @@ export default {
         "GET",
         "/profile/all",
         {},
+        // empty
         "Les types de profils ont été chargés !",
         response => (this.selectItems = response),
+        // [{sortColumnName, printableName}]
         "Echec lors du chargement des profils !",
         () => {}
       );
@@ -75,8 +77,21 @@ export default {
         "GET",
         "/patient/search/all",
         this.form,
+        // {
+        //   sortColumnName,
+        //   search,
+        //   paginationNumber,
+        //   paginationLength
+        // },
         "Le personnel a été chargé !",
         response => (this.selectItems = response),
+        // {
+        //   id,
+        //   typeId
+        //   lastName,
+        //   firstName,
+        //   birthdayDate
+        // }
         "Aucun personnel ne correspond à vos critères !",
         () => {}
       );

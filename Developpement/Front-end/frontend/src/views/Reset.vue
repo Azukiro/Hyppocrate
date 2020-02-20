@@ -41,10 +41,11 @@ export default {
         {
           email: this.form.email
         },
+        // {
+        //   email
+        // }
         "Votre mot de passe vous a été envoyé par mail !",
-        () => {
-          this.$router.push("/login");
-        },
+        () => this.$router.push("/login"),
         "Identifiants invalides !",
         () => {}
       );

@@ -64,8 +64,10 @@ export default {
         "GET",
         "/infrastructures/hospital",
         {},
+        // empty
         "Les hôpitaux ont été chargés !",
         response => (this.hospitals = response),
+        // { hospitalId, hospitalName }
         "Echec lors du chargement des hôpitaux !",
         () => {}
       );
@@ -76,8 +78,14 @@ export default {
           "GET",
           "/infrastructures/unit",
           this.form,
+          // {
+          //   hospitalId,
+          //   poleName,
+          //   localisation
+          // }
           "Le secteur a été créé avec succès !",
           response => (this.staffTypes = response),
+          //  empty
           "Echec de la création de lu secteur !",
           () => {}
         );

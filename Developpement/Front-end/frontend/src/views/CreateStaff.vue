@@ -25,8 +25,8 @@
           <v-text-field
             label="Date de naissance"
             outlined
-            v-model="form.birthday"
-            :rules="$rules('Birthday')"
+            v-model="form.birthdayDate"
+            :rules="$rules('birthdayDate')"
           />
 
           <v-text-field
@@ -82,7 +82,7 @@ export default {
         type: "",
         lastName: "",
         name: "",
-        birthday: "",
+        birthdayDate: "",
         address: "",
         phone: "",
         email: "",
@@ -102,7 +102,12 @@ export default {
         "GET",
         "/profile/all",
         {},
+        //  empty
         "Les types de profils ont été chargés !",
+        // {
+        //   typeId,
+        //   typeName
+        // },
         response => (this.staffTypes = response),
         "Echec lors du chargement des profils !",
         () => {}
@@ -114,8 +119,19 @@ export default {
           "POST",
           "/staff/create",
           {},
+          // {
+          //   typeId,
+          //   firstName,
+          //   lastName,
+          //   birthdayDateDate,
+          //   address,
+          //   phone,
+          //   email,
+          //   socialNumber
+          // },
           "Le personnel a bien été créé !",
-          response => (this.staffTypes = response),
+          () => {},
+          //  empty
           "Erreur lors de la création du personnel !",
           () => {}
         );

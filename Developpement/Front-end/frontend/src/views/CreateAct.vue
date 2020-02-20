@@ -70,6 +70,7 @@ export default {
         // },
         "L’acte médical a été sauvegardé en tant que brouillon !",
         () => {},
+        //  empty
         "L'archivage a échoué !",
         () => {}
       );
@@ -91,6 +92,7 @@ export default {
           // },
           "L’acte médical a été publié avec succès !",
           () => {},
+          //  empty
           "La publication a échoué !",
           () => {}
         );

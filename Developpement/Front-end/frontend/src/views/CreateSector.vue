@@ -14,18 +14,18 @@
           ></v-select>
 
           <v-select
-            label="Nom du secteur"
-            :items="sectors"
+            label="Nom du pôle"
             outlined
-            v-model="form.sector"
-            :rules="$rules('Sector name')"
+            v-model="form.pole"
+            :rules="$rules('Pole name')"
+            :items="poles"
           ></v-select>
 
           <v-text-field
-            label="Nom du pôle"
+            label="Nom du secteur"
             outlined
-            v-model="form.poleName"
-            :rules="$rules('Pole name')"
+            v-model="form.sectorName"
+            :rules="$rules('Sector name')"
           ></v-text-field>
 
           <v-text-field
@@ -65,7 +65,7 @@ export default {
   data() {
     return {
       hospitals: ["Hospital 1", "Hospital 2", "Hospital 3"],
-      sectors: ["Sector 1", "Sector 2", "Sector 3"]
+      poles: ["Pole 1", "Pole 2", "Pole 3"]
     };
   },
   methods: {
@@ -74,8 +74,10 @@ export default {
         "GET",
         "/infrastructures/hospital",
         {},
+        // empty
         "Les hôpitaux ont été chargés !",
         response => (this.hospitals = response),
+        // { hospitalId, hospitalName }
         "Echec lors du chargement des hôpitaux !",
         () => {}
       );
@@ -84,9 +86,11 @@ export default {
       this.$request(
         "GET",
         "/infrastructures/poles",
-        {},
+        this.form,
+        // { hospitalId }
         "Les pôles ont été chargés !",
-        response => (this.sectors = response),
+        // { poleId, poleName }
+        response => (this.poles = response),
         "Echec lors du chargement des pôles !",
         () => {}
       );
@@ -97,7 +101,14 @@ export default {
           "POST",
           "/infrastructures/unit",
           this.form,
+          // {
+          //   hospitalId,
+          //   poleId,
+          //   sectorName,
+          //   localisation
+          // }
           "Le pôle a été créé avec succès !",
+          //  empty
           response => (this.staffTypes = response),
           "Echec de la création du pôle !",
           () => {}

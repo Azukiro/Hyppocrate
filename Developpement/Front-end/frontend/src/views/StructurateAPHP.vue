@@ -90,8 +90,33 @@ export default {
         "GET",
         "/infrastructure/all",
         {},
+        // empty
         "L'infrastructure de l'APHP a été chargée !",
         () => {},
+        // [
+        //   {
+        //     hospitalId: 0,
+        //     hospitalName: "Hôpital 1",
+        //     poles: [
+        //       {
+        //         poleId: 1,
+        //         poleName: "Pole 1",
+        //         sectors: [
+        //           {
+        //             sectorId: 2,
+        //             sectorName: "Secteur 1",
+        //           }
+        //         ],
+        //         labos: [
+        //           {
+        //              laboId: 3,
+        //              laboName: "Laboratoire 1"
+        //            }
+        //          ]
+        //       }
+        //     ]
+        //   }
+        // ],
         // response => (this.structure = response),
         "Erreur lors du chargement de l'infrastructure de l'APHP !",
         () => {}
@@ -108,10 +133,12 @@ export default {
         {
           nodeId
         },
+        // {
+        //   nodeId
+        // },
         "L'infrastructure a bien été supprimée !",
-        () => {
-          this.$emit("update");
-        },
+        () => this.$emit("update"),
+        //  empty
         "Echec de la suppression de l'infrastructure !",
         () => {}
       );
@@ -121,10 +148,12 @@ export default {
         "DELETE",
         "/staff/infos/assignment",
         data,
+        // {
+        //   nodeId
+        // },
         "L'affectation a bien été supprimée !",
-        () => {
-          this.$emit("update");
-        },
+        () => this.$emit("update"),
+        //  empty
         "Echec de la suppression de l'affectation !",
         () => {}
       );
@@ -132,6 +161,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

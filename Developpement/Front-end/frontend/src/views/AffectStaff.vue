@@ -50,6 +50,12 @@ export default {
     }
   },
 
+  created() {
+    this.fetchHostpitals();
+    this.fetchPoles();
+    this.fetchSectors();
+  },
+
   data() {
     return {
       staff: [
@@ -77,9 +83,26 @@ export default {
         "GET",
         "/infrastructures/hospital",
         {},
+        // empty
         "Les hôpitaux ont été chargés !",
         response => (this.hospitals = response),
+        // { hospitalId, hospitalName }
         "Echec lors du chargement des hôpitaux !",
+        () => {}
+      );
+    },
+    fetchPoles() {
+      this.$request(
+        "GET",
+        "/infrastructures/pole",
+        {},
+        // {
+        //   hospitalId
+        // },
+        "Les pôles ont été chargés !",
+        response => (this.poles = response),
+        // { poleId, poleName }
+        "Echec lors du chargement des pôles !",
         () => {}
       );
     },
@@ -88,8 +111,12 @@ export default {
         "GET",
         "/infrastructures/sector",
         {},
+        // {
+        //   sectorId
+        // },
         "Les secteurs ont été chargés !",
         response => (this.sectors = response),
+        // { sectorId, sectorName }
         "Echec lors du chargement des secteurs !",
         () => {}
       );

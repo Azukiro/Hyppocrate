@@ -90,8 +90,35 @@ export default {
         "GET",
         "/staff/infos/assignment",
         {},
+        // {
+        //   staffId
+        // },
         "Les affectations du personnel sélectionné ont été chargées !",
         response => (this.staffTypes = response),
+        // [
+        //   {
+        //     hospitalId: 0,
+        //     hospitalName: "Hôpital 1",
+        //     poles: [
+        //       {
+        //         poleId: 1,
+        //         poleName: "Pole 1",
+        //         sectors: [
+        //           {
+        //             sectorId: 2,
+        //             sectorName: "Secteur 1",
+        //           }
+        //         ],
+        //         labos: [
+        //           {
+        //              laboId: 3,
+        //              laboName: "Laboratoire 1"
+        //            }
+        //          ]
+        //       }
+        //     ]
+        //   }
+        // ],
         "Le personnel sélectionné ne possède aucune affectation !",
         () => {}
       );
@@ -106,9 +133,8 @@ export default {
         "/staff/infos/assignment",
         data,
         "L'affectation a bien été supprimée !",
-        () => {
-          this.$emit("update");
-        },
+        () => this.$emit("update"),
+        //  empty
         "Echec de la suppression de l'affectation !",
         () => {}
       );

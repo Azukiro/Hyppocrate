@@ -64,7 +64,8 @@ export default {
       this.$request(
         "GET",
         "/patient/search/sort-items",
-        {}, // empty
+        {},
+        // empty
         "Chargement de la liste de critère de tri effectuée !",
         response => (this.selectItems = response),
         // [{sortColumnName, printableName}]

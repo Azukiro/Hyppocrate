@@ -221,10 +221,19 @@ export default {
       if (this.$refs.form.validate()) {
         this.$request(
           "POST",
-          "/...",
+          "/patient/affect/staff",
           this.form,
+          // {
+          //   hospitalId,
+          //   poleId,
+          //   sectorId,
+          //   laboratoryId,
+          //   staffId
+          //   patientId
+          // },
           "L'affectation a été effectuée !",
           response => (this.saff = response),
+          //  empty
           "Echec de l'affectation !",
           () => {}
         );

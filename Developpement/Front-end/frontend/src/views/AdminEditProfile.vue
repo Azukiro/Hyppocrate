@@ -30,12 +30,6 @@
               v-model="form.birthday"
               :rules="$rules('Birthday')"
             />
-
-            <v-text-field
-              label="Numéro de carte d'identé"
-              outlined
-              v-model="form.idendityCardNumber"
-            />
           </v-form>
         </v-card>
 
@@ -89,6 +83,7 @@
         <v-card width="80%" color="transparent" outlined>
           <v-form ref="accountForm">
             <v-text-field
+              type="password"
               label="Nouveau mot de passe"
               outlined
               v-model="form.newPwd"
@@ -96,6 +91,7 @@
             />
 
             <v-text-field
+              type="password"
               outlined
               label="Ressaisissez un mot de passe"
               v-model="form.newPwdAgain"
@@ -122,43 +118,30 @@ export default {
   name: "AdminEditProfile",
   components: { SelectedStaff },
   computed: {
-    form() {
-      return {
-        lastName: this.selectedStaff.lastName,
-        name: this.selectedStaff.name,
-        idendityCardNumber: this.selectedStaff.idendityCardNumber,
-        nationality: this.selectedStaff.nationality,
-        birthday: this.selectedStaff.birthday,
-        address: this.selectedStaff.address,
-        phone: this.selectedStaff.phone,
-        email: this.selectedStaff.email,
-        newPwd: this.selectedStaff.newPwd,
-        newPwdAgain: this.selectedStaff.newPwdAgain
-      };
+    id() {
+      return this.selectedStaff.id;
     },
     ...getters
   },
   created() {
-    this.fetchProfiles();
     this.fetchPersonnalInformations();
   },
   data() {
     return {
-      staffTypes: ["Médecin", "Dentiste", "Chirurgien"]
+      form: {
+        firstName: "",
+        lastName: "",
+        birthdayDate: "",
+        idendityCardNumber: "",
+        phone: "",
+        address: "",
+        email: "",
+        newPwd: "",
+        newPwdAgain: ""
+      }
     };
   },
   methods: {
-    fetchProfiles() {
-      this.$request(
-        "GET",
-        "/profile/all",
-        this.form,
-        "Les profils ont été chargés !",
-        response => (this.staffTypes = response),
-        "Echec du chargement des profils !",
-        () => {}
-      );
-    },
     fetchPersonnalInformations() {
       this.$request(
         "GET",
@@ -168,7 +151,16 @@ export default {
         //   staffId
         // }
         "Vos informations personnelles ont été chargées !",
-        response => (this.staffTypes = response),
+        // response => (this.form = response),
+        () => {},
+        // {
+        //   firstName,
+        //   lastName,
+        //   birthdayDate,
+        //   phone,
+        //   address,
+        //   email
+        // }
         "Aucune information personnelle n’a pu être affichée !",
         () => {}
       );
@@ -179,8 +171,15 @@ export default {
           "PUT",
           "/staff/general",
           this.form,
+          // {
+          //   staffId,
+          //   firstName,
+          //   lastName,
+          //   birthdayDate
+          // },
           "Les informations générales ont bien été modifiées !",
           () => {},
+          // empty
           "Les informations générales n'ont pas pu être modifiées !",
           () => {}
         );
@@ -192,8 +191,15 @@ export default {
           "GET",
           "/staff/contact",
           this.form,
+          // {
+          //   staffId,
+          //   phone,
+          //   address,
+          //   email
+          // }
           "Les informations de contact ont bien été modifiées !",
           () => {},
+          // empty
           "Les informations de contact n'ont pas pu être modifiées !",
           () => {}
         );
@@ -205,8 +211,14 @@ export default {
           "GET",
           "/staff/pwd",
           this.form,
+          // {
+          //   staffId,
+          //   newPwd,
+          //   newPwdAgain
+          // }
           "Les informations administratives ont bien été modifiées !",
           () => {},
+          // empty
           "Les informations administratives n'ont pas pu être modifiées !",
           () => {}
         );

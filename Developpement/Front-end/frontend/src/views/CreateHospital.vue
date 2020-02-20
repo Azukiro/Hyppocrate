@@ -49,8 +49,13 @@ export default {
           "POST",
           "/infrastructures/unit",
           this.form,
+          // {
+          //   hospitalName,
+          //   localisation
+          // }
           "L'hospital a été créé avec succès !",
-          response => (this.staffTypes = response),
+          () => {},
+          //  empty
           "Echec de la création de l'hospital !",
           () => {}
         );

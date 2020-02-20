@@ -12,6 +12,8 @@
 
       <v-card color="transparent" outlined width="70%">
         <v-form ref="form">
+          <v-text-field label="Nom" outlined v-model="form.firstName" :rules="$rules('First name')"></v-text-field>
+
           <v-text-field
             label="Prénom"
             outlined
@@ -19,13 +21,11 @@
             :rules="$rules('Last name')"
           ></v-text-field>
 
-          <v-text-field label="Nom" outlined v-model="form.name" :rules="$rules('Name')"></v-text-field>
-
           <v-text-field
             label="Date de naissance"
             outlined
-            v-model="form.birthday"
-            :rules="$rules('Birthday')"
+            v-model="form.birthdayDate"
+            :rules="$rules('birthdayDate')"
           ></v-text-field>
 
           <v-text-field
@@ -67,9 +67,9 @@ export default {
   data() {
     return {
       form: {
+        firstName: "",
         lastName: "",
-        name: "",
-        birhday: "", //console.log(formatDate(new Date(), "yyyy-mm-dd"));
+        birthdayDate: "", //console.log(formatDate(new Date(), "yyyy-mm-dd"));
         phoneNumber: "",
         socialNumber: "",
         email: "",
@@ -78,7 +78,7 @@ export default {
       },
       patient: {
         lastName: "Ewen",
-        name: "Bouquet"
+        firstName: "Bouquet"
       }
     };
   },
@@ -89,8 +89,19 @@ export default {
           "POST",
           "/staff/new/patient",
           this.form,
+          //{
+          //   firstName,
+          //   lastName,
+          //   birthdayDate,
+          //   phoneNumber,
+          //   socialNumber,
+          //   email,
+          //   address,
+          //   file,
+          // }
           "Le patient a bien été créé !",
           () => {},
+          //  empty
           "Erreur lors de la création du patient !",
           () => {}
         );
