@@ -150,6 +150,7 @@ export default {
         data,
         // {
         //   nodeId
+        //   staffId
         // },
         "L'affectation a bien été supprimée !",
         () => this.$emit("update"),

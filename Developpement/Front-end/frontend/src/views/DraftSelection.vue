@@ -98,7 +98,6 @@ export default {
         this.form, //Type non modifiable
         // {
         //   staffId,
-        //   patientId,
         //   sortColumnName,
         //   search,
         //   paginationNumber,

@@ -213,6 +213,7 @@ export default {
           this.form,
           // {
           //   staffId,
+          //   oldPwd: "Admin"
           //   newPwd,
           //   newPwdAgain
           // }
@@ -227,5 +228,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

@@ -67,7 +67,7 @@ export default {
         // empty
         "Les hôpitaux ont été chargés !",
         response => (this.hospitals = response),
-        // { hospitalId, hospitalName }
+        // { hospitalId, hospitalName, hospitalLeaderId, hospitalLeaderFirstName, hospitalLeaderLastName }
         "Echec lors du chargement des hôpitaux !",
         () => {}
       );
@@ -79,9 +79,9 @@ export default {
           "/infrastructures/unit",
           this.form,
           // {
-          //   hospitalId,
-          //   poleName,
-          //   localisation
+          //   fatherId: (hospitalId)
+          //   name,
+          //   staffLeaderId
           // }
           "Le secteur a été créé avec succès !",
           response => (this.staffTypes = response),

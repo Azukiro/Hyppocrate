@@ -86,7 +86,7 @@ export default {
         // empty
         "Les hôpitaux ont été chargés !",
         response => (this.hospitals = response),
-        // { hospitalId, hospitalName }
+        // { hospitalId, hospitalName, hospitalLeaderId, hospitalLeaderFirstName, hospitalLeaderLastName }
         "Echec lors du chargement des hôpitaux !",
         () => {}
       );
@@ -101,7 +101,7 @@ export default {
         // },
         "Les pôles ont été chargés !",
         response => (this.poles = response),
-        // { poleId, poleName }
+        // { poleId, poleName, poleLeaderId, poleLeaderFirstName, poleLeaderLastName }
         "Echec lors du chargement des pôles !",
         () => {}
       );
@@ -116,7 +116,7 @@ export default {
         // },
         "Les secteurs ont été chargés !",
         response => (this.sectors = response),
-        // { sectorId, sectorName }
+        // { sectorId, sectorName, sectorLeaderId, sectorLeaderFirstName, sectorLeaderLastName }
         "Echec lors du chargement des secteurs !",
         () => {}
       );

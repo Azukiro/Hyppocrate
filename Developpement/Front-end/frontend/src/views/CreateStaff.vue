@@ -105,8 +105,8 @@ export default {
         //  empty
         "Les types de profils ont été chargés !",
         // {
-        //   typeId,
-        //   typeName
+        //   sortColumnName,
+        //   printableName
         // },
         response => (this.staffTypes = response),
         "Echec lors du chargement des profils !",
@@ -123,7 +123,7 @@ export default {
           //   typeId,
           //   firstName,
           //   lastName,
-          //   birthdayDateDate,
+          //   birthdayDate,
           //   address,
           //   phone,
           //   email,

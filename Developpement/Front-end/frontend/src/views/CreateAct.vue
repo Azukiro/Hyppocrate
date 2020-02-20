@@ -60,13 +60,12 @@ export default {
         "/medical-act/draft",
         this.form,
         // {
-        //   nodeId: -1,
         //   staffId,
         //   patientId,
         //   title,
-        //   type,
+        //   typeId,
         //   description,
-        //   file: "chemin fichier"
+        //   file: "chemin fichier 1|chemin fichier 2"
         // },
         "L’acte médical a été sauvegardé en tant que brouillon !",
         () => {},
@@ -82,13 +81,12 @@ export default {
           "/medical-act/publish",
           this.form,
           // {
-          //   nodeId: -1,
           //   staffId,
           //   patientId,
           //   title,
           //   type,
           //   description,
-          //   file: "chemin fichier"
+          //   file: "chemin fichier 1|chemin fichier 2"
           // },
           "L’acte médical a été publié avec succès !",
           () => {},

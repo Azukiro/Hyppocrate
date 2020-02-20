@@ -65,7 +65,7 @@ export default {
   data() {
     return {
       hospitals: ["Hospital 1", "Hospital 2", "Hospital 3"],
-      poles: ["Pole 1", "Pole 2", "Pole 3"]
+      poles: ["Pole 1", "Pole 2", "Pole 3"] // Ajouter type labo
     };
   },
   methods: {
@@ -77,7 +77,7 @@ export default {
         // empty
         "Les hôpitaux ont été chargés !",
         response => (this.hospitals = response),
-        // { hospitalId, hospitalName }
+        // { hospitalId, hospitalName, hospitalLeaderId, hospitalLeaderFirstName, hospitalLeaderLastName }
         "Echec lors du chargement des hôpitaux !",
         () => {}
       );
@@ -89,7 +89,7 @@ export default {
         this.form,
         // { hospitalId }
         "Les pôles ont été chargés !",
-        // { poleId, poleName }
+        // { poleId, poleName, poleLeaderId, poleLeaderFirstName, poleLeaderLastName }
         response => (this.poles = response),
         "Echec lors du chargement des pôles !",
         () => {}
@@ -102,10 +102,10 @@ export default {
           "/infrastructures/unit",
           this.form,
           // {
-          //   hospitalId,
-          //   poleId,
-          //   sectorName,
-          //   localisation
+          //   fatherId: (poleId)
+          //   name,
+          //   staffLeaderId,
+          //   isLaboratory: (boolean)
           // }
           "Le pôle a été créé avec succès !",
           //  empty

@@ -169,7 +169,7 @@ export default {
         // empty
         "Les hôpitaux ont été chargés !",
         response => (this.hospitals = response),
-        // { hospitalId, hospitalName }
+        // { hospitalId, hospitalName, hospitalLeaderId, hospitalLeaderFirstName, hospitalLeaderLastName }
         "Echec lors du chargement des hôpitaux !",
         () => {}
       );
@@ -181,7 +181,7 @@ export default {
         this.form,
         // { hospitalId }
         "Les pôles ont été chargés !",
-        // { poleId, poleName }
+        // { poleId, poleName, poleLeaderId, poleLeaderFirstName, poleLeaderLastName }
         response => (this.poles = response),
         "Echec lors du chargement des pôles !",
         () => {}
@@ -195,7 +195,7 @@ export default {
         // { poleId }
         "Les secteur ont été chargés !",
         response => (this.sectors = response),
-        // { sectorId, sectorName }
+        // { sectorId, sectorName, sectorLeaderId, sectorLeaderFirstName, sectorLeaderLastName }
         "Echec lors du chargement des secteur !",
         () => {}
       );
@@ -209,11 +209,12 @@ export default {
         "Les secteur ont été chargés !",
         response => (this.saff = response),
         // {
-        //  staffName
         //  staffId
+        //  staffFirstName
+        //  staffLastName
         //  staffType
         // }
-        "Echec lors du chargement des secteur !",
+        "Echec lors du chargement des secteurs !",
         () => {}
       );
     },
@@ -224,10 +225,7 @@ export default {
           "/patient/affect/staff",
           this.form,
           // {
-          //   hospitalId,
-          //   poleId,
-          //   sectorId,
-          //   laboratoryId,
+          //   nodeId
           //   staffId
           //   patientId
           // },

@@ -45,8 +45,6 @@
           <v-text-field label="Adresse mail" outlined v-model="form.email" :rules="$rules('Email')"></v-text-field>
 
           <v-text-field label="Adresse" outlined v-model="form.address" :rules="$rules('Address')"></v-text-field>
-
-          <v-file-input label="Fichiers d'identité" @blur="fileAdded"></v-file-input>
         </v-form>
       </v-card>
 
@@ -96,8 +94,7 @@ export default {
           //   phoneNumber,
           //   socialNumber,
           //   email,
-          //   address,
-          //   file,
+          //   address
           // }
           "Le patient a bien été créé !",
           () => {},
@@ -106,9 +103,6 @@ export default {
           () => {}
         );
       }
-    },
-    fileAdded(event) {
-      this.form.file = event;
     }
   }
 };

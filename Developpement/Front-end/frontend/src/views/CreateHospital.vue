@@ -50,8 +50,9 @@ export default {
           "/infrastructures/unit",
           this.form,
           // {
-          //   hospitalName,
-          //   localisation
+          //   fatherId: -1
+          //   name,
+          //   staffLeaderId
           // }
           "L'hospital a été créé avec succès !",
           () => {},
