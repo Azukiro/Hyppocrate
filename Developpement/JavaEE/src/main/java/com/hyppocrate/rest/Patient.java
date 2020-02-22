@@ -10,17 +10,17 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.sql.SQLException;
 
-@Path("/patient/search")
+@Path("/patient")
 public class Patient {
 
     // FIXME: 16/01/2020
-    @Path("/all")
+    @Path("/search/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response all(@Context UriInfo ui,
                         @DefaultValue("") @QueryParam("staffId") final int staffId,
-                        @DefaultValue("") @QueryParam("sortColumnName") final String sortColumnName,
-                        @DefaultValue("") @QueryParam("search") final String search,
+                         @QueryParam("sortColumnName") final String sortColumnName,
+                       @QueryParam("search") final String search,
                         @DefaultValue("") @QueryParam("paginationNumber") final int paginationNumber,
                         @DefaultValue("") @QueryParam("paginationLenght") final int paginationLenght) {
 
@@ -32,12 +32,31 @@ public class Patient {
         }
     }
 
-    @Path("/sort-items")
+    @Path("/search/sort-items")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response sortItems(@Context UriInfo ui) {
 
-        return Response.ok(SQLManager.getInstance().printSortDmpItems()).build();
+        try {
+            return Response.ok(SQLManager.getInstance().printSortDmpItems()).build();
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
+    }
+
+    @Path("/affect/staff")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response affect(@Context UriInfo ui,  @QueryParam("nodeId") final int nodeId,
+
+                          @QueryParam("staffId") final int staffId,
+                          @QueryParam("patientId") final int patientId) {
+
+        try {
+            return Response.ok(SQLManager.getInstance().affecterPatient(nodeId,staffId,patientId)).build();
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
     }
 
 }

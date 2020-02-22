@@ -63,8 +63,6 @@ public class Draft {
             return Response.ok(SQLManager.getInstance().updateBrouillon(patientId,draftId,title,description,file)).build();
         } catch (SQLException e) {
             return Responses.nullResponse();
-        } catch (IOException e) {
-            return Responses.nullResponse();
         }
     }
 
@@ -74,7 +72,7 @@ public class Draft {
     public Response printFile(@Context UriInfo ui,
                              @QueryParam("draftId") final int draftId) {
 
-        return Responses.objectOrCustomNull(SQLManager.getInstance().getDocument(draftId));
+        return Responses.nullResponse();
     }
     // TODO: 17/01/2020
     @Path("/print/all")
@@ -100,9 +98,28 @@ public class Draft {
     @Path("/print/sort-items")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response printAll(@Context UriInfo ui) {
-
+    public Response printSort(@Context UriInfo ui) {
+        try {
         return Responses.objectOrCustomNull(SQLManager.getInstance().printSortActeItems());
+    } catch (SQLException e) {
+        return Responses.nullResponse();
+    }
+    }
+
+    @Path("/print/all")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response printAll(@Context UriInfo ui,
+                             @QueryParam("staffId") final int staffId,
+                             @QueryParam("sortColumnName") final String sortColumnName,
+                             @QueryParam("search") final String search,
+                             @QueryParam("paginationNumber") final int paginationNumber,
+                             @QueryParam("paginationLength") final int paginationLength) {
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().printDraft(staffId,search,sortColumnName,paginationNumber,paginationLength));
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
     }
 
 

@@ -26,13 +26,27 @@ public class Infrastructure {
         }
     }
 
+    @Path("/delete")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response all(@Context UriInfo ui, @QueryParam("nodeId") final int nodeId
+                        ) {
+
+
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllArchitecture());
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
+    }
+
     @Path("/hospital")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response hospital(@Context UriInfo ui) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllHospitals());
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllHospital());
         } catch (SQLException e) {
             return Responses.errorResponse(e.toString());
         }
@@ -43,10 +57,10 @@ public class Infrastructure {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response pole(@Context UriInfo ui,
-                         @QueryParam("id") final int id) {
+                         @QueryParam("nodeId") final int id) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllPoles(id));
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllPole(id));
         } catch (SQLException e) {
             return Responses.nullResponse();
         }
@@ -59,7 +73,7 @@ public class Infrastructure {
                            @QueryParam("nodeId") final int nodeId) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllSectors(nodeId));
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllSector(nodeId));
         } catch (SQLException e) {
             return Responses.nullResponse();
         }
@@ -72,7 +86,7 @@ public class Infrastructure {
                            @QueryParam("nodeId") final int nodeId) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllLabos(nodeId));
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllLabo(nodeId));
         } catch (SQLException e) {
             return Responses.nullResponse();
         }
@@ -83,23 +97,41 @@ public class Infrastructure {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createUnit(@Context UriInfo ui,
                                 @QueryParam("fatherId") final int fatherId,
-                                @QueryParam("unitName") final String unitName,
-                                @QueryParam("staffChiefId") final int staffChiefId) {
+                                @QueryParam("name") final String name,
+                                @QueryParam("staffLeaderId") final int staffLeaderId) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().createUnit(unitName, fatherId, staffChiefId));
+            return Responses.objectOrCustomNull(SQLManager.getInstance().createUnit(name, fatherId, staffLeaderId));
         } catch (SQLException e) {
             return Responses.nullResponse();
         }
     }
+    @Path("/unit")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createSectorLabo(@Context UriInfo ui,
+                               @QueryParam("fatherId") final int fatherId,
+                               @QueryParam("name") final String name,
+                                     @QueryParam("isLaboratory") final boolean isLaboratory,
+                               @QueryParam("staffLeaderId") final int staffLeaderId) {
 
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().createSector(name,fatherId,staffLeaderId,isLaboratory));
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
+    }
     @Path("/unit")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteUnit(@Context UriInfo ui,
                                @QueryParam("nodeId") final int nodeId) {
 
-        return Responses.objectOrCustomNull(SQLManager.getInstance().deleteUnit(nodeId));
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().deleteUnit(nodeId));
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
     }
 
 }

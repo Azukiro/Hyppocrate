@@ -29,10 +29,15 @@ public class Connection {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(@Context UriInfo ui,
-                          @QueryParam("email") final String email,
+                          @QueryParam("login") final String login,
                           @QueryParam("pwd") final String pwd) throws SQLException {
 
-        if (Str.isNullOrEmpty(email) || Str.isNullOrEmpty(pwd)) return Responses.errorResponse("badConnection");
+        try {
+            return Response.ok(SQLManager.getInstance().connect(login,pwd)).build();
+        } catch (SQLException e) {
+            return Responses.nullResponse();
+        }
+       /* if (Str.isNullOrEmpty(email) || Str.isNullOrEmpty(pwd)) return Responses.errorResponse("badConnection");
 
         AuthentificationModule authModule = new AuthentificationModule();
 
@@ -54,7 +59,7 @@ public class Connection {
         HashMap<String, Object> hashResult = new HashMap<>();
         hashResult.put("id", idStaffMember);
         hashResult.put("type", idStaffType);
-        return Response.ok(hashResult).build();
+        return Response.ok(hashResult).build();*/
     }
 
     private HashMap<String, Object> getTestStaffMemberMap() {
@@ -70,7 +75,7 @@ public class Connection {
     public Response forgot(@Context UriInfo ui,
                            @QueryParam("email") final String email) throws SQLException {
 
-        if (Str.isNullOrEmpty(email)) return Responses.nullResponse();
+        /*if (Str.isNullOrEmpty(email)) return Responses.nullResponse();
         // Récupère le membre du staff qui veut se connecter
         HashMap<String, Object> staffMember = Utils.callIfDeployed(SQLManager.getInstance().getStaffMember(email), getTestStaffMemberMap());
         Integer idStaffMember = (Integer) Utils.tryGet(staffMember, "id");
@@ -84,7 +89,8 @@ public class Connection {
         HashMap<String, Object> hashResult = new HashMap<>();
         hashResult.put("id", idStaffMember);
         hashResult.put("type", idStaffType);
-        return Response.ok(hashResult).build();
+        return Response.ok(hashResult).build();*/
+        return Responses.nullResponse();
     }
 
 

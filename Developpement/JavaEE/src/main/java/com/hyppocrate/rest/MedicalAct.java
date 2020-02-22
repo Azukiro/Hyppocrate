@@ -22,7 +22,6 @@ public class MedicalAct {
     @Produces(MediaType.APPLICATION_JSON)
     public Response draft(@Context UriInfo ui,
                           @QueryParam("staffId") final int staffId,
-                          @QueryParam("nodeId") final int nodeId,
                           @QueryParam("patientId") final int patientId,
                           @QueryParam("title") final String title,
                           @QueryParam("type") final int type,
@@ -33,25 +32,28 @@ public class MedicalAct {
             return Responses.objectOrCustomNull(SQLManager.getInstance().CreateDraftt(staffId, patientId, title, type, description, file));
         } catch (SQLException e) {
             return Responses.nullResponse();
-        } catch (IOException e) {
+        }
+    }
+
+    @Path("/publish")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response publish(@Context UriInfo ui,
+                          @QueryParam("staffId") final int staffId,
+                          @QueryParam("patientId") final int patientId,
+                          @QueryParam("title") final String title,
+                          @QueryParam("type") final int type,
+                          @QueryParam("description") final String description,
+                          @QueryParam("file") final String file) {
+
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().publishActe(staffId, patientId, title, type, description, file));
+        } catch (SQLException e) {
             return Responses.nullResponse();
         }
     }
 
-    // FIXME: 18/01/2020
-    @Path("/prescription/draft")
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response draft(@Context UriInfo ui,
-                          @QueryParam("staffId") final int staffId,
-                          @QueryParam("nodeId") final int nodeId,
-                          @QueryParam("patientId") final int patientId,
-                          @QueryParam("title") final String title,
-                          @QueryParam("type") final String type,
-                          @QueryParam("file") final String file) {
 
-        return Responses.nullResponse();
-    }
 
     @Path("/test")
     @POST

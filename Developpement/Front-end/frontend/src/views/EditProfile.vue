@@ -132,10 +132,22 @@ export default {
     fetchPersonnalInformations() {
       this.$request(
         "GET",
-        "/staff/all",
-        {},
+        "/staff/print/all",
+        this.form,
+        // {
+        //   staffId
+        // }
         "Vos informations personnelles ont été chargées !",
-        response => (this.form = response),
+        // response => (this.form = response),
+        () => {},
+        // {
+        //   firstName,
+        //   lastName,
+        //   birthdayDate,
+        //   phone,
+        //   address,
+        //   email
+        // }
         "Aucune information personnelle n’a pu être affichée !",
         () => {}
       );
@@ -146,7 +158,7 @@ export default {
           "GET",
           "/staff/contact",
           // {
-          //   id,
+          //   staffId,
           //   phoneNumber,
           //   address,
           //   email
@@ -167,7 +179,7 @@ export default {
           "/staff/pwd",
           {},
           // {
-          //   id,
+          //   staffId,
           //   oldPwd,
           //   newPwd,
           //   newPwdAgain
