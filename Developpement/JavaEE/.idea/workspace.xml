@@ -2,34 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e70d126e-214a-4ad8-8551-8b3aa381fa84" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Annexes/Architecture/ComponentDiagramPreview.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../../Annexes/Architecture/ComponentDiagramPreview.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Annexes/Architecture/UML_diagrammes.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/../../Annexes/Architecture/UML_diagrammes.mdj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/AuthentificationModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/AuthentificationModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/LangManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/LangManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/StreamModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/StreamModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/TestParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/TestParameters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Dmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Dmp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Draft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Draft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Infrastructure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Infrastructure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Langue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Langue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/MedicalAct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/MedicalAct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Profile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Staff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/examples/DecisionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/examples/DecisionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/examples/Purchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/examples/Purchase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/examples/PurchaseResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/examples/PurchaseResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/examples/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/examples/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/CORSFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/CORSFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Collections.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Collections.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/ISingleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/ISingleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Responses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Responses.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Str.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Str.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/utilities/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,12 +180,12 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="490" y="175" key="Maven.ArtifactSearchDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1581693995666" />
-    <state x="131" y="50" width="1336" height="857" key="SettingsEditor" timestamp="1582383027293">
+    <state x="131" y="50" width="1336" height="857" key="SettingsEditor" timestamp="1582383443013">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="93" y="14" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1582012978840" />
     <state x="187" y="19" key="SettingsEditor/0.0.1366.736@0.0.1366.736" timestamp="1578579989952" />
-    <state x="131" y="50" width="1336" height="857" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582383027293" />
+    <state x="131" y="50" width="1336" height="857" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582383443013" />
     <state x="131" y="50" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1581767498516" />
     <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1578580576868">
       <screen x="0" y="0" width="1366" height="736" />
