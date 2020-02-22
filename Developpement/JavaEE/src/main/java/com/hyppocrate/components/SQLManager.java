@@ -66,7 +66,7 @@ public class SQLManager implements ISingleton {
     /*Acte*/
     private boolean publishActe(int staffId, int patientId, String title, int type, String description, String file, boolean isDraft) throws SQLException {
         //String link=CreateDynamicLink(file,patientId,title);
-        String searchNewID = "INSERT INTO `acte` (`MedicalFolder_idFolder`, `Nom`, `DateDebut`, `DateFin`, `Responsable`, `Prix`, `DocumentLink`, `IsADraft`, `DocumentType_idDocumentType`, `Description`, `idActe`)\r\n"+
+        String searchNewID = "INSERT INTO StringacteString (StringMedicalFolder_idFolderString, StringNomString, StringDateDebutString, StringDateFinString, StringResponsableString, StringPrixString, StringDocumentLinkString, StringIsADraftString, StringDocumentType_idDocumentTypeString, StringDescriptionString, StringidActeString)\r\n"+
                 "VALUES (?, ?, ?, NULL, ?, NULL, ?, ?, ?, ?, NULL);";
         PreparedStatement s = con.prepareStatement(searchNewID);
         s.setInt(1, patientId);
@@ -101,7 +101,7 @@ public class SQLManager implements ISingleton {
 
     public boolean updateEtPublierBrouillon(int patientId,int draftId, String title,  String description,String file) throws SQLException, IOException {
         updateBrouillon(patientId,draftId, title, description, file);
-        String update= "UPDATE `acte` SET IsADraft=0 WHERE `acte`.`idActe` = ?;";
+        String update= "UPDATE StringacteString SET IsADraft=0 WHERE StringacteString.StringidActeString = ?;";
 
         PreparedStatement pStatement = con.prepareStatement(update);
 
@@ -112,25 +112,25 @@ public class SQLManager implements ISingleton {
 
     public boolean updateBrouillon(int patientId,int draftId, String title, String description,String file) throws SQLException {
 
-        String update= "UPDATE `acte` SET ";
+        String update= "UPDATE StringacteString SET ";
         if(title!=null) {
-            update+="`Nom` = ?";
+            update+="StringNomString = ?";
             if(file!=null || description!=null) {
                 update+=", ";
             }
         }
         if(description!=null) {
-            update+="`Description` = ?";
+            update+="StringDescriptionString = ?";
             if(file!=null ) {
                 update+=", ";
             }
         }
         String linkString="";
         if(file!=null) {
-            update+="`DocumentLink` = ?";
+            update+="StringDocumentLinkString = ?";
 
         }
-        update+=" WHERE `acte`.`idActe` = ?;";
+        update+=" WHERE StringacteString.StringidActeString = ?;";
 
         PreparedStatement pStatement = con.prepareStatement(update);
         if(title!=null) {
@@ -406,9 +406,9 @@ public class SQLManager implements ISingleton {
         search="%"+search+"%";
         //gérer patient medecin Id
         String reqString="SELECT\r\n" +
-                "    `idActe`,\r\n" +
-                "    `Nom`,\r\n" +
-                "    `Responsable`,\r\n" +
+                "    StringidActeString,\r\n" +
+                "    StringNomString,\r\n" +
+                "    StringResponsableString,\r\n" +
                 "    dmp.UUID,\r\n" +
                 "    demoinformations.Name,\r\n" +
                 "    demoinformations.FirstName,\r\n" +
@@ -418,7 +418,7 @@ public class SQLManager implements ISingleton {
                 "    DocumentLink,\r\n" +
                 "    documenttype.Name as document\r\n" +
                 "FROM\r\n" +
-                "    `acte`,\r\n" +
+                "    StringacteString,\r\n" +
                 "    dmp,\r\n" +
                 "    staffmember,\r\n" +
                 "    documenttype,\r\n" +
@@ -495,7 +495,7 @@ public class SQLManager implements ISingleton {
     }
 
     public List<HashMap<String, Object>> printStaffype() throws SQLException{
-        String req="SELECT * FROM `enumstafftype`";
+        String req="SELECT * FROM StringenumstafftypeString";
         PreparedStatement pStatement=con.prepareStatement(req);
         ArrayList<HashMap<String, Object>> list=new ArrayList<HashMap<String, Object>>();
         ResultSet rSet=pStatement.executeQuery();
@@ -516,7 +516,7 @@ public class SQLManager implements ISingleton {
     public boolean createProfile(long numsecu,String firstName, String lastName, String birthday,
                                  String Adress,String email,String phone) throws SQLException {
         if(CreateDemoInfo(numsecu, firstName, lastName, birthday, Adress, email, phone)) {
-            String resultString="INSERT INTO `dmp` (`UUID`, `idDoctor`, `DemoInformations_NumSecu`) VALUES (NULL, NULL, ?);";
+            String resultString="INSERT INTO StringdmpString (StringUUIDString, StringidDoctorString, StringDemoInformations_NumSecuString) VALUES (NULL, NULL, ?);";
             PreparedStatement pStatement=con.prepareStatement(resultString);
             pStatement.setLong(1, numsecu);
             System.out.println(pStatement);
@@ -528,7 +528,7 @@ public class SQLManager implements ISingleton {
 
     public boolean CreateStaff(long numsecu,String name, String lastName, String birthday,
                                String Adress,String email,String phone,int typeId) throws SQLException {
-        String loginReq="INSERT INTO `applicationuser` (`Login`, `PassWord`, `Mail`) VALUES (?, ?, ?);";
+        String loginReq="INSERT INTO StringapplicationuserString (StringLoginString, StringPassWordString, StringMailString) VALUES (?, ?, ?);";
         PreparedStatement pStatement=con.prepareStatement(loginReq);
         String login=name.substring(0,1)+lastName;
         pStatement.setString(1, login);
@@ -536,15 +536,15 @@ public class SQLManager implements ISingleton {
         pStatement.setString(3, email);
         if(!pStatement.execute()) {
             if(CreateDemoInfo(numsecu, name, lastName, birthday, Adress, email, phone)) {
-                String resultString="INSERT INTO `staffmember`(\r\n" +
-                        "    `idStaffMember`,\r\n" +
-                        "    `Skills`,\r\n" +
-                        "    `EnumStaffType_idEnumStaffType`,\r\n" +
-                        "    `DemoInformations_NumSecu`,\r\n" +
-                        "    `IBAN`,\r\n" +
-                        "    `BIC`,\r\n" +
-                        "    `Hospital_idHospital`,\r\n" +
-                        "    `Login`\r\n" +
+                String resultString="INSERT INTO StringstaffmemberString(\r\n" +
+                        "    StringidStaffMemberString,\r\n" +
+                        "    StringSkillsString,\r\n" +
+                        "    StringEnumStaffType_idEnumStaffTypeString,\r\n" +
+                        "    StringDemoInformations_NumSecuString,\r\n" +
+                        "    StringIBANString,\r\n" +
+                        "    StringBICString,\r\n" +
+                        "    StringHospital_idHospitalString,\r\n" +
+                        "    StringLoginString\r\n" +
                         ")\r\n" +
                         "VALUES(\r\n" +
                         "    NULL,\r\n" +
@@ -573,7 +573,7 @@ public class SQLManager implements ISingleton {
 
     private boolean CreateDemoInfo(long numsecu,String name, String lastName, String birthday,
                                    String Adress,String email,String phone) throws SQLException {
-        String demoReqString="INSERT INTO `demoinformations` (`NumSecu`, `Name`, `FirstName`, `BirthDate`, `Adress`, `Sexe`, `Profession`, `FamilialSituation`, `PersonToContact_idPatient`, `PhoneNumber`, `EnumNationnality_idNat`, `City_idCity`, `Poid`, `Taille`) VALUES (?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, ?, NULL, NULL, NULL, NULL);";
+        String demoReqString="INSERT INTO StringdemoinformationsString (StringNumSecuString, StringNameString, StringFirstNameString, StringBirthDateString, StringAdressString, StringSexeString, StringProfessionString, StringFamilialSituationString, StringPersonToContact_idPatientString, StringPhoneNumberString, StringEnumNationnality_idNatString, StringCity_idCityString, StringPoidString, StringTailleString) VALUES (?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, ?, NULL, NULL, NULL, NULL);";
         PreparedStatement pStatement=con.prepareStatement(demoReqString);
         String login=name.substring(0,1)+lastName;
         pStatement.setLong(1, numsecu);
@@ -589,8 +589,8 @@ public class SQLManager implements ISingleton {
 
 
     public boolean modifyContactStaff(int idPeople, String phoneNumber, String Adress, String email) throws SQLException {
-        String string="UPDATE `demoinformations` SET `Adress` = ?, `PhoneNumber` = ? WHERE `demoinformations`.`NumSecu` = (SELECT staffmember.DemoInformations_NumSecu FROM staffmember WHERE staffmember.idStaffMember=?);";
-        String logString="UPDATE applicationuser SET applicationuser.Mail = ? WHERE `applicationuser`.`Login` = (SELECT staffmember.Login FROM staffmember WHERE staffmember.idStaffMember=?);";
+        String string="UPDATE StringdemoinformationsString SET StringAdressString = ?, StringPhoneNumberString = ? WHERE StringdemoinformationsString.StringNumSecuString = (SELECT staffmember.DemoInformations_NumSecu FROM staffmember WHERE staffmember.idStaffMember=?);";
+        String logString="UPDATE applicationuser SET applicationuser.Mail = ? WHERE StringapplicationuserString.StringLoginString = (SELECT staffmember.Login FROM staffmember WHERE staffmember.idStaffMember=?);";
         PreparedStatement ps1=con.prepareStatement(string);
         PreparedStatement ps2=con.prepareStatement(logString);
         ps1.setString(1, Adress);
@@ -633,7 +633,7 @@ public class SQLManager implements ISingleton {
 
     public HashMap<String, Object> getStaffMember(int idStaffMember) throws SQLException {
 
-        String staff = "SELECT demoinformations.Name, demoinformations.FirstName, demoinformations.PhoneNumber ,demoinformations.BirthDate, demoinformations.Adress, applicationuser.Mail FROM `staffmember`,demoinformations,applicationuser WHERE staffmember.Login = applicationuser.Login AND demoinformations.NumSecu=staffmember.DemoInformations_NumSecu AND idStaffMember=?;";
+        String staff = "SELECT demoinformations.Name, demoinformations.FirstName, demoinformations.PhoneNumber ,demoinformations.BirthDate, demoinformations.Adress, applicationuser.Mail FROM StringstaffmemberString,demoinformations,applicationuser WHERE staffmember.Login = applicationuser.Login AND demoinformations.NumSecu=staffmember.DemoInformations_NumSecu AND idStaffMember=?;";
         PreparedStatement ps = con.prepareStatement(staff);
         ps.setInt(1, idStaffMember);
         ResultSet rs = ps.executeQuery();
@@ -677,7 +677,7 @@ public class SQLManager implements ISingleton {
     }
 
     public boolean affecterPatient(int nodeId, int staffId, int patientId) throws SQLException {
-        String requestString = "INSERT INTO `affectation` (`idAffectation`, `Symptome`, `Unit_idHospital`, `StaffID`, `PatientId`) VALUES (NULL, NULL, ?, ?, ?);";
+        String requestString = "INSERT INTO StringaffectationString (StringidAffectationString, StringSymptomeString, StringUnit_idHospitalString, StringStaffIDString, StringPatientIdString) VALUES (NULL, NULL, ?, ?, ?);";
         PreparedStatement rStatement = con.prepareStatement(requestString);
         rStatement.setInt(1, nodeId);
         rStatement.setInt(2, staffId);
@@ -687,7 +687,7 @@ public class SQLManager implements ISingleton {
     }
 
     public boolean unAffecterPatient(int nodeId, int staffId, int patientId) throws SQLException {
-        String requestString = "DELETE FROM `affectation` WHERE `StaffID`=? AND `PatientId`=?;";
+        String requestString = "DELETE FROM StringaffectationString WHERE StringStaffIDString=? AND StringPatientIdString=?;";
         PreparedStatement rStatement = con.prepareStatement(requestString);
         rStatement.setInt(1, staffId);
         rStatement.setInt(2, patientId);
@@ -697,13 +697,13 @@ public class SQLManager implements ISingleton {
 
     public boolean affecterPersonnel(int personalId, int hopitalUnitId, boolean leadUnit) throws SQLException {
         if(leadUnit) {
-            String rString="UPDATE `unit` SET `Director` = ? WHERE `unit`.`idHospital` = ?; ";
+            String rString="UPDATE StringunitString SET StringDirectorString = ? WHERE StringunitString.StringidHospitalString = ?; ";
             PreparedStatement rStatement = con.prepareStatement(rString);
             rStatement.setInt(1, personalId);
             rStatement.setInt(2, hopitalUnitId);
             return !rStatement.execute();
         }else {
-            String xString="UPDATE `staffmember` SET `Hospital_idHospital` = ? WHERE `staffmember`.`idStaffMember` = ?;";
+            String xString="UPDATE StringstaffmemberString SET StringHospital_idHospitalString = ? WHERE StringstaffmemberString.StringidStaffMemberString = ?;";
             PreparedStatement rStatement = con.prepareStatement(xString);
             rStatement.setInt(1, personalId);
             rStatement.setInt(2, hopitalUnitId);
@@ -726,7 +726,7 @@ public class SQLManager implements ISingleton {
                 throw new IllegalArgumentException();
             }
             System.out.println(type);
-            var sqlRequest = "INSERT INTO Unit(Name, Type, Director, ratache) VALUES (?, ?, ?,?); ";
+            String sqlRequest = "INSERT INTO Unit(Name, Type, Director, ratache) VALUES (?, ?, ?,?); ";
             System.err.println(con);
             ps = con.prepareStatement(sqlRequest);
             ps.setString(1, name);
@@ -735,7 +735,7 @@ public class SQLManager implements ISingleton {
             ps.setLong(4, idRattache);
             System.out.println(ps);
         } else {
-            var sqlRequest = "INSERT INTO Unit(Name, Type, Director) VALUES (?, ?, ?); ";
+            String sqlRequest = "INSERT INTO Unit(Name, Type, Director) VALUES (?, ?, ?); ";
             System.err.println(con);
             ps = con.prepareStatement(sqlRequest);
             ps.setString(1, name);
@@ -767,7 +767,7 @@ public class SQLManager implements ISingleton {
                 throw new IllegalArgumentException();
             }
             System.out.println(type);
-            var sqlRequest = "INSERT INTO Unit(Name, Type, Director, ratache) VALUES (?, ?, ?,?); ";
+            String sqlRequest = "INSERT INTO Unit(Name, Type, Director, ratache) VALUES (?, ?, ?,?); ";
             System.err.println(con);
             ps = con.prepareStatement(sqlRequest);
             ps.setString(1, name);
@@ -776,7 +776,7 @@ public class SQLManager implements ISingleton {
             ps.setLong(4, idRattache);
             System.out.println(ps);
         } else {
-            var sqlRequest = "INSERT INTO Unit(Name, Type, Director) VALUES (?, ?, ?); ";
+            String sqlRequest = "INSERT INTO Unit(Name, Type, Director) VALUES (?, ?, ?); ";
             System.err.println(con);
             ps = con.prepareStatement(sqlRequest);
             ps.setString(1, name);
@@ -917,25 +917,25 @@ public class SQLManager implements ISingleton {
     }
 
     public List<HashMap<String, Object>> getAllArchitecture() throws SQLException{
-        List<HashMap<String, Object>> hasmaList = new ArrayList<HashMap<String, Object>>();
-        for (var hospi : getAllHospital()) {
+        List<HashMap<String, Object>> hasmaList = new ArrayList<>();
+        for (HashMap<String, Object> hospi : getAllHospital()) {
 
 
-            List<HashMap<String, Object>> hasmaListPole = new ArrayList<HashMap<String, Object>>();
+            List<HashMap<String, Object>> hasmaListPole = new ArrayList<>();
             hospi.put("pole", hasmaListPole);
             hasmaList.add(hospi);
-            for (var pole : getAllPole((int)(hospi.get("hospitalId")))) {
-                List<HashMap<String, Object>> hasmaSector = new ArrayList<HashMap<String, Object>>();
+            for (HashMap<String, Object> pole : getAllPole((int)(hospi.get("hospitalId")))) {
+                List<HashMap<String, Object>> hasmaSector = new ArrayList<>();
                 pole.put("sector", hasmaSector);
-                List<HashMap<String, Object>> hasmaLabo = new ArrayList<HashMap<String, Object>>();
+                List<HashMap<String, Object>> hasmaLabo = new ArrayList<>();
                 pole.put("Labo", hasmaLabo);
                 hasmaListPole.add(pole);
-                for (var sector : getAllSector((int)(pole.get("poleId")))) {
+                for (HashMap<String, Object> sector : getAllSector((int)(pole.get("poleId")))) {
                     System.out.println(sector);
                     sector.put("Personnals", getStaffMemberFromNode((int)(sector.get("sectorId"))));
                     hasmaSector.add(sector);
                 }
-                for (var labo : getAllLabo((int)(pole.get("poleId")))) {
+                for (HashMap<String, Object> labo : getAllLabo((int)(pole.get("poleId")))) {
 
                     labo.put("Personnals", getStaffMemberFromNode((int)(labo.get("laboId"))));
                     hasmaLabo.add(labo);
@@ -1018,7 +1018,7 @@ public class SQLManager implements ISingleton {
     }
 
     public boolean modifyInfoStaff(int idPeople, String name, String firstname, String birthday) throws SQLException {
-        String string="UPDATE `demoinformations` SET `Name` = ?, `FirstName` = ?, BirthDate = ? WHERE `demoinformations`.`NumSecu` = (SELECT staffmember.DemoInformations_NumSecu FROM staffmember WHERE staffmember.idStaffMember=?);";
+        String string="UPDATE StringdemoinformationsString SET StringNameString = ?, StringFirstNameString = ?, BirthDate = ? WHERE StringdemoinformationsString.StringNumSecuString = (SELECT staffmember.DemoInformations_NumSecu FROM staffmember WHERE staffmember.idStaffMember=?);";
         PreparedStatement ps1=con.prepareStatement(string);
         ps1.setString(1, name);
         ps1.setString(2, firstname);
@@ -1094,7 +1094,7 @@ public class SQLManager implements ISingleton {
     public HashMap<String, Object> getStaffType(String login) {
         return null;
     }
-
+*/
 
     public String getString(String appelationString, String language) throws SQLException {
         String result = "";
