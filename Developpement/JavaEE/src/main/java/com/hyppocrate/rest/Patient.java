@@ -28,7 +28,7 @@ public class Patient {
         try {
               return Responses.objectOrCustomNull(SQLManager.getInstance().printDMP(search,sortColumnName,paginationNumber,paginationLenght));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -40,7 +40,7 @@ public class Patient {
         try {
             return Response.ok(SQLManager.getInstance().printSortDmpItems()).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -55,7 +55,7 @@ public class Patient {
         try {
             return Response.ok(SQLManager.getInstance().affecterPatient(nodeId,staffId,patientId)).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 

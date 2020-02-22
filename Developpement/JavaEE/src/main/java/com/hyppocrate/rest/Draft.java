@@ -40,9 +40,9 @@ public class Draft {
         try {
             return Response.ok(SQLManager.getInstance().updateEtPublierBrouillon(patientId, draftId, title, description, file)).build();
         } catch (final IOException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -62,10 +62,11 @@ public class Draft {
         try {
             return Response.ok(SQLManager.getInstance().updateBrouillon(patientId,draftId,title,description,file)).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
+    // TODO: 22/02/2020
     @Path("/print/file")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -74,7 +75,7 @@ public class Draft {
 
         return Responses.nullResponse();
     }
-    // TODO: 17/01/2020
+
     @Path("/print/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -85,12 +86,10 @@ public class Draft {
                              @QueryParam("search") String search,
                              @QueryParam("sortItem") String sortItem) {
 
-        //SQLManager.getInstance().get
-        //SQLManager.getInstance().updateDraft()
         try {
             return Response.ok(SQLManager.getInstance().printActe(patientId,search,sortItem,paginationNumber,paginationLength)).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
 
     }
@@ -102,7 +101,7 @@ public class Draft {
         try {
         return Responses.objectOrCustomNull(SQLManager.getInstance().printSortActeItems());
     } catch (final SQLException e) {
-        return Responses.nullResponse();
+        return Responses.errorResponse(e.toString());
     }
     }
 
@@ -118,7 +117,7 @@ public class Draft {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().printDraft(staffId,search,sortColumnName,paginationNumber,paginationLength));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 

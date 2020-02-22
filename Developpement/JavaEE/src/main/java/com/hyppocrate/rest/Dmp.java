@@ -27,7 +27,7 @@ public class Dmp {
         try {
         return Responses.objectOrError(SQLManager.getInstance().printActe(patientId, search,sortColumnName ,paginationNumber, paginationLength), "Error");
     }catch (final SQLException e){
-        return  Responses.nullResponse();
+        return Responses.errorResponse(e.toString());
     }
     }
 
@@ -39,7 +39,7 @@ public class Dmp {
         try {
         return Responses.objectOrCustomNull(SQLManager.getInstance().getDocument(id));
         }catch (final SQLException e){
-            return  Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -52,7 +52,7 @@ public class Dmp {
             return Responses.objectOrCustomNull(SQLManager.getInstance().dmpSortItems());
 
         }catch (final SQLException e){
-            return  Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 

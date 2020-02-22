@@ -23,7 +23,7 @@ public class Profile {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().printStaffype());
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 }

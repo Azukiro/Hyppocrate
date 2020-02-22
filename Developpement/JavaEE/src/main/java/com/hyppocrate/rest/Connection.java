@@ -35,7 +35,7 @@ public class Connection {
         try {
             return Response.ok(SQLManager.getInstance().connect(login,pwd)).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
        /* if (Str.isNullOrEmpty(email) || Str.isNullOrEmpty(pwd)) return Responses.errorResponse("badConnection");
 
@@ -75,7 +75,7 @@ public class Connection {
     public Response forgot(@Context final UriInfo ui,
                            @QueryParam("email") String email) throws SQLException {
 
-        /*if (Str.isNullOrEmpty(email)) return Responses.nullResponse();
+        /*if (Str.isNullOrEmpty(email)) return Responses.errorResponse(e.toString());
         // Récupère le membre du staff qui veut se connecter
         HashMap<String, Object> staffMember = Utils.callIfDeployed(SQLManager.getInstance().getStaffMember(email), getTestStaffMemberMap());
         Integer idStaffMember = (Integer) Utils.tryGet(staffMember, "id");
