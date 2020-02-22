@@ -14,8 +14,8 @@ import java.util.List;
 
 
 @Path("decision")
-@Consumes({"application/json"})
-@Produces({"application/json"})
+@Consumes("application/json")
+@Produces("application/json")
 @Stateless
 public class DecisionService {
     @PersistenceContext
@@ -23,57 +23,57 @@ public class DecisionService {
 
     @Path("/")
     @GET
-    public Response listPurchases(@Context final UriInfo ui,
-                                  @DefaultValue("") @QueryParam("email") final String email) {
+    public Response listPurchases(@Context UriInfo ui,
+                                  @DefaultValue("") @QueryParam("email") String email) {
         return Response.ok().
-                entity(queryUser(email))
+                entity(this.queryUser(email))
                 .build();
     }
 
     @Path("/")
     @POST
-    public Response purchase(@Context final UriInfo uriInfo, final Purchase purchase) {
+    public Response purchase(@Context UriInfo uriInfo, Purchase purchase) {
         if (purchase.getAmount() > 1000)
-            return generateResponse(false, "amount");
+            return this.generateResponse(false, "amount");
 
-        User user = em.find(User.class, purchase.getEmail());
+        final User user = this.em.find(User.class, purchase.getEmail());
         if (user == null) {
-            if (!isEmailValid(purchase.getEmail()))
+            if (!this.isEmailValid(purchase.getEmail()))
                 return Response.status(400).entity("Malformed email").build();
 
-            em.persist(new User(purchase.getEmail(), purchase.getAmount()));
-            return generateResponse(true, "ok");
+            this.em.persist(new User(purchase.getEmail(), purchase.getAmount()));
+            return this.generateResponse(true, "ok");
         }
 
         if (user.getAmount() + purchase.getAmount() > 1000)
-            return generateResponse(false, "debt");
+            return this.generateResponse(false, "debt");
 
         user.increaseAmount(purchase.getAmount());
 
-        return generateResponse(true, "ok");
+        return this.generateResponse(true, "ok");
     }
 
-    private boolean isEmailValid(String email) {
+    private boolean isEmailValid(final String email) {
         boolean result = true;
         try {
-            InternetAddress emailAddr = new InternetAddress(email);
+            final InternetAddress emailAddr = new InternetAddress(email);
             emailAddr.validate();
-        } catch (AddressException ex) {
+        } catch (final AddressException ex) {
             result = false;
         }
         return result;
     }
 
-    private Response generateResponse(final boolean accepted, final String reason) {
+    private Response generateResponse(boolean accepted, String reason) {
         return Response.ok().entity(new PurchaseResponse(accepted, reason)).build();
     }
     @SuppressWarnings("unchecked")
-    private List<User> queryUser(String email) {
-        List<User> users;
+    private List<User> queryUser(final String email) {
+        final List<User> users;
         if (email.isEmpty())
-            users = em.createQuery("SELECT m FROM User m").getResultList();
+            users = this.em.createQuery("SELECT m FROM User m").getResultList();
         else {
-            Query query = em.createQuery("SELECT m FROM User m WHERE m.email=:email");
+            final Query query = this.em.createQuery("SELECT m FROM User m WHERE m.email=:email");
             query.setParameter("email", email);
             users = query.getResultList();
         }

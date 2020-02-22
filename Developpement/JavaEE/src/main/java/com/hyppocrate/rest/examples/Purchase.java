@@ -9,75 +9,73 @@ public class Purchase {
     public Purchase() {
     }
 
-    public Purchase(String email, String first_name, String last_name, int amount) {
+    public Purchase(final String email, final String first_name, final String last_name, final int amount) {
         this.email = email;
         this.first_name = first_name;
         this.last_name = last_name;
         this.amount = amount;
     }
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
     public String getFirst_name() {
-        return first_name;
+        return this.first_name;
     }
 
-    public void setFirst_name(String first_name) {
+    public void setFirst_name(final String first_name) {
         this.first_name = first_name;
     }
 
     public String getLast_name() {
-        return last_name;
+        return this.last_name;
     }
 
-    public void setLast_name(String last_name) {
+    public void setLast_name(final String last_name) {
         this.last_name = last_name;
     }
 
     public int getAmount() {
-        return amount;
+        return this.amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(final int amount) {
         this.amount = amount;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
 
-        Purchase purchase = (Purchase) o;
+        final Purchase purchase = (Purchase) o;
 
-        if (amount != purchase.amount) return false;
-        if (!email.equals(purchase.email)) return false;
-        if (!first_name.equals(purchase.first_name)) return false;
-        if (!last_name.equals(purchase.last_name)) return false;
-
-        return true;
+        if (this.amount != purchase.amount) return false;
+        if (!this.email.equals(purchase.email)) return false;
+        if (!this.first_name.equals(purchase.first_name)) return false;
+        return this.last_name.equals(purchase.last_name);
     }
 
     @Override
     public int hashCode() {
-        int result = email.hashCode();
-        result = 31 * result + first_name.hashCode();
-        result = 31 * result + last_name.hashCode();
-        result = 31 * result + amount;
+        int result = this.email.hashCode();
+        result = 31 * result + this.first_name.hashCode();
+        result = 31 * result + this.last_name.hashCode();
+        result = 31 * result + this.amount;
         return result;
     }
 
     @Override
     public String toString() {
         return "Purchase{" +
-                "email='" + email + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", amount=" + amount +
+                "email='" + this.email + '\'' +
+                ", first_name='" + this.first_name + '\'' +
+                ", last_name='" + this.last_name + '\'' +
+                ", amount=" + this.amount +
                 '}';
     }
 }

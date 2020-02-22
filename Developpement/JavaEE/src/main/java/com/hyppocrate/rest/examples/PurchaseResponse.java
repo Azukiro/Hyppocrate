@@ -8,52 +8,50 @@ public class PurchaseResponse {
     public PurchaseResponse() {
     }
 
-    public PurchaseResponse(boolean accepted, String reason) {
+    public PurchaseResponse(final boolean accepted, final String reason) {
         this.accepted = accepted;
         this.reason = reason;
     }
 
     public boolean isAccepted() {
-        return accepted;
+        return this.accepted;
     }
 
-    public void setAccepted(boolean accepted) {
+    public void setAccepted(final boolean accepted) {
         this.accepted = accepted;
     }
 
     public String getReason() {
-        return reason;
+        return this.reason;
     }
 
-    public void setReason(String reason) {
+    public void setReason(final String reason) {
         this.reason = reason;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
 
-        PurchaseResponse that = (PurchaseResponse) o;
+        final PurchaseResponse that = (PurchaseResponse) o;
 
-        if (accepted != that.accepted) return false;
-        if (!reason.equals(that.reason)) return false;
-
-        return true;
+        if (this.accepted != that.accepted) return false;
+        return this.reason.equals(that.reason);
     }
 
     @Override
     public int hashCode() {
-        int result = (accepted ? 1 : 0);
-        result = 31 * result + reason.hashCode();
+        int result = (this.accepted ? 1 : 0);
+        result = 31 * result + this.reason.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
         return "PurchaseResponse{" +
-                "accepted=" + accepted +
-                ", reason='" + reason + '\'' +
+                "accepted=" + this.accepted +
+                ", reason='" + this.reason + '\'' +
                 '}';
     }
 }

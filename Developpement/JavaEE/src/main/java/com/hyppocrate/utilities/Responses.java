@@ -16,28 +16,28 @@ public class Responses {
     // en plus ça fait du code en une seule ligne c'est plus lisible (lol ou pas)
 
     public static Response nullResponse() {
-        return Response.ok(GENERIC_NULL).build();
+        return Response.ok(Responses.GENERIC_NULL).build();
     }
 
 
-    public static Response errorResponse(String idErrorMessage) {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("error", langManager.getString(idErrorMessage));
+    public static Response errorResponse(final String idErrorMessage) {
+        final HashMap<String, Object> result = new HashMap<>();
+        result.put("error", Responses.langManager.getString(idErrorMessage));
         return Response.ok(result).build();
     }
 
-    public static Response objectOrError(Object object, String idErrorMessage) {
-        if (object == null) return errorResponse(idErrorMessage);
+    public static Response objectOrError(final Object object, final String idErrorMessage) {
+        if (object == null) return Responses.errorResponse(idErrorMessage);
         return Response.ok(object).build();
     }
 
-    public static Response objectOrCustomNull(Object object) {
-        if (object == null) return nullResponse();
+    public static Response objectOrCustomNull(final Object object) {
+        if (object == null) return Responses.nullResponse();
         return Response.ok(object).build();
     }
 
-    public static Response objectOrCustomNull(HashMap<String, Object> object) {
-        if (object == null) return nullResponse();
+    public static Response objectOrCustomNull(final HashMap<String, Object> object) {
+        if (object == null) return Responses.nullResponse();
         return Response.ok(object).build();
     }
 }

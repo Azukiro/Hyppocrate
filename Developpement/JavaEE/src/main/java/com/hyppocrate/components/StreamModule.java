@@ -5,22 +5,22 @@ import java.util.HashMap;
 import java.util.List;
 
 public class StreamModule {
-    public String writeOrdonnance(List<HashMap<String, Object>> medicaments) {
+    public String writeOrdonnance(final List<HashMap<String, Object>> medicaments) {
         return null;
     }
-    public List<HashMap<String, Object>> readOrdonnance(String url) {
+    public List<HashMap<String, Object>> readOrdonnance(final String url) {
         return null;
     }
-    public String writeCompteRendu(String Text) {
+    public String writeCompteRendu(final String Text) {
         return null;
     }
-    public String readCompteRendu(String url) {
+    public String readCompteRendu(final String url) {
         return null;
     }
-    public boolean CopyFile(File file) {
+    public boolean CopyFile(final File file) {
         return false;
     }
-    public File GetFile(String url) {
+    public File GetFile(final String url) {
         return null;
     }
 

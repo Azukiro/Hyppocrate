@@ -16,12 +16,12 @@ public class Infrastructure {
     @Path("/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response all(@Context UriInfo ui) {
+    public Response all(@Context final UriInfo ui) {
 
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllArchitecture());
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -29,13 +29,13 @@ public class Infrastructure {
     @Path("/delete")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response all(@Context UriInfo ui, @QueryParam("nodeId") final int nodeId
+    public Response all(@Context final UriInfo ui, @QueryParam("nodeId") int nodeId
                         ) {
 
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllArchitecture());
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -43,11 +43,11 @@ public class Infrastructure {
     @Path("/hospital")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response hospital(@Context UriInfo ui) {
+    public Response hospital(@Context final UriInfo ui) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllHospital());
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.errorResponse(e.toString());
         }
 
@@ -56,12 +56,12 @@ public class Infrastructure {
     @Path("/pole")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response pole(@Context UriInfo ui,
-                         @QueryParam("nodeId") final int id) {
+    public Response pole(@Context final UriInfo ui,
+                         @QueryParam("nodeId") int id) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllPole(id));
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -69,12 +69,12 @@ public class Infrastructure {
     @Path("/sector")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sector(@Context UriInfo ui,
-                           @QueryParam("nodeId") final int nodeId) {
+    public Response sector(@Context final UriInfo ui,
+                           @QueryParam("nodeId") int nodeId) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllSector(nodeId));
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -82,12 +82,12 @@ public class Infrastructure {
     @Path("/labo")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response labo(@Context UriInfo ui,
-                           @QueryParam("nodeId") final int nodeId) {
+    public Response labo(@Context final UriInfo ui,
+                           @QueryParam("nodeId") int nodeId) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllLabo(nodeId));
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -95,41 +95,41 @@ public class Infrastructure {
     @Path("/unit")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createUnit(@Context UriInfo ui,
-                                @QueryParam("fatherId") final int fatherId,
-                                @QueryParam("name") final String name,
-                                @QueryParam("staffLeaderId") final int staffLeaderId) {
+    public Response createUnit(@Context final UriInfo ui,
+                                @QueryParam("fatherId") int fatherId,
+                                @QueryParam("name") String name,
+                                @QueryParam("staffLeaderId") int staffLeaderId) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().createUnit(name, fatherId, staffLeaderId));
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
     @Path("/unit")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createSectorLabo(@Context UriInfo ui,
-                               @QueryParam("fatherId") final int fatherId,
-                               @QueryParam("name") final String name,
-                                     @QueryParam("isLaboratory") final boolean isLaboratory,
-                               @QueryParam("staffLeaderId") final int staffLeaderId) {
+    public Response createSectorLabo(@Context final UriInfo ui,
+                               @QueryParam("fatherId") int fatherId,
+                               @QueryParam("name") String name,
+                                     @QueryParam("isLaboratory") boolean isLaboratory,
+                               @QueryParam("staffLeaderId") int staffLeaderId) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().createSector(name,fatherId,staffLeaderId,isLaboratory));
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
     @Path("/unit")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteUnit(@Context UriInfo ui,
-                               @QueryParam("nodeId") final int nodeId) {
+    public Response deleteUnit(@Context final UriInfo ui,
+                               @QueryParam("nodeId") int nodeId) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().deleteUnit(nodeId));
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }

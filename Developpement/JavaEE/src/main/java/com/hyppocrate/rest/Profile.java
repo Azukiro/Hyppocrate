@@ -18,11 +18,11 @@ public class Profile {
     @Path("/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response print(@Context UriInfo ui) throws SQLException {
+    public Response print(@Context final UriInfo ui) throws SQLException {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().printStaffype());
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }

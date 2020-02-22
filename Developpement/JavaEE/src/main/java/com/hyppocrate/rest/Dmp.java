@@ -17,16 +17,16 @@ public class Dmp {
     @Path("/print/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response printAll(@Context UriInfo ui,
-                             @QueryParam("patientId") final int patientId,
-                             @QueryParam("sortColumnName") final String sortColumnName,
-                             @QueryParam("search") final String search,
-                             @QueryParam("paginationNumber") final int paginationNumber,
-                             @QueryParam("paginationLength") final int paginationLength) {
+    public Response printAll(@Context final UriInfo ui,
+                             @QueryParam("patientId") int patientId,
+                             @QueryParam("sortColumnName") String sortColumnName,
+                             @QueryParam("search") String search,
+                             @QueryParam("paginationNumber") int paginationNumber,
+                             @QueryParam("paginationLength") int paginationLength) {
 
         try {
         return Responses.objectOrError(SQLManager.getInstance().printActe(patientId, search,sortColumnName ,paginationNumber, paginationLength), "Error");
-    }catch (SQLException e){
+    }catch (final SQLException e){
         return  Responses.nullResponse();
     }
     }
@@ -34,11 +34,11 @@ public class Dmp {
     @Path("/print/file")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sort(@Context UriInfo ui,
-                         @QueryParam("id") final int id) {
+    public Response sort(@Context final UriInfo ui,
+                         @QueryParam("id") int id) {
         try {
         return Responses.objectOrCustomNull(SQLManager.getInstance().getDocument(id));
-        }catch (SQLException e){
+        }catch (final SQLException e){
             return  Responses.nullResponse();
         }
     }
@@ -46,12 +46,12 @@ public class Dmp {
     @Path("/print/sort-items")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sort(@Context UriInfo ui) {
+    public Response sort(@Context final UriInfo ui) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().dmpSortItems());
 
-        }catch (SQLException e){
+        }catch (final SQLException e){
             return  Responses.nullResponse();
         }
     }

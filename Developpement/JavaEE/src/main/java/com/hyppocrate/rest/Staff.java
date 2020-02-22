@@ -16,12 +16,12 @@ public class Staff {
     @Path("/print/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response print(@Context UriInfo ui,
-                           @QueryParam("staffId") final int staffId) throws SQLException {
+    public Response print(@Context final UriInfo ui,
+                           @QueryParam("staffId") int staffId) throws SQLException {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getStaffMember(staffId));
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -29,15 +29,15 @@ public class Staff {
     @Path("/general")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public Response general(@Context UriInfo ui,
-                           @QueryParam("staffId") final int staffId,
-                            @QueryParam("firstName") final String firstName,
-                            @QueryParam("lastName") final String lastName,
-                            @QueryParam("birthdayDate") final String birthdayDate) throws SQLException {
+    public Response general(@Context final UriInfo ui,
+                           @QueryParam("staffId") int staffId,
+                            @QueryParam("firstName") String firstName,
+                            @QueryParam("lastName") String lastName,
+                            @QueryParam("birthdayDate") String birthdayDate) throws SQLException {
 
         try {
             return Response.ok(SQLManager.getInstance().modifyInfoStaff(staffId,firstName,lastName,birthdayDate)).build();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -45,15 +45,15 @@ public class Staff {
     @Path("/contact")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public Response contact(@Context UriInfo ui,
-                            @QueryParam("staffId") final int staffId,
-                            @QueryParam("phone") final String phone,
-                            @QueryParam("address") final String address,
-                            @QueryParam("email") final String email) throws SQLException {
+    public Response contact(@Context final UriInfo ui,
+                            @QueryParam("staffId") int staffId,
+                            @QueryParam("phone") String phone,
+                            @QueryParam("address") String address,
+                            @QueryParam("email") String email) throws SQLException {
 
         try {
             return Response.ok(SQLManager.getInstance().modifyContactStaff(staffId,phone,address,email)).build();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -61,15 +61,15 @@ public class Staff {
     @Path("/pwd")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public Response pwd(@Context UriInfo ui,
-                            @QueryParam("staffId") final int staffId,
-                            @QueryParam("oldPwd") final String oldPwd,
-                            @QueryParam("newPwd") final String newPwd,
-                            @QueryParam("newPwdAgain") final String newPwdAgain) throws SQLException {
+    public Response pwd(@Context final UriInfo ui,
+                            @QueryParam("staffId") int staffId,
+                            @QueryParam("oldPwd") String oldPwd,
+                            @QueryParam("newPwd") String newPwd,
+                            @QueryParam("newPwdAgain") String newPwdAgain) throws SQLException {
 
         try {
             return   Responses.objectOrCustomNull(SQLManager.getInstance().ResetPassword(staffId,oldPwd,newPwd,newPwdAgain));
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -78,18 +78,18 @@ public class Staff {
     @Path("/new/patient")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response newPatient(@Context UriInfo ui,
-                        @QueryParam("socialNumber") final long socialNumber,
-                        @QueryParam("firstName") final String firstName,
-                        @QueryParam("lastName") final String lastName,
-                               @QueryParam("phoneNumber") final String phoneNumber,
-                               @QueryParam("email") final String email,
-                               @QueryParam("address") final String address,
-                        @QueryParam("birthdayDate") final String birthdayDate) throws SQLException {
+    public Response newPatient(@Context final UriInfo ui,
+                        @QueryParam("socialNumber") long socialNumber,
+                        @QueryParam("firstName") String firstName,
+                        @QueryParam("lastName") String lastName,
+                               @QueryParam("phoneNumber") String phoneNumber,
+                               @QueryParam("email") String email,
+                               @QueryParam("address") String address,
+                        @QueryParam("birthdayDate") String birthdayDate) throws SQLException {
 
         try {
             return Response.ok(SQLManager.getInstance().createProfile(socialNumber,firstName,lastName,birthdayDate,address,email,phoneNumber)).build();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -97,19 +97,19 @@ public class Staff {
     @Path("/create")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@Context UriInfo ui,
-                           @QueryParam("typeId") final int typeId,
-                               @QueryParam("socialNumber") final long socialNumber,
-                               @QueryParam("firstName") final String firstName,
-                               @QueryParam("lastName") final String lastName,
-                               @QueryParam("phoneNumber") final String phoneNumber,
-                               @QueryParam("email") final String email,
-                               @QueryParam("address") final String address,
-                               @QueryParam("birthdayDate") final String birthdayDate) throws SQLException {
+    public Response create(@Context final UriInfo ui,
+                           @QueryParam("typeId") int typeId,
+                               @QueryParam("socialNumber") long socialNumber,
+                               @QueryParam("firstName") String firstName,
+                               @QueryParam("lastName") String lastName,
+                               @QueryParam("phoneNumber") String phoneNumber,
+                               @QueryParam("email") String email,
+                               @QueryParam("address") String address,
+                               @QueryParam("birthdayDate") String birthdayDate) throws SQLException {
 
         try {
             return Response.ok(SQLManager.getInstance().CreateStaff(socialNumber,firstName,lastName,birthdayDate,address,email,phoneNumber,typeId)).build();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -117,12 +117,12 @@ public class Staff {
     @Path("/infos/assignment")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response assignmentInfo(@Context UriInfo ui,
-                          @QueryParam("staffId") final int staffId) throws SQLException {
+    public Response assignmentInfo(@Context final UriInfo ui,
+                          @QueryParam("staffId") int staffId) throws SQLException {
         //A faire
         try {
             return Response.ok(SQLManager.getInstance().getStaffMember(staffId)).build();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -130,12 +130,12 @@ public class Staff {
     @Path("/infos/assignment")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Response assignmentdelete(@Context UriInfo ui,
-                                   @QueryParam("staffId") final int staffId) throws SQLException {
+    public Response assignmentdelete(@Context final UriInfo ui,
+                                   @QueryParam("staffId") int staffId) throws SQLException {
         //A faire
         try {
             return Response.ok(SQLManager.getInstance().getStaffMember(staffId)).build();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }

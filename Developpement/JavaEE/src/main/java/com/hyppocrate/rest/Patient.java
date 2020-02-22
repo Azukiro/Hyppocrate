@@ -17,17 +17,17 @@ public class Patient {
     @Path("/search/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response all(@Context UriInfo ui,
-                        @DefaultValue("") @QueryParam("staffId") final int staffId,
-                         @QueryParam("sortColumnName") final String sortColumnName,
-                       @QueryParam("search") final String search,
-                        @DefaultValue("") @QueryParam("paginationNumber") final int paginationNumber,
-                        @DefaultValue("") @QueryParam("paginationLenght") final int paginationLenght) {
+    public Response all(@Context final UriInfo ui,
+                        @DefaultValue("") @QueryParam("staffId") int staffId,
+                         @QueryParam("sortColumnName") String sortColumnName,
+                       @QueryParam("search") String search,
+                        @DefaultValue("") @QueryParam("paginationNumber") int paginationNumber,
+                        @DefaultValue("") @QueryParam("paginationLenght") int paginationLenght) {
 
         //SQLManager.getInstance().
         try {
               return Responses.objectOrCustomNull(SQLManager.getInstance().printDMP(search,sortColumnName,paginationNumber,paginationLenght));
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -35,11 +35,11 @@ public class Patient {
     @Path("/search/sort-items")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sortItems(@Context UriInfo ui) {
+    public Response sortItems(@Context final UriInfo ui) {
 
         try {
             return Response.ok(SQLManager.getInstance().printSortDmpItems()).build();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
@@ -47,14 +47,14 @@ public class Patient {
     @Path("/affect/staff")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response affect(@Context UriInfo ui,  @QueryParam("nodeId") final int nodeId,
+    public Response affect(@Context final UriInfo ui, @QueryParam("nodeId") int nodeId,
 
-                          @QueryParam("staffId") final int staffId,
-                          @QueryParam("patientId") final int patientId) {
+                           @QueryParam("staffId") int staffId,
+                           @QueryParam("patientId") int patientId) {
 
         try {
             return Response.ok(SQLManager.getInstance().affecterPatient(nodeId,staffId,patientId)).build();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return Responses.nullResponse();
         }
     }
