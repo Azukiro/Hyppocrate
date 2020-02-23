@@ -7,9 +7,17 @@
 
       <v-card color="transparent" outlined width="70%">
         <v-form ref="form">
-          <v-text-field label="Titre" outlined v-model="form.title" :rules="$rules('Title')" />
+          <v-select
+            v-model="form.typeId"
+            :items="actTypes"
+            item-text="typeName"
+            item-value="typeId"
+            label="Type"
+            outlined
+            :rules="$rules('Type')"
+          ></v-select>
 
-          <v-text-field label="Type" outlined v-model="form.type" :rules="$rules('Type')" />
+          <v-text-field label="Titre" outlined v-model="form.title" :rules="$rules('Title')" />
 
           <v-textarea
             outlined
@@ -39,15 +47,29 @@
 
 <script>
 import SelectedPatient from "@/components/All/SelectedPatient.vue";
+import { getters } from "@/store.js";
 
 export default {
   name: "CreateAct",
   components: { SelectedPatient },
+  computed: {
+    ...getters,
+    actTypes() {
+      return getters.actTypes();
+    },
+    requestForm() {
+      return {
+        staffId: getters.user().id,
+        patientId: getters.selectedPatient().id,
+        ...this.form
+      };
+    }
+  },
   data() {
     return {
       form: {
         title: "",
-        type: "", // Ajout liste déroulante
+        typeId: "", // Ajout liste déroulante
         description: "",
         file: {}
       }
@@ -58,7 +80,7 @@ export default {
       this.$request(
         "POST",
         "/medical-act/draft",
-        this.form,
+        this.requestForm,
         // {
         //   staffId,
         //   patientId,
@@ -79,12 +101,12 @@ export default {
         this.$request(
           "POST",
           "/medical-act/publish",
-          this.form,
+          this.requestForm,
           // {
           //   staffId,
           //   patientId,
           //   title,
-          //   type,
+          //   typeId,
           //   description,
           //   file: "chemin fichier 1|chemin fichier 2"
           // },

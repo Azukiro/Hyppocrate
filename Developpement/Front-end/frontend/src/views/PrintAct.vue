@@ -1,6 +1,8 @@
 <template>
   <v-card color="transparent" outlined height="90%" class="d-flex justify-center align-center">
     <v-card width="30%" color="#0c0c2" outlined class="d-flex flex-column align-center pa-5">
+      <SelectedPatient />
+
       <v-card-title class="mb-5">{{ title }}</v-card-title>
 
       <v-card-text class="text-center">{{ description }}</v-card-text>
@@ -15,9 +17,9 @@
             />
           </v-card-actions>
           <v-card-subtitle>
-            {{ type }}, le {{ date }}.
+            {{ actTypeName }}, le {{ date }}.
             <br />Fait par
-            <b>{{ staffFullName }}, {{ staffType }}</b>
+            <b>{{ staffFirstName }} {{ staffLastName }}, {{ staffTypeName }}</b>
           </v-card-subtitle>
         </div>
       </v-list-item>
@@ -27,21 +29,27 @@
 
 <script>
 import { getters } from "@/store.js";
+import SelectedPatient from "@/components/All/SelectedPatient.vue";
 
 export default {
   name: "PrintAct",
+  components: { SelectedPatient },
   computed: {
-    staffFullName() {
-      return this.selectedAct.staffLastName + " " + this.selectedAct.staffName;
+    ...getters,
+    staffFirstName() {
+      return this.selectedAct.staffFirstName;
     },
-    staffType() {
-      return this.selectedAct.staffType;
+    staffLastName() {
+      return this.selectedAct.staffLastName;
+    },
+    staffTypeName() {
+      return this.selectedAct.staffTypeName;
     },
     title() {
       return this.selectedAct.title;
     },
-    type() {
-      return this.selectedAct.type;
+    actTypeName() {
+      return this.selectedAct.actTypeName;
     },
     description() {
       return this.selectedAct.description;
@@ -56,8 +64,7 @@ export default {
     },
     fileName() {
       return this.selectedAct.fileName;
-    },
-    ...getters
+    }
   }
 };
 </script>

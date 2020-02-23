@@ -16,7 +16,7 @@
             <v-text-field
               label="Téléphone portable"
               outlined
-              v-model="form.phone"
+              v-model="form.phoneNumber"
               :rules="$rules('Phone')"
             ></v-text-field>
 
@@ -51,6 +51,7 @@
         <v-card width="80%" color="transparent" outlined>
           <v-form ref="pwdForm">
             <v-text-field
+              type="password"
               label="Ancien mot de passe"
               outlined
               v-model="form.oldPwd"
@@ -58,6 +59,7 @@
             ></v-text-field>
 
             <v-text-field
+              type="password"
               label="Nouveau mot de passe"
               outlined
               v-model="form.newPwd"
@@ -65,6 +67,7 @@
             ></v-text-field>
 
             <v-text-field
+              type="password"
               outlined
               label="Ressaisissez un mot de passe"
               v-model="form.newPwdAgain"
@@ -88,7 +91,7 @@
         </v-avatar>
 
         <v-card color="transparent" outlined>
-          <v-card-title class="headline white--text">{{ form.lastName }} {{ form.name }}</v-card-title>
+          <v-card-title class="headline white--text">{{ form.firstName }} {{ form.lastName }}</v-card-title>
 
           <v-card-text class="headline-2 white--text">
             <ul>
@@ -104,6 +107,8 @@
 </template>
 
 <script>
+import { getters } from "@/store.js";
+
 export default {
   name: "EditProfile",
 
@@ -111,16 +116,20 @@ export default {
     this.fetchPersonnalInformations();
   },
 
+  computed: {
+    ...getters
+  },
+
   data() {
     return {
       form: {
-        lastName: "Ewen",
-        name: "Bouquet",
+        firstName: "Ewen",
+        lastName: "Bouquet",
         idendityCardNumber: "0123456789",
         nationality: "Français",
         birthday: "22/11/2000",
         address: "",
-        phone: "",
+        phoneNumber: "",
         email: "",
         oldPwd: "",
         newPwd: "",
@@ -133,9 +142,30 @@ export default {
       this.$request(
         "GET",
         "/staff/all",
-        {},
+        {
+          patientId: this.user.id
+        },
+        // {
+        //   patientId
+        // }
         "Vos informations personnelles ont été chargées !",
-        response => (this.form = response),
+        response =>
+          (this.form = {
+            ...response,
+            oldPwd: "",
+            newPwd: "",
+            newPwdAgain: ""
+          }),
+        // {
+        //   firstName
+        //   lastName
+        //   idendityCardNumber
+        //   nationality
+        //   birthday
+        //   address
+        //   phoneNumber
+        //   email
+        // },
         "Aucune information personnelle n’a pu être affichée !",
         () => {}
       );
@@ -145,13 +175,18 @@ export default {
         this.$request(
           "GET",
           "/staff/contact",
+          {
+            id: this.form.id,
+            phoneNumber: this.form.phoneNumber,
+            address: this.form.address,
+            email: this.form.email
+          },
           // {
           //   id,
           //   phoneNumber,
           //   address,
           //   email
           // },
-          {},
           "Vos informations de contact ont bien été modifiées !",
           () => {},
           // empty
@@ -165,7 +200,12 @@ export default {
         this.$request(
           "GET",
           "/staff/pwd",
-          {},
+          {
+            id: this.form.id,
+            oldPwd: this.form.oldPwd,
+            newPwd: this.form.newPwd,
+            newPwdAgain: this.form.newPwdAgain
+          },
           // {
           //   id,
           //   oldPwd,

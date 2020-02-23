@@ -14,8 +14,14 @@ Vue.prototype.$request = function(
   error_message,
   error_action
 ) {
+  function console_log(response) {
+    console.log(type + " => " + url.href, response);
+  }
+
   function requestError(response) {
+    console_log(response);
     error_action(response);
+
     mutations.addSnack({
       color: "red",
       text: error_message,
@@ -26,8 +32,9 @@ Vue.prototype.$request = function(
   }
 
   function requestOk(response) {
+    console_log(response);
     ok_action(response);
-    console.log(response);
+
     mutations.addSnack({
       color: "green",
       text: ok_message,
@@ -37,15 +44,17 @@ Vue.prototype.$request = function(
     return response;
   }
 
-  fetch("http://51.178.45.82:8080/Hyppocrate/api" + url, {
+  url = new URL("http://51.178.45.82:8080/Hyppocrate/api" + url);
+  url.search = new URLSearchParams(params).toString();
+
+  fetch(url, {
     mode: "cors",
-    method: type,
-    params
-  })
-    .then(response =>
-      !response.ok ? requestError(response) : requestOk(response)
-    )
-    .catch(response => requestError(response));
+    method: type
+  }).then(response =>
+    response.ok
+      ? response.json().then(json => requestOk(json))
+      : requestError(response)
+  );
 };
 
 Vue.prototype.$downloadFile = (url, fileName) => {
@@ -56,7 +65,7 @@ Vue.prototype.$downloadFile = (url, fileName) => {
   link.click();
 };
 
-Vue.prototype.$rules = name => [v => !!v || name + " is required!"];
+Vue.prototype.$rules = name => [v => !!v || v === 0 || name + " is required!"];
 
 Vue.config.productionTip = false;
 

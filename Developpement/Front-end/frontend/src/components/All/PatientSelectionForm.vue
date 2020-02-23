@@ -17,8 +17,10 @@
           <div width="40%">
             <v-select
               @change="fetch"
-              v-model="form.columnName"
+              v-model="form.sortColumnName"
               :items="selectItems"
+              item-text="printableName"
+              item-value="sortColumnName"
               label="Trier par"
               outlined
             ></v-select>
@@ -29,7 +31,7 @@
 
     <div class="d-flex flex-row justify-space-around align-center">
       <v-card color="transparent" outlined width="20%" class="d-flex justify-end">
-        <v-btn icon @click="onPaginate_Left">
+        <v-btn icon color="black" @click="onPaginate_Left" :disabled="paginateLeftDisabled">
           <v-icon large>mdi-arrow-left-bold</v-icon>
         </v-btn>
       </v-card>
@@ -52,12 +54,16 @@
 
           <v-card-title class="headline black--text">{{ firstName }} {{ lastName }}</v-card-title>
 
-          <v-card-title class="headline black--text">{{ birthday }}</v-card-title>
+          <v-card-title class="headline black--text">
+            {{
+            birthday
+            }}
+          </v-card-title>
         </v-list-item>
       </v-card>
 
       <v-card color="transparent" outlined width="20%">
-        <v-btn icon color="black" @click="onPaginate_Right">
+        <v-btn icon color="black" @click="onPaginate_Right" :disabled="paginateRightDisabled">
           <v-icon large>mdi-arrow-right-bold</v-icon>
         </v-btn>
       </v-card>
@@ -71,6 +77,15 @@ export default {
 
   props: ["form", "selectItems", "patients"],
 
+  computed: {
+    paginateLeftDisabled() {
+      return this.form.paginationNumber <= 0;
+    },
+    paginateRightDisabled() {
+      return this.patients.length < this.form.paginationLength;
+    }
+  },
+
   methods: {
     fetch() {
       this.$emit("change");
@@ -79,15 +94,15 @@ export default {
       this.$emit("selection", i);
     },
     onPaginate_Left() {
-      this.form.paginationNumber -=
-        this.form.paginationNumber <= 0 ? 0 : this.form.paginationLength;
+      this.form.paginationNumber -= this.paginateLeftDisabled
+        ? 0
+        : this.form.paginationLength;
       this.fetch();
     },
     onPaginate_Right() {
-      this.form.paginationNumber +=
-        this.patients.length < this.form.paginationLength
-          ? 0
-          : this.form.paginationLength;
+      this.form.paginationNumber += this.paginateRightDisabled
+        ? 0
+        : this.form.paginationLength;
       this.fetch();
     }
   }

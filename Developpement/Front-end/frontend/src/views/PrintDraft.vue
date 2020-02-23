@@ -7,9 +7,17 @@
 
       <v-card color="transparent" outlined width="70%">
         <v-form ref="form">
-          <v-text-field label="Titre" outlined v-model="form.title" :rules="$rules('Title')"></v-text-field>
+          <v-select
+            v-model="form.typeId"
+            :items="actTypes"
+            item-text="typeName"
+            item-value="typeId"
+            label="Type"
+            outlined
+            :rules="$rules('Type')"
+          ></v-select>
 
-          <v-text-field label="Type" outlined v-model="form.type" :rules="$rules('Type')"></v-text-field>
+          <v-text-field label="Titre" outlined v-model="form.title" :rules="$rules('Title')"></v-text-field>
 
           <v-textarea
             outlined
@@ -50,15 +58,19 @@ export default {
   name: "PrintDraft",
   components: { SelectedPatient },
   computed: {
+    ...getters,
     form() {
       return {
+        actId: this.selectedDraft.actId,
         title: this.selectedDraft.title,
-        type: this.selectedDraft.type,
+        typeId: this.selectedDraft.typeId,
         description: this.selectedDraft.description,
         file: this.selectedDraft.file
       };
     },
-    ...getters
+    actTypes() {
+      return getters.actTypes();
+    }
   },
   data() {
     return {
@@ -73,11 +85,11 @@ export default {
         "/draft/actions/publish",
         this.form,
         // {
-        //   patientId,
+        //   actId
         //   title,
+        //   typeId,
         //   description,
-        //   draftId,
-        //   fileName
+        //   file: "chemin fichier 1|chemin fichier 2"
         // },
         "Le brouillon a été publié avec succès !",
         () => {},
@@ -92,11 +104,11 @@ export default {
           "/draft/actions/update",
           this.form,
           // {
-          //   patientId,
+          //   actId
           //   title,
+          //   typeId,
           //   description,
-          //   draftId,
-          //   fileName
+          //   file: "chemin fichier 1|chemin fichier 2"
           // },
           "L’acte médical a été sauvegardé en tant que brouillon !",
           () => {},

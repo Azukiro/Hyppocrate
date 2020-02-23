@@ -18,11 +18,16 @@
             <v-text-field
               label="Prénom"
               outlined
+              v-model="form.firstName"
+              :rules="$rules('First name')"
+            />
+
+            <v-text-field
+              label="Nom"
+              outlined
               v-model="form.lastName"
               :rules="$rules('Last name')"
             />
-
-            <v-text-field label="Nom" outlined v-model="form.name" :rules="$rules('Name')" />
 
             <v-text-field
               outlined

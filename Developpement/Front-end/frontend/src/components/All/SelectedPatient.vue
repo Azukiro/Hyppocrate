@@ -13,11 +13,11 @@ export default {
   firstName: "SelectedPatient",
   computed: {
     ...getters,
-    lastName() {
-      return this.selectedPatient.lastName;
-    },
     firstName() {
       return this.selectedPatient.firstName;
+    },
+    lastName() {
+      return this.selectedPatient.lastName;
     }
   }
 };

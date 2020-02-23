@@ -26,11 +26,11 @@ export default {
     return {
       form: {
         search: "",
-        columnName: "",
+        sortColumnName: "",
         paginationNumber: 0,
         paginationLength: 4
       },
-      selectItems: ["Prénom", "Nom", "Date de naissance"],
+      selectItems: [],
       patients: [
         {
           id: 0,
@@ -65,7 +65,6 @@ export default {
         "GET",
         "/patient/search/sort-items",
         {},
-        // empty
         "Chargement de la liste de critère de tri effectuée !",
         response => (this.selectItems = response),
         // [{sortColumnName, printableName}]
@@ -80,9 +79,9 @@ export default {
         this.form,
         // {
         //   sortColumnName,
-        //   search,
-        //   paginationNumber,
-        //   paginationLength
+        //   form.search,
+        //   form.paginationNumber,
+        //   paginationLength: this.form.paginationLength
         // },
         "Chargement des DMP effectué !",
         // {

@@ -75,7 +75,7 @@ export default {
           email: this.form.email,
           pwd: this.form.pwd
         },
-        "Bienvenue " + this.user.lastName + " " + this.user.name + " !",
+        "Bienvenue " + this.user.firstName + " " + this.user.lastName + " !",
         response => this.setUser(response),
         "Echec de l'authentification, il vous reste " +
           --this.retry +

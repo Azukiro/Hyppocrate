@@ -17,8 +17,10 @@
           <div width="40%">
             <v-select
               @change="fetch"
-              v-model="form.columnName"
+              v-model="form.sortColumnName"
               :items="selectItems"
+              item-text="printableName"
+              item-value="sortColumnName"
               label="Trier par"
               outlined
             ></v-select>
@@ -43,7 +45,7 @@
         <v-list-item
           style="width: 100%;"
           class="d-flex justify-space-between"
-          v-for="({lastName, name, title, date, icon}, i) in drafts"
+          v-for="({ staffFirstName, staffLastName, title, date, actIcon }, i) in drafts"
           :key="i"
           @click="onSelection(i)"
         >
@@ -58,9 +60,9 @@
             </v-avatar>
 
             <v-card-title class="headline black--text">
-              {{ lastName }}
+              {{ staffFirstName }}
               <br />
-              {{ name }}
+              {{ staffLastName }}
             </v-card-title>
           </v-card>
           <v-card
@@ -76,7 +78,7 @@
             </v-card-title>
 
             <v-avatar class="ma-3" width="90px" height="90px" tile>
-              <v-img :src="icon" />
+              <v-img :src="actIcon" />
             </v-avatar>
           </v-card>
         </v-list-item>
