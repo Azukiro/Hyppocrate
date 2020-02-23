@@ -1,11 +1,11 @@
 <template>
   <v-card
     color="transparent"
-    height="100%"
+    height="90%"
     outlined
-    class="d-flex flex-column justify-space-around align-center"
+    class="d-flex flex-column justify-center align-center"
   >
-    <v-card-title class="headline py-6">Mon profil</v-card-title>
+    <v-card-title class="headline py-6 mb-5">Mon profil</v-card-title>
 
     <v-card width="80%" color="transparent" outlined class="d-flex justify-space-around">
       <v-card width="30%" color="transparent" class="d-flex flex-column align-center title pt-5">
@@ -82,26 +82,6 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-card>
-
-    <v-card width="30%" color="#2c96fa" outlined class="pa-2 mt-4">
-      <div class="d-flex justify-center align-center">
-        <v-avatar class="ma-3" width="150px" height="150px" tile>
-          <v-img src="@/assets/logos/icons/types/black/patient.png" />
-        </v-avatar>
-
-        <v-card color="transparent" outlined>
-          <v-card-title class="headline white--text">{{ form.firstName }} {{ form.lastName }}</v-card-title>
-
-          <v-card-text class="headline-2 white--text">
-            <ul>
-              <li class="py-1">Carte d'identité : {{ form.idendityCardNumber }}</li>
-              <li class="py-1">Nationalité : {{ form.nationality }}</li>
-              <li class="py-1">Naissance : {{ form.birthdayDate }}</li>
-            </ul>
-          </v-card-text>
-        </v-card>
-      </div>
     </v-card>
   </v-card>
 </template>

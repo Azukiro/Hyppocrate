@@ -76,7 +76,10 @@ export default {
           pwd: this.form.pwd
         },
         "Bienvenue " + this.user.firstName + " " + this.user.lastName + " !",
-        response => this.setUser(response),
+        response => {
+          this.setUser(response);
+          this.$router.push("/actions");
+        },
         "Echec de l'authentification, il vous reste " +
           --this.retry +
           " essais !",
