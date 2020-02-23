@@ -284,7 +284,7 @@ public class SQLManager implements ISingleton {
             resultSet = pStatement.executeQuery();
 
             resultSet.next();
-            result.put("name", resultSet.getString("FirstName"));
+            result.put("firstName", resultSet.getString("FirstName"));
             result.put("lastName", resultSet.getString("Name"));
 
             return result;
