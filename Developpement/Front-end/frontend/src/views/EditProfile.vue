@@ -1,11 +1,11 @@
 <template>
   <v-card
     color="transparent"
-    height="100%"
+    height="90%"
     outlined
-    class="d-flex flex-column justify-space-around align-center"
+    class="d-flex flex-column justify-center align-center"
   >
-    <v-card-title class="headline py-6">Mon profil</v-card-title>
+    <v-card-title class="headline py-6 mb-5">Mon profil</v-card-title>
 
     <v-card width="80%" color="transparent" outlined class="d-flex justify-space-around">
       <v-card width="30%" color="transparent" class="d-flex flex-column align-center title pt-5">
@@ -51,6 +51,7 @@
         <v-card width="80%" color="transparent" outlined>
           <v-form ref="pwdForm">
             <v-text-field
+              type="password"
               label="Ancien mot de passe"
               outlined
               v-model="form.oldPwd"
@@ -58,6 +59,7 @@
             ></v-text-field>
 
             <v-text-field
+              type="password"
               label="Nouveau mot de passe"
               outlined
               v-model="form.newPwd"
@@ -65,6 +67,7 @@
             ></v-text-field>
 
             <v-text-field
+              type="password"
               outlined
               label="Ressaisissez un mot de passe"
               v-model="form.newPwdAgain"
@@ -80,30 +83,12 @@
         </v-card-actions>
       </v-card>
     </v-card>
-
-    <v-card width="30%" color="#2c96fa" outlined class="pa-2 mt-4">
-      <div class="d-flex justify-center align-center">
-        <v-avatar class="ma-3" width="150px" height="150px" tile>
-          <v-img src="@/assets/logos/icons/types/black/patient.png" />
-        </v-avatar>
-
-        <v-card color="transparent" outlined>
-          <v-card-title class="headline white--text">{{ form.lastName }} {{ form.name }}</v-card-title>
-
-          <v-card-text class="headline-2 white--text">
-            <ul>
-              <li class="py-1">Carte d'identité : {{ form.idendityCardNumber }}</li>
-              <li class="py-1">Nationalité : {{ form.nationality }}</li>
-              <li class="py-1">Naissance : {{ form.birthday }}</li>
-            </ul>
-          </v-card-text>
-        </v-card>
-      </div>
-    </v-card>
   </v-card>
 </template>
 
 <script>
+import { getters } from "@/store.js";
+
 export default {
   name: "EditProfile",
 
@@ -111,16 +96,18 @@ export default {
     this.fetchPersonnalInformations();
   },
 
+  computed: {
+    ...getters
+  },
+
   data() {
     return {
       form: {
-        lastName: "Ewen",
-        name: "Bouquet",
-        idendityCardNumber: "0123456789",
-        nationality: "Français",
-        birthday: "22/11/2000",
-        address: "",
+        firstName: "Ewen",
+        lastName: "Bouquet",
+        birthdayDate: "22/11/2000",
         phone: "",
+        address: "",
         email: "",
         oldPwd: "",
         newPwd: "",
@@ -132,14 +119,21 @@ export default {
     fetchPersonnalInformations() {
       this.$request(
         "GET",
-        "/staff/print/all",
-        this.form,
+        "/staff/all",
+        {
+          patientId: this.user.id
+        },
         // {
-        //   staffId
+        //   patientId
         // }
         "Vos informations personnelles ont été chargées !",
-        // response => (this.form = response),
-        () => {},
+        response =>
+          (this.form = {
+            ...response,
+            oldPwd: "",
+            newPwd: "",
+            newPwdAgain: ""
+          }),
         // {
         //   firstName,
         //   lastName,
@@ -157,13 +151,18 @@ export default {
         this.$request(
           "GET",
           "/staff/contact",
+          {
+            id: this.form.id,
+            phone: this.form.phone,
+            address: this.form.address,
+            email: this.form.email
+          },
           // {
           //   staffId,
-          //   phoneNumber,
+          //   phone,
           //   address,
           //   email
           // },
-          {},
           "Vos informations de contact ont bien été modifiées !",
           () => {},
           // empty
@@ -177,7 +176,12 @@ export default {
         this.$request(
           "GET",
           "/staff/pwd",
-          {},
+          {
+            id: this.form.id,
+            oldPwd: this.form.oldPwd,
+            newPwd: this.form.newPwd,
+            newPwdAgain: this.form.newPwdAgain
+          },
           // {
           //   staffId,
           //   oldPwd,

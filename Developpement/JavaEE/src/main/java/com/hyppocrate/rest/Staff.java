@@ -22,7 +22,7 @@ public class Staff {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getStaffMember(staffId));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -38,7 +38,7 @@ public class Staff {
         try {
             return Response.ok(SQLManager.getInstance().modifyInfoStaff(staffId,firstName,lastName,birthdayDate)).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -54,7 +54,7 @@ public class Staff {
         try {
             return Response.ok(SQLManager.getInstance().modifyContactStaff(staffId,phone,address,email)).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -70,7 +70,7 @@ public class Staff {
         try {
             return   Responses.objectOrCustomNull(SQLManager.getInstance().ResetPassword(staffId,oldPwd,newPwd,newPwdAgain));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -90,7 +90,7 @@ public class Staff {
         try {
             return Response.ok(SQLManager.getInstance().createProfile(socialNumber,firstName,lastName,birthdayDate,address,email,phoneNumber)).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -110,7 +110,7 @@ public class Staff {
         try {
             return Response.ok(SQLManager.getInstance().CreateStaff(socialNumber,firstName,lastName,birthdayDate,address,email,phoneNumber,typeId)).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -123,7 +123,7 @@ public class Staff {
         try {
             return Response.ok(SQLManager.getInstance().getStaffMember(staffId)).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -136,7 +136,7 @@ public class Staff {
         try {
             return Response.ok(SQLManager.getInstance().getStaffMember(staffId)).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 }

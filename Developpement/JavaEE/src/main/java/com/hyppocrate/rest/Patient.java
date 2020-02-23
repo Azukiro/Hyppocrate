@@ -18,16 +18,16 @@ public class Patient {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response all(@Context final UriInfo ui,
-                         @QueryParam("sortColumnName") String sortColumnName,
-                       @QueryParam("search") String search,
-                        @DefaultValue("") @QueryParam("paginationNumber") int paginationNumber,
-                        @DefaultValue("") @QueryParam("paginationLenght") int paginationLenght) {
 
-        //SQLManager.getInstance().
+                        @QueryParam("sortColumnName") String sortColumnName,
+                        @QueryParam("search") String search,
+                        @QueryParam("paginationNumber") int paginationNumber,
+                        @QueryParam("paginationLenght") int paginationLenght) {
+
         try {
               return Responses.objectOrCustomNull(SQLManager.getInstance().printDMP(search,sortColumnName,paginationNumber,paginationLenght));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -39,7 +39,7 @@ public class Patient {
         try {
             return Response.ok(SQLManager.getInstance().printSortDmpItems()).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -54,7 +54,7 @@ public class Patient {
         try {
             return Response.ok(SQLManager.getInstance().affecterPatient(nodeId,staffId,patientId)).build();
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 

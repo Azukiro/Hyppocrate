@@ -31,7 +31,7 @@ public class MedicalAct {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().CreateDraftt(staffId, patientId, title, type, description, file));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -49,7 +49,7 @@ public class MedicalAct {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().publishActe(staffId, patientId, title, type, description, file));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 

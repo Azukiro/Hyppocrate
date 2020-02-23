@@ -18,8 +18,10 @@
 
           <div width="40%">
             <v-select
-              v-model="form.columnName"
+              v-model="form.sortColumnName"
               :items="selectItems"
+              item-text="printableName"
+              item-value="sortColumnName"
               label="Trier par"
               outlined
               @change="fetch"
@@ -43,13 +45,13 @@
       >
         <v-list-item
           style="width: 100%;"
-          v-for="({ icon, title, staffLastName, staffName, staffType, date }, i) in acts"
+          v-for="({ actIcon, actTypeName, title, staffFirstName, staffLastName, staffTypeName, actType, date }, i) in acts"
           :key="i"
           @click="onSelection(i)"
           class="onAction"
         >
           <v-avatar class="ma-3" width="90px" height="90px" tile>
-            <v-img :src="icon" />
+            <v-img :src="actIcon" />
           </v-avatar>
 
           <v-card color="transparent" outlined>
@@ -57,8 +59,8 @@
 
             <v-card-text class="headline-2 black--text">
               <ul>
-                <li>{{ staffLastName }} {{ staffName }}</li>
-                <li>{{ staffType }}</li>
+                <li>{{ staffFirstName }} {{ staffLastName }}, {{ staffTypeName }}</li>
+                <li>{{ actTypeName }}</li>
                 <li>Fait le {{ date }}</li>
               </ul>
             </v-card-text>
@@ -76,12 +78,16 @@
 </template>
 
 <script>
+import { getters } from "@/store.js";
 import SelectedPatient from "@/components/All/SelectedPatient.vue";
 
 export default {
   name: "PrintDmp",
   components: { SelectedPatient },
   props: ["form", "selectItems", "acts"],
+  computed: {
+    ...getters
+  },
   methods: {
     fetch() {
       this.$emit("change");

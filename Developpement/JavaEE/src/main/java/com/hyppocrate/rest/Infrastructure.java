@@ -22,7 +22,7 @@ public class Infrastructure {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllArchitecture());
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -36,7 +36,7 @@ public class Infrastructure {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllArchitecture());
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -62,7 +62,7 @@ public class Infrastructure {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllPole(id));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -75,7 +75,7 @@ public class Infrastructure {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllSector(nodeId));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -88,7 +88,7 @@ public class Infrastructure {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllLabo(nodeId));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -103,7 +103,7 @@ public class Infrastructure {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().createUnit(name, fatherId, staffLeaderId));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
     @Path("/unit")
@@ -118,7 +118,7 @@ public class Infrastructure {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().createSector(name,fatherId,staffLeaderId,isLaboratory));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
     @Path("/unit")
@@ -130,7 +130,7 @@ public class Infrastructure {
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().deleteUnit(nodeId));
         } catch (final SQLException e) {
-            return Responses.nullResponse();
+            return Responses.errorResponse(e.toString());
         }
     }
 

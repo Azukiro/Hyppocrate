@@ -4,7 +4,7 @@
       <v-card-actions>
         <v-img width="70px" height="70px" src="@/assets/logos/icons/types/black/patient.png" />
       </v-card-actions>
-      <v-card-title class="headline-2">{{ patient.lastName }} {{ patient.name }}</v-card-title>
+      <v-card-title class="headline-2">{{ patient.first }} {{ patient.lastName }}</v-card-title>
     </div>
 
     <v-card outlined width="40%" class="d-flex flex-column justify-center align-center my-5">

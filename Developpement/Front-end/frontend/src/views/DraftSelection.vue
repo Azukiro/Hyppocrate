@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mutations } from "@/store.js";
+import { getters, mutations } from "@/store.js";
 import DraftSelectionForm from "@/components/All/DraftSelectionForm.vue";
 
 export default {
@@ -21,54 +21,76 @@ export default {
   created() {
     this.fetchSortItems();
     this.fetchDrafts();
+    this.drafts = getters.addActInformations(this.drafts);
+  },
+
+  computed: {
+    ...getters,
+    requestForm() {
+      return {
+        ...this.form,
+        staffId: this.user.id
+      };
+    }
   },
 
   data() {
     return {
       form: {
         search: "",
-        columnName: "",
+        sortColumnName: "",
         paginationNumber: 0,
         paginationLength: 3
       },
-      selectItems: [
-        "Prénom",
-        "Nom",
-        "Date de naissance",
-        "Ordonnances",
-        "Radiologie",
-        "Actes médicaux"
-      ],
+      selectItems: [],
       drafts: [
         {
-          lastName: "Ewen",
-          name: "Bouquet",
-          date: "02/02/2018",
+          actId: 1,
+          actTypeId: 0,
+          title: "Résultats médicaux",
+          staffId: 0,
+          staffTypeId: 0,
+          staffEmail: "Serge.gas@gmail.com",
+          staffPhoneNumber: "01561309",
+          description: "Rien à noter",
+          date: "01/11/2019",
+          link: "test/file.txt",
+          staffFirstName: "Ewen",
+          staffLastName: "Bouquet",
+          patientFirstName: "Jean",
+          patientLastName: "Dujardin"
+        },
+        {
+          actId: 2,
+          actTypeId: 1,
+          title: "Examen médical",
+          staffId: 0,
+          staffTypeId: 1,
+          staffEmail: "Serge.gas@gmail.com",
+          staffPhoneNumber: "01561309",
+          description: "Rien à noter",
+          date: "01/10/2019",
+          link: "test/file.txt",
+          staffFirstName: "Ewen",
+          staffLastName: "Bouquet",
+          patientFirstName: "Jacques",
+          patientLastName: "Dujardin"
+        },
+        {
+          actId: 2,
+          actTypeId: 2,
           title: "Résultats de radio",
-          type: "Radiologie",
-          description: "Rien à signaler",
-          icon: require("@/assets/logos/icons/actions/black/radiology.png"),
-          file: {}
-        },
-        {
-          lastName: "Lucas",
-          name: "Billard",
-          date: "07/02/2019",
-          title: "Ordonnance",
-          type: "Ordonnance",
-          description: "Rien à signaler",
-          icon: require("@/assets/logos/icons/actions/black/prescription.png"),
-          file: {}
-        },
-        {
-          lastName: "Vincent",
-          name: "Buisset",
-          date: "02/03/2018",
-          title: "Résultats d'examens médicaux",
-          type: "Examens",
-          description: "Rien à signaler",
-          icon: require("@/assets/logos/icons/actions/black/exam-results.png"),
-          file: {}
+          staffId: 0,
+          staffTypeId: 3,
+          staffEmail: "Serge.gas@gmail.com",
+          staffPhoneNumber: "01561309",
+          description: "Rien à noter",
+          date: "17/01/2020",
+          link: "test/file.txt",
+          staffFirstName: "Ewen",
+          staffLastName: "Bouquet",
+          patientFirstName: "Gilles",
+          patientLastName: "Dujardin"
         }
       ]
     };
@@ -95,7 +117,7 @@ export default {
       this.$request(
         "GET",
         "/draft/print/all",
-        this.form, //Type non modifiable
+        this.requestForm,
         // {
         //   staffId,
         //   sortColumnName,
@@ -104,20 +126,24 @@ export default {
         //   paginationLength
         // },
         "Chargement des brouillons effectué !",
-        // {
-        //   actId,
-        //   type,
-        //   title,
-        //   staffId,
-        //   staffTypeId, // Ajout get icon + descriptif type en string
-        //   staffEmail, // Ajout popup contact
-        //   staffPhoneNumber, // Au niveau de print act
-        //   description,
-        //   date,
-        //   link,
-        //   staffFirstName,
-        //   staffLastName
-        // }
+        // [
+        //   {
+        //     actId,
+        //     type,
+        //     title,
+        //     staffId,
+        //     staffTypeId, // Ajout get icon + descriptif type en string
+        //     staffEmail, // Ajout popup contact
+        //     staffPhoneNumber, // Au niveau de print act
+        //     description,
+        //     date,
+        //     link,
+        //     staffFirstName,
+        //     staffLastName,
+        //     patientFirstName,
+        //     patientLastName
+        //   }
+        // ]
         () => {},
         // response => (this.drafts = response),
         "Aucun brouillé ne correspond à vos critères !",
@@ -127,7 +153,8 @@ export default {
     onDraftClick(i) {
       this.setSelectedDraft(this.drafts[i]);
       this.setSelectedPatient({
-        name: this.drafts[i].lastName + " " + this.drafts[i].name
+        firstName: this.drafts[i].patientFirstName,
+        lastName: this.drafts[i].patientLastName
       });
       this.$router.push("/print-draft");
     }

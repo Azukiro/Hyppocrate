@@ -236,6 +236,33 @@ export const globals = Vue.observable({
         }
       ]
     }
+  ],
+
+  actTypes: [
+    {
+      name: "Ordonnance",
+      icon: require("@/assets/logos/icons/actions/black/prescription.png")
+    },
+    {
+      name: "Rapport d'analyse",
+      icon: require("@/assets/logos/icons/actions/black/exam-results.png")
+    },
+    {
+      name: "Resultat d'examens",
+      icon: require("@/assets/logos/icons/actions/black/exam-results.png")
+    },
+    {
+      name: "Radiologie",
+      icon: require("@/assets/logos/icons/actions/black/radiology.png")
+    },
+    {
+      name: "Compte rendu",
+      icon: require("@/assets/logos/icons/actions/black/exam-results.png")
+    },
+    {
+      name: "Autre",
+      icon: require("@/assets/logos/icons/actions/black/exam-results.png")
+    }
   ]
 });
 
@@ -243,13 +270,15 @@ export const getters = {
   isAuthenticated() {
     return (
       globals.user !== undefined &&
+      globals.user.id !== undefined &&
       globals.user.id !== -1 &&
+      globals.user.staff_id !== undefined &&
       globals.user.staff_id !== -1
     );
   },
   canAccessToPage: link => {
-    let staffId = getters.staff_id();
-    if (staffId == -1) return false;
+    let staff_id = getters.staff_id();
+    if (staff_id == -1) return false;
     return canAccessToPage_Rec(getters.initial_actions(), link);
   },
   user: () => globals.user,
@@ -261,28 +290,51 @@ export const getters = {
   selectedDraft: () => globals.selectedDraft,
   staff_id: () =>
     globals.user !== undefined &&
-    0 <= globals.user.staffId &&
-    globals.user.staffId < globals.staff.length
-      ? getters.user().staffId
+    0 <= globals.user.staff_id &&
+    globals.user.staff_id < globals.staff.length
+      ? getters.user().staff_id
       : -1,
   initial_actions: () => {
-    let staffId = getters.staff_id();
-    return staffId === -1 ? [] : globals.staff[staffId].actions;
+    let staff_id = getters.staff_id();
+    return staff_id === -1 ? [] : globals.staff[staff_id].actions;
   },
   staff_actions: link => {
     let actions = getters.initial_actions();
     if (actions.length == 0) return [];
     let res = getActions(actions, link);
     return res.length == 0 ? actions : res;
-  }
+  },
+  actTypes: () =>
+    globals.actTypes.map(({ name }, i) => {
+      return {
+        typeName: name,
+        typeId: i
+      };
+    }),
+  actType_name: id => globals.actTypes[id].name,
+  actType_icon: id => globals.actTypes[id].icon,
+  staffType_name: id => globals.staff[id].name,
+  staffType_icon: id => globals.staff[id].icon,
+  addActInformations: acts =>
+    acts.map(act => {
+      return {
+        ...act,
+
+        actIcon: getters.actType_icon(act.actTypeId),
+        actTypeName: getters.actType_name(act.actTypeId),
+
+        staffIcon: getters.staffType_icon(act.staffTypeId),
+        staffTypeName: getters.staffType_name(act.staffTypeId)
+      };
+    })
 };
 
 export const mutations = {
   setUser: val => {
     globals.user = val;
     globals.user.icon =
-      0 <= globals.user.staffId && globals.user.staffId < globals.staff.length
-        ? globals.staff[globals.user.staffId].icon
+      0 <= globals.user.staff_id && globals.user.staff_id < globals.staff.length
+        ? globals.staff[globals.user.staff_id].icon
         : require("@/assets/logos/icons/types/white/undefined.png");
   },
   addSnack: val => globals.snacks.push(val),
@@ -367,13 +419,14 @@ function getActions(actions, searchLink) {
 
 mutations.setUser({
   id: 0,
-  lastName: "Eric",
-  name: "Robert",
-  staffId: 4
+  firstName: "Eric",
+  lastName: "Robert",
+  staff_id: 0
 });
 
 /*
   Types :
+  
   0 : Ordonnance
   1 : Rapport d'analyse
   2 : Resultat d'examens
