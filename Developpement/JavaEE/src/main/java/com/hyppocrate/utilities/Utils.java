@@ -9,30 +9,30 @@ import java.util.function.Function;
 public class Utils {
 
 
-    public static <T, V> V callIfDeployed(@NotNull Function<T, V> function, V defaultValue, T parameter) {
-        if (isDeployed()) {
+    public static <T, V> V callIfDeployed(@NotNull final Function<T, V> function, final V defaultValue, final T parameter) {
+        if (Utils.isDeployed()) {
             return function.apply(parameter);
         }
         return defaultValue;
     }
     // Implementation with generic Object
-    public static <V> V callIfDeployed(V value, V defaultValue) {
-        if (isDeployed()) {
+    public static <V> V callIfDeployed(final V value, final V defaultValue) {
+        if (Utils.isDeployed()) {
             if (value == null) return defaultValue;
             return value;
         }
         return defaultValue;
     }
     // Implementation with int
-    public static int callIfDeployed(int value, int defaultValue) {
-        if (isDeployed()) {
+    public static int callIfDeployed(final int value, final int defaultValue) {
+        if (Utils.isDeployed()) {
             return value;
         }
         return defaultValue;
     }
     // Implementation with boolean
-    public static boolean callIfDeployed(boolean value, boolean defaultValue) {
-        if (isDeployed()) {
+    public static boolean callIfDeployed(final boolean value, final boolean defaultValue) {
+        if (Utils.isDeployed()) {
             return value;
         }
         return defaultValue;
@@ -43,23 +43,23 @@ public class Utils {
     }
 
     // Get the value only if the map is not null, usefull to get informations from not yet implemented class
-    public static <K,V> V tryGet(HashMap<K,V> map, K key) {
+    public static <K,V> V tryGet(final HashMap<K,V> map, final K key) {
         if (map == null) return null;
         return map.get(key);
     }
 
-    public static <V> String UnitTest(@NotNull ThrowableSupplier<V> function, V attemptedResult, ArrayList<Exception> exceptions){
+    public static <V> String UnitTest(@NotNull final ThrowableSupplier<V> function, final V attemptedResult, final ArrayList<Exception> exceptions){
         try{
-            V result=function.get();
+            final V result=function.get();
 
             if(attemptedResult.equals(result)){
                 return "true";
             }else{
                 return  "false, Not Same Value :\n\t attemptedResult: "+attemptedResult+"\n\t result: "+result;
             }
-        }catch (Exception e){
+        }catch (final Exception e){
             if(exceptions!=null){
-                for (Exception except:exceptions) {
+                for (final Exception except:exceptions) {
                     if(e.getClass()==except.getClass()){
                         return  "true";
                     }

@@ -16,7 +16,7 @@
             <v-text-field
               label="Téléphone portable"
               outlined
-              v-model="form.phoneNumber"
+              v-model="form.phone"
               :rules="$rules('Phone')"
             ></v-text-field>
 
@@ -97,7 +97,7 @@
             <ul>
               <li class="py-1">Carte d'identité : {{ form.idendityCardNumber }}</li>
               <li class="py-1">Nationalité : {{ form.nationality }}</li>
-              <li class="py-1">Naissance : {{ form.birthday }}</li>
+              <li class="py-1">Naissance : {{ form.birthdayDate }}</li>
             </ul>
           </v-card-text>
         </v-card>
@@ -125,11 +125,9 @@ export default {
       form: {
         firstName: "Ewen",
         lastName: "Bouquet",
-        idendityCardNumber: "0123456789",
-        nationality: "Français",
-        birthday: "22/11/2000",
+        birthdayDate: "22/11/2000",
+        phone: "",
         address: "",
-        phoneNumber: "",
         email: "",
         oldPwd: "",
         newPwd: "",
@@ -157,15 +155,13 @@ export default {
             newPwdAgain: ""
           }),
         // {
-        //   firstName
-        //   lastName
-        //   idendityCardNumber
-        //   nationality
-        //   birthday
-        //   address
-        //   phoneNumber
+        //   firstName,
+        //   lastName,
+        //   birthdayDate,
+        //   phone,
+        //   address,
         //   email
-        // },
+        // }
         "Aucune information personnelle n’a pu être affichée !",
         () => {}
       );
@@ -177,13 +173,13 @@ export default {
           "/staff/contact",
           {
             id: this.form.id,
-            phoneNumber: this.form.phoneNumber,
+            phone: this.form.phone,
             address: this.form.address,
             email: this.form.email
           },
           // {
-          //   id,
-          //   phoneNumber,
+          //   staffId,
+          //   phone,
           //   address,
           //   email
           // },
@@ -207,7 +203,7 @@ export default {
             newPwdAgain: this.form.newPwdAgain
           },
           // {
-          //   id,
+          //   staffId,
           //   oldPwd,
           //   newPwd,
           //   newPwdAgain

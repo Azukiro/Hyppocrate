@@ -8,6 +8,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 @Path("/dmp")
@@ -16,33 +17,43 @@ public class Dmp {
     @Path("/print/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response printAll(@Context UriInfo ui,
-                             @QueryParam("staffId") final int staffId,
-                             @QueryParam("patientId") final int patientId,
-                             @QueryParam("actPrintableName") final String actPrintableName,
-                             @QueryParam("search") final String search,
-                             @QueryParam("paginationNumber") final int paginationNumber,
-                             @QueryParam("paginationLength") final int paginationLength) {
+    public Response printAll(@Context final UriInfo ui,
+                             @QueryParam("patientId") int patientId,
+                             @QueryParam("sortColumnName") String sortColumnName,
+                             @QueryParam("search") String search,
+                             @QueryParam("paginationNumber") int paginationNumber,
+                             @QueryParam("paginationLength") int paginationLength) {
 
-        
-        return Responses.objectOrError(SQLManager.getInstance().searchDMPs(staffId, patientId, actPrintableName, search,paginationNumber, paginationLength), "Error");
+        try {
+        return Responses.objectOrError(SQLManager.getInstance().printActe(patientId, search,sortColumnName ,paginationNumber, paginationLength), "Error");
+    }catch (final SQLException e){
+        return Responses.errorResponse(e.toString());
+    }
     }
 
     @Path("/print/file")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sort(@Context UriInfo ui,
-                         @QueryParam("id") final int id) {
-
+    public Response sort(@Context final UriInfo ui,
+                         @QueryParam("id") int id) {
+        try {
         return Responses.objectOrCustomNull(SQLManager.getInstance().getDocument(id));
+        }catch (final SQLException e){
+            return Responses.errorResponse(e.toString());
+        }
     }
 
     @Path("/print/sort-items")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sort(@Context UriInfo ui) {
+    public Response sort(@Context final UriInfo ui) {
 
-        return Responses.objectOrCustomNull(SQLManager.getInstance().dmpSortItems());
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().dmpSortItems());
+
+        }catch (final SQLException e){
+            return Responses.errorResponse(e.toString());
+        }
     }
 
 }

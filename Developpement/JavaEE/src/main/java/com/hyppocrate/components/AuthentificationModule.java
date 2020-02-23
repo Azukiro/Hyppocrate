@@ -8,11 +8,11 @@ public class AuthentificationModule {
     private static String login;
 
     public AuthentificationModule() {
-        login = null;
+        AuthentificationModule.login = null;
     }
 
     public String getConnected() {
-        return login;
+        return AuthentificationModule.login;
     }
     /*public HashMap<String, Object> getUser() {
         if (login == null) {
@@ -20,25 +20,25 @@ public class AuthentificationModule {
         }
         return null;
     }*/
-    public boolean connect(String id, String password) throws SQLException {
+    public boolean connect(final String id, final String password) throws SQLException {
         if (id == null || password == null) {
             return false;
         }
         if (password.equals("")) {
             return false; //do nothing
         }
-        if (login != null) {
+        if (AuthentificationModule.login != null) {
             return false; //already connected so no need to connect again
         }
         if (SQLManager.getInstance().connect(id, password) == null) {
             return false; //user not found
         }
-        login = id;
+        AuthentificationModule.login = id;
         return true;
     }
 
     public void disconnect() {
-        login = null;
+        AuthentificationModule.login = null;
     }
 
 }

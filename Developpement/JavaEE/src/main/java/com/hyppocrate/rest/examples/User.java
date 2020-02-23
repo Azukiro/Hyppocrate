@@ -26,56 +26,54 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String email, Integer amount) {
+    public User(final String email, final Integer amount) {
         this.email = email;
         this.amount = amount;
     }
 
-    public void increaseAmount(int amount) {
+    public void increaseAmount(final int amount) {
         this.amount += amount;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
     public Integer getAmount() {
-        return amount;
+        return this.amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(final Integer amount) {
         this.amount = amount;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        final User user = (User) o;
 
-        if (!amount.equals(user.amount)) return false;
-        if (!email.equals(user.email)) return false;
-
-        return true;
+        if (!this.amount.equals(user.amount)) return false;
+        return this.email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        int result = email.hashCode();
-        result = 31 * result + amount.hashCode();
+        int result = this.email.hashCode();
+        result = 31 * result + this.amount.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
         return "Member{" +
-                "email='" + email + '\'' +
-                ", amount='" + amount + '\'' +
+                "email='" + this.email + '\'' +
+                ", amount='" + this.amount + '\'' +
                 '}';
     }
 }

@@ -72,7 +72,7 @@ export default {
         "GET",
         "/connection/login",
         {
-          email: this.form.email,
+          login: this.form.email,
           pwd: this.form.pwd
         },
         "Bienvenue " + this.user.firstName + " " + this.user.lastName + " !",

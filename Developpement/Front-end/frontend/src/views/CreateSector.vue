@@ -99,7 +99,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.$request(
           "POST",
-          "/infrastructures/unit",
+          "/infrastructures/sectorLabo",
           this.form,
           // {
           //   fatherId: (poleId)

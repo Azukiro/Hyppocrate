@@ -19,8 +19,8 @@ public class Draft {
     @Path("/actions/delete")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@Context UriInfo ui,
-                             @QueryParam("draftId") final int draftId) throws SQLException {
+    public Response delete(@Context final UriInfo ui,
+                             @QueryParam("draftId") int draftId) throws SQLException {
 
         return Response.ok(SQLManager.getInstance().deleteDraft(draftId)).build();
     }
@@ -29,20 +29,20 @@ public class Draft {
     @Path("/actions/publish")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response publish(@Context UriInfo ui,
-                             @QueryParam("draftId") final int draftId,
-                            @QueryParam("patientId") final int patientId,
-                            @QueryParam("title") final String title,
-                            @QueryParam("description") final String description,
-                            @QueryParam("file") final String file) {
+    public Response publish(@Context final UriInfo ui,
+                             @QueryParam("draftId") int draftId,
+                            @QueryParam("patientId") int patientId,
+                            @QueryParam("title") String title,
+                            @QueryParam("description") String description,
+                            @QueryParam("file") String file) {
 
         //SQLManager.getInstance().pu
         try {
             return Response.ok(SQLManager.getInstance().updateEtPublierBrouillon(patientId, draftId, title, description, file)).build();
-        } catch (IOException e) {
-            return Responses.nullResponse();
-        } catch (SQLException e) {
-            return Responses.nullResponse();
+        } catch (final IOException e) {
+            return Responses.errorResponse(e.toString());
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
         }
     }
 
@@ -52,47 +52,44 @@ public class Draft {
     @Path("/actions/update")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(@Context UriInfo ui,
-                             @QueryParam("draftId") final int draftId,
-                           @QueryParam("patientId") final int patientId,
-                           @QueryParam("title") final String title,
-                           @QueryParam("description") final String description,
-                           @QueryParam("file") final String file) {
+    public Response update(@Context final UriInfo ui,
+                             @QueryParam("draftId") int draftId,
+                           @QueryParam("patientId") int patientId,
+                           @QueryParam("title") String title,
+                           @QueryParam("description") String description,
+                           @QueryParam("file") String file) {
 
         try {
             return Response.ok(SQLManager.getInstance().updateBrouillon(patientId,draftId,title,description,file)).build();
-        } catch (SQLException e) {
-            return Responses.nullResponse();
-        } catch (IOException e) {
-            return Responses.nullResponse();
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
         }
     }
 
+    // TODO: 22/02/2020
     @Path("/print/file")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response printFile(@Context UriInfo ui,
-                             @QueryParam("draftId") final int draftId) {
+    public Response printFile(@Context final UriInfo ui,
+                             @QueryParam("draftId") int draftId) {
 
-        return Responses.objectOrCustomNull(SQLManager.getInstance().getDocument(draftId));
+        return Responses.nullResponse();
     }
-    // TODO: 17/01/2020
+
     @Path("/print/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response printAll(@Context UriInfo ui,
-                             @QueryParam("patientId") final int patientId,
-                             @QueryParam("paginationNumber") final int paginationNumber,
-                             @QueryParam("paginationLength") final int paginationLength,
-                             @QueryParam("search") final String search,
-                             @QueryParam("sortItem") final String sortItem) {
+    public Response printAll(@Context final UriInfo ui,
+                             @QueryParam("patientId") int patientId,
+                             @QueryParam("paginationNumber") int paginationNumber,
+                             @QueryParam("paginationLength") int paginationLength,
+                             @QueryParam("search") String search,
+                             @QueryParam("sortItem") String sortItem) {
 
-        //SQLManager.getInstance().get
-        //SQLManager.getInstance().updateDraft()
         try {
             return Response.ok(SQLManager.getInstance().printActe(patientId,search,sortItem,paginationNumber,paginationLength)).build();
-        } catch (SQLException e) {
-            return Responses.nullResponse();
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
         }
 
     }
@@ -100,9 +97,28 @@ public class Draft {
     @Path("/print/sort-items")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response printAll(@Context UriInfo ui) {
-
+    public Response printSort(@Context final UriInfo ui) {
+        try {
         return Responses.objectOrCustomNull(SQLManager.getInstance().printSortActeItems());
+    } catch (final SQLException e) {
+        return Responses.errorResponse(e.toString());
+    }
+    }
+
+    @Path("/print/all")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response printAll(@Context final UriInfo ui,
+                             @QueryParam("staffId") int staffId,
+                             @QueryParam("sortColumnName") String sortColumnName,
+                             @QueryParam("search") String search,
+                             @QueryParam("paginationNumber") int paginationNumber,
+                             @QueryParam("paginationLength") int paginationLength) {
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().printDraft(staffId,search,sortColumnName,paginationNumber,paginationLength));
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
+        }
     }
 
 

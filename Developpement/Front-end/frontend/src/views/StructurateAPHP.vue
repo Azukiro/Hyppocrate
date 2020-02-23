@@ -129,7 +129,7 @@ export default {
     onInfrastructureDelete({ nodeId }) {
       this.$request(
         "DELETE",
-        "/infrastructures/delete",
+        "/infrastructure/delete",
         {
           nodeId
         },

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class LangManager {
 
-    public String getString(String idString, String idLangue) {
+    public String getString(final String idString, final String idLangue) {
 
         if (Str.isNullOrEmpty(idString) || Str.isNullOrEmpty(idLangue)) {
             throw new IllegalArgumentException();
@@ -14,14 +14,14 @@ public class LangManager {
 
         try {
             return SQLManager.getInstance().getString(idString, idLangue);
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             return e.toString();
         }
     }
 
     // FIXME: 18/01/2020
-    public String getString(String idString) {
-        return getString(idString, "en");
+    public String getString(final String idString) {
+        return this.getString(idString, "en");
     }
 
     // TODO: 18/01/2020

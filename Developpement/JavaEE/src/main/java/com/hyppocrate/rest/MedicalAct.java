@@ -20,48 +20,50 @@ public class MedicalAct {
     @Path("/draft")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response draft(@Context UriInfo ui,
-                          @QueryParam("staffId") final int staffId,
-                          @QueryParam("nodeId") final int nodeId,
-                          @QueryParam("patientId") final int patientId,
-                          @QueryParam("title") final String title,
-                          @QueryParam("type") final int type,
-                          @QueryParam("description") final String description,
-                          @QueryParam("file") final String file) {
+    public Response draft(@Context final UriInfo ui,
+                          @QueryParam("staffId") int staffId,
+                          @QueryParam("patientId") int patientId,
+                          @QueryParam("title") String title,
+                          @QueryParam("type") int type,
+                          @QueryParam("description") String description,
+                          @QueryParam("file") String file) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().CreateDraftt(staffId, patientId, title, type, description, file));
-        } catch (SQLException e) {
-            return Responses.nullResponse();
-        } catch (IOException e) {
-            return Responses.nullResponse();
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
         }
     }
 
-    // FIXME: 18/01/2020
-    @Path("/prescription/draft")
+    @Path("/publish")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response draft(@Context UriInfo ui,
-                          @QueryParam("staffId") final int staffId,
-                          @QueryParam("nodeId") final int nodeId,
-                          @QueryParam("patientId") final int patientId,
-                          @QueryParam("title") final String title,
-                          @QueryParam("type") final String type,
-                          @QueryParam("file") final String file) {
+    public Response publish(@Context final UriInfo ui,
+                          @QueryParam("staffId") int staffId,
+                          @QueryParam("patientId") int patientId,
+                          @QueryParam("title") String title,
+                          @QueryParam("type") int type,
+                          @QueryParam("description") String description,
+                          @QueryParam("file") String file) {
 
-        return Responses.nullResponse();
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().publishActe(staffId, patientId, title, type, description, file));
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
+        }
     }
+
+
 
     @Path("/test")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response draft(@Context UriInfo ui,
-                          @QueryParam("content") final String content,
-                          @QueryParam("file") final File file) {
+    public Response draft(@Context final UriInfo ui,
+                          @QueryParam("content") String content,
+                          @QueryParam("file") File file) {
 
 
-        ArrayList<Object> result = new ArrayList<>();
+        final ArrayList<Object> result = new ArrayList<>();
         result.add(content);
         result.add(file);
         return Response.ok(result).build();

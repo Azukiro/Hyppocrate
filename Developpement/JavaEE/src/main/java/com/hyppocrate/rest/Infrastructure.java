@@ -16,24 +16,38 @@ public class Infrastructure {
     @Path("/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response all(@Context UriInfo ui) {
+    public Response all(@Context final UriInfo ui) {
 
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllArchitecture());
-        } catch (SQLException e) {
-            return Responses.nullResponse();
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
+        }
+    }
+
+    @Path("/delete")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response all(@Context final UriInfo ui, @QueryParam("nodeId") int nodeId
+                        ) {
+
+
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllArchitecture());
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
         }
     }
 
     @Path("/hospital")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response hospital(@Context UriInfo ui) {
+    public Response hospital(@Context final UriInfo ui) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllHospitals());
-        } catch (SQLException e) {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllHospital());
+        } catch (final SQLException e) {
             return Responses.errorResponse(e.toString());
         }
 
@@ -42,64 +56,82 @@ public class Infrastructure {
     @Path("/pole")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response pole(@Context UriInfo ui,
-                         @QueryParam("id") final int id) {
+    public Response pole(@Context final UriInfo ui,
+                         @QueryParam("nodeId") int id) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllPoles(id));
-        } catch (SQLException e) {
-            return Responses.nullResponse();
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllPole(id));
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
         }
     }
 
     @Path("/sector")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sector(@Context UriInfo ui,
-                           @QueryParam("nodeId") final int nodeId) {
+    public Response sector(@Context final UriInfo ui,
+                           @QueryParam("nodeId") int nodeId) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllSectors(nodeId));
-        } catch (SQLException e) {
-            return Responses.nullResponse();
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllSector(nodeId));
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
         }
     }
 
     @Path("/labo")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response labo(@Context UriInfo ui,
-                           @QueryParam("nodeId") final int nodeId) {
+    public Response labo(@Context final UriInfo ui,
+                           @QueryParam("nodeId") int nodeId) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllLabos(nodeId));
-        } catch (SQLException e) {
-            return Responses.nullResponse();
+            return Responses.objectOrCustomNull(SQLManager.getInstance().getAllLabo(nodeId));
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
         }
     }
 
     @Path("/unit")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createUnit(@Context UriInfo ui,
-                                @QueryParam("fatherId") final int fatherId,
-                                @QueryParam("unitName") final String unitName,
-                                @QueryParam("staffChiefId") final int staffChiefId) {
+    public Response createUnit(@Context final UriInfo ui,
+                                @QueryParam("fatherId") int fatherId,
+                                @QueryParam("name") String name,
+                                @QueryParam("staffLeaderId") int staffLeaderId) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().createUnit(unitName, fatherId, staffChiefId));
-        } catch (SQLException e) {
-            return Responses.nullResponse();
+            return Responses.objectOrCustomNull(SQLManager.getInstance().createUnit(name, fatherId, staffLeaderId));
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
         }
     }
+    @Path("/unit")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createSectorLabo(@Context final UriInfo ui,
+                               @QueryParam("fatherId") int fatherId,
+                               @QueryParam("name") String name,
+                                     @QueryParam("isLaboratory") boolean isLaboratory,
+                               @QueryParam("staffLeaderId") int staffLeaderId) {
 
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().createSector(name,fatherId,staffLeaderId,isLaboratory));
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
+        }
+    }
     @Path("/unit")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteUnit(@Context UriInfo ui,
-                               @QueryParam("nodeId") final int nodeId) {
+    public Response deleteUnit(@Context final UriInfo ui,
+                               @QueryParam("nodeId") int nodeId) {
 
-        return Responses.objectOrCustomNull(SQLManager.getInstance().deleteUnit(nodeId));
+        try {
+            return Responses.objectOrCustomNull(SQLManager.getInstance().deleteUnit(nodeId));
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
+        }
     }
 
 }

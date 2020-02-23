@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e70d126e-214a-4ad8-8551-8b3aa381fa84" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/LangManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/LangManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Dmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Dmp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Draft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Draft.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Infrastructure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Infrastructure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/MedicalAct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/MedicalAct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Staff.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +60,8 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.3576087" />
-    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -74,7 +79,7 @@
       <command value="mvn compile" />
     </option>
   </component>
-  <component name="RunManager" selected="Shell Script.Launch Server">
+  <component name="RunManager" selected="Shell Script.Build And Copy">
     <list>
       <item itemvalue="Shell Script.Build And Copy" />
       <item itemvalue="Shell Script.Launch Server" />
@@ -91,6 +96,7 @@
         </serviceView>
       </list>
     </option>
+    <option name="showServicesTree" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -106,6 +112,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="590" y="209" key="#Code_Cleanup_Inspections" timestamp="1582383197589">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="590" y="209" key="#Code_Cleanup_Inspections/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582383197589" />
     <state x="552" y="179" width="928" height="682" key="#Project_Structure" timestamp="1579894428164">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -126,16 +136,20 @@
       <screen x="0" y="0" width="1366" height="736" />
     </state>
     <state x="488" y="84" key="#com.intellij.ide.util.MemberChooser/0.0.1366.736@0.0.1366.736" timestamp="1582055897662" />
-    <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1582038533521">
-      <screen x="0" y="0" width="1366" height="736" />
+    <state x="739" y="363" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1582379723280">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="526" y="254" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.728@0.0.1366.728" timestamp="1579859539764" />
     <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.736@0.0.1366.736" timestamp="1582038533521" />
-    <state x="739" y="363" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1581760764486" />
+    <state x="739" y="363" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582379723280" />
     <state x="826" y="143" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1579896273590">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="826" y="143" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579896273590" />
+    <state x="703" y="343" width="513" height="359" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1582383198666">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="703" y="343" width="513" height="359" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582383198666" />
     <state x="144" y="127" key="DBNavigator.ConnectionInfoDialog" timestamp="1579890159912">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -152,36 +166,36 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579895925263" />
-    <state width="1323" height="16" key="GridCell.Tab.0.bottom" timestamp="1582017058983">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="212" key="GridCell.Tab.0.bottom" timestamp="1582393844411">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="16" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1582017058983" />
-    <state width="1877" height="331" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1581704737604" />
-    <state width="1323" height="16" key="GridCell.Tab.0.center" timestamp="1582017058982">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="212" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582393844411" />
+    <state width="1877" height="212" key="GridCell.Tab.0.center" timestamp="1582393844410">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="16" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1582017058982" />
-    <state width="1877" height="331" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1581704737604" />
-    <state width="1323" height="16" key="GridCell.Tab.0.left" timestamp="1582017058982">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="212" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582393844410" />
+    <state width="1877" height="212" key="GridCell.Tab.0.left" timestamp="1582393844410">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="16" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1582017058982" />
-    <state width="1877" height="331" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1581704737604" />
-    <state width="1323" height="16" key="GridCell.Tab.0.right" timestamp="1582017058983">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="212" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582393844410" />
+    <state width="1877" height="212" key="GridCell.Tab.0.right" timestamp="1582393844411">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="16" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1582017058983" />
-    <state width="1877" height="331" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1581704737604" />
+    <state width="1877" height="212" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582393844411" />
     <state x="490" y="175" key="Maven.ArtifactSearchDialog" timestamp="1581693995666">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="490" y="175" key="Maven.ArtifactSearchDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1581693995666" />
-    <state x="93" y="14" width="1336" height="857" key="SettingsEditor" timestamp="1582012978840">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="131" y="50" width="1336" height="857" key="SettingsEditor" timestamp="1582383443013">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="93" y="14" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1582012978840" />
     <state x="187" y="19" key="SettingsEditor/0.0.1366.736@0.0.1366.736" timestamp="1578579989952" />
-    <state x="131" y="50" width="1336" height="857" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579896393033" />
+    <state x="131" y="50" width="1336" height="857" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582383443013" />
     <state x="131" y="50" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1581767498516" />
     <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1578580576868">
       <screen x="0" y="0" width="1366" height="736" />
@@ -200,10 +214,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="619" y="140" width="757" height="852" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579889128486" />
-    <state x="438" y="168" width="672" height="474" key="run.anything.popup" timestamp="1582015320229">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1582394252651">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="438" y="168" width="672" height="474" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1582015320229" />
-    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1581701927069" />
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582394252651" />
   </component>
 </project>
