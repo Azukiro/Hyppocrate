@@ -18,13 +18,11 @@ public class Patient {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response all(@Context final UriInfo ui,
-                        @DefaultValue("") @QueryParam("staffId") int staffId,
-                         @QueryParam("sortColumnName") String sortColumnName,
-                       @QueryParam("search") String search,
-                        @DefaultValue("") @QueryParam("paginationNumber") int paginationNumber,
-                        @DefaultValue("") @QueryParam("paginationLenght") int paginationLenght) {
+                        @QueryParam("sortColumnName") String sortColumnName,
+                        @QueryParam("search") String search,
+                        @QueryParam("paginationNumber") int paginationNumber,
+                        @QueryParam("paginationLenght") int paginationLenght) {
 
-        //SQLManager.getInstance().
         try {
               return Responses.objectOrCustomNull(SQLManager.getInstance().printDMP(search,sortColumnName,paginationNumber,paginationLenght));
         } catch (final SQLException e) {
