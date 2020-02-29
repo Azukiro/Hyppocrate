@@ -459,9 +459,17 @@ public class SQLManager implements ISingleton {
             if (!(count >= (paginationLength * (paginationNumber - 1)))) {
                 continue;
             }
+            String demoPatient="SELECT demoinformations.Name, demoinformations.FirstName FROM dmp, demoinformations WHERE dmp.DemoInformations_NumSecu=demoinformations.NumSecu AND dmp.UUID=?";
+            PreparedStatement pStatement2 = getCon().prepareStatement(demoPatient);
+            pStatement2.setInt(1,rSet.getInt("UUID") );
+            ResultSet rSet2 = pStatement.executeQuery();
             hashMap = new HashMap<String, Object>();
+            if(rSet2.next()){
+                hashMap.put("patientName", rSet2.getString("Name"));
+                hashMap.put("patientFirstName", rSet2.getString("FirstName"));
+            }
             hashMap.put("actId", rSet.getInt("idActe"));
-            hashMap.put("patientId", rSet.getString("UUID"));
+            hashMap.put("patientId", rSet.getInt("UUID"));
             hashMap.put("staffId", rSet.getString("Responsable"));
             hashMap.put("staffName", rSet.getString("Name"));
             hashMap.put("staffFirstName", rSet.getString("FirstName"));
