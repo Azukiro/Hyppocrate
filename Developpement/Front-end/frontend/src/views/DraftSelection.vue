@@ -39,7 +39,7 @@ export default {
       form: {
         search: "",
         sortColumnName: "",
-        paginationNumber: 0,
+        paginationNumber: 1,
         paginationLength: 3
       },
       selectItems: [],

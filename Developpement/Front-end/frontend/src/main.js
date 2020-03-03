@@ -50,11 +50,13 @@ Vue.prototype.$request = function(
   fetch(url, {
     mode: "cors",
     method: type
-  }).then(response =>
-    response.ok
-      ? response.json().then(json => requestOk(json))
-      : requestError(response)
-  );
+  })
+    .then(response =>
+      response.ok
+        ? response.json().then(json => requestOk(json))
+        : requestError(response)
+    )
+    .catch(() => requestError());
 };
 
 Vue.prototype.$downloadFile = (url, fileName) => {

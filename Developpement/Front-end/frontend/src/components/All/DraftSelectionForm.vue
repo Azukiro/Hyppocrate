@@ -106,13 +106,13 @@ export default {
     },
     onPaginate_Left() {
       this.form.paginationNumber -=
-        this.form.paginationNumber <= 0 ? 0 : this.form.paginationLength;
+        this.form.paginationNumber <= 1 ? 1 : this.form.paginationLength;
       this.fetch();
     },
     onPaginate_Right() {
       this.form.paginationNumber +=
         this.drafts.length < this.form.paginationLength
-          ? 0
+          ? 1
           : this.form.paginationLength;
       this.fetch();
     }

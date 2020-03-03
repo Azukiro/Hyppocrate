@@ -51,7 +51,7 @@ export default {
   },
 
   created() {
-    this.fetchHostpitals();
+    this.fetchHospitals();
     this.fetchPoles();
     this.fetchSectors();
   },
