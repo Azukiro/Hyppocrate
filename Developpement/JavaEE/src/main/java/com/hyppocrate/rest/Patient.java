@@ -22,10 +22,10 @@ public class Patient {
                         @QueryParam("sortColumnName") String sortColumnName,
                         @QueryParam("search") String search,
                         @QueryParam("paginationNumber") int paginationNumber,
-                        @QueryParam("paginationLenght") int paginationLenght) {
+                        @QueryParam("paginationLength") int paginationLength) {
 
         try {
-              return Responses.objectOrCustomNull(SQLManager.getInstance().printDMP(search,sortColumnName,paginationNumber,paginationLenght));
+              return Responses.objectOrCustomNull(SQLManager.getInstance().printDMP(search,sortColumnName,paginationNumber,paginationLength));
         } catch (final SQLException e) {
             return Responses.errorResponse(e.toString());
         }

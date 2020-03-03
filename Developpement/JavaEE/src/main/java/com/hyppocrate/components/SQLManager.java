@@ -459,7 +459,7 @@ public class SQLManager implements ISingleton {
             if (!(count >= (paginationLength * (paginationNumber - 1)))) {
                 continue;
             }
-            
+
             hashMap = new HashMap<String, Object>();
 
             hashMap.put("actId", rSet.getInt("idActe"));
