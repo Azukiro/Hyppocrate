@@ -22,7 +22,7 @@ public class Responses {
 
     public static Response errorResponse(final String idErrorMessage) {
         final HashMap<String, Object> result = new HashMap<>();
-        result.put("error", Responses.langManager.getString(idErrorMessage));
+        result.put("error", idErrorMessage);
         return Response.ok(result).build();
     }
 
