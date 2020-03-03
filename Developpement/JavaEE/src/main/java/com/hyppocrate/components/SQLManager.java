@@ -227,8 +227,8 @@ public class SQLManager implements ISingleton {
             }
             hashMap = new HashMap<String, Object>();
             hashMap.put("patientId", rSet.getInt("UUID"));
-            hashMap.put("firstname", rSet.getString("FirstName"));
-            hashMap.put("lastname", rSet.getString("Name"));
+            hashMap.put("firstName", rSet.getString("FirstName"));
+            hashMap.put("lastName", rSet.getString("Name"));
             hashMap.put("birthdayDate ", rSet.getString("BirthDate"));
             list.add(hashMap);
 
@@ -361,8 +361,8 @@ public class SQLManager implements ISingleton {
             }
             hashMap = new HashMap<String, Object>();
             hashMap.put("patientId", rSet.getInt("idStaffMember"));
-            hashMap.put("firstname", rSet.getString("FirstName"));
-            hashMap.put("lastname", rSet.getString("Name"));
+            hashMap.put("firstName", rSet.getString("FirstName"));
+            hashMap.put("lastName", rSet.getString("Name"));
             hashMap.put("birthdayDate ", rSet.getString("BirthDate"));
             hashMap.put("type", rSet.getString("BirthDate"));
             list.add(hashMap);
@@ -946,7 +946,7 @@ public class SQLManager implements ISingleton {
             hashMap = new HashMap<String, Object>();
             hashMap.put("id", rSet.getInt("idStaffMember"));
             hashMap.put("name", rSet.getString("FirstName"));
-            hashMap.put("lastname", rSet.getString("Name"));
+            hashMap.put("lastName", rSet.getString("Name"));
             hashMap.put("type", rSet.getString("JobName"));
             list.add(hashMap);
 
@@ -968,11 +968,11 @@ public class SQLManager implements ISingleton {
         return rs.getInt(0);
     }
 
-    public boolean modifyInfoStaff(int idPeople, String name, String firstname, String birthday) throws SQLException {
+    public boolean modifyInfoStaff(int idPeople, String name, String firstName, String birthday) throws SQLException {
         final String string = "UPDATE demoinformations SET Name = ?, FirstName = ?, BirthDate = ? WHERE demoinformations.NumSecu = (SELECT staffmember.DemoInformations_NumSecu FROM staffmember WHERE staffmember.idStaffMember=?);";
         PreparedStatement ps1 = getCon().prepareStatement(string);
         ps1.setString(1, name);
-        ps1.setString(2, firstname);
+        ps1.setString(2, firstName);
         ps1.setString(3, birthday);
         ps1.setInt(4, idPeople);
         System.out.println(ps1);
