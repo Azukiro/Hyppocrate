@@ -3,7 +3,7 @@
     <v-card width="30%" color="#0c0c2" outlined class="d-flex flex-column align-center pa-5">
       <SelectedPatient />
 
-      <v-card-title class="mb-5">{{ title }}</v-card-title>
+      <v-card-title class="mb-10">{{ title }}</v-card-title>
 
       <v-card-text class="text-center">{{ description }}</v-card-text>
 

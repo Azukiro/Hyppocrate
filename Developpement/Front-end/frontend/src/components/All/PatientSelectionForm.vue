@@ -43,7 +43,7 @@
       >
         <v-list-item
           style="width: 100%;"
-          v-for="({ firstName, lastName, birthday }, i) in patients"
+          v-for="({ firstName, lastName, birthdayDate }, i) in patients"
           :key="i"
           @click="onPatientSelection(i)"
           class="onAction"
@@ -54,11 +54,7 @@
 
           <v-card-title class="headline black--text">{{ firstName }} {{ lastName }}</v-card-title>
 
-          <v-card-title class="headline black--text">
-            {{
-            birthday
-            }}
-          </v-card-title>
+          <v-card-title class="headline black--text">{{ birthdayDate }}</v-card-title>
         </v-list-item>
       </v-card>
 
@@ -79,10 +75,10 @@ export default {
 
   computed: {
     paginateLeftDisabled() {
-      return this.form.paginationNumber <= 0;
+      return this.form.paginationNumber <= 1;
     },
     paginateRightDisabled() {
-      return this.patients.length < this.form.paginationLength;
+      return this.form.paginationLength < this.patients.length;
     }
   },
 
@@ -95,13 +91,13 @@ export default {
     },
     onPaginate_Left() {
       this.form.paginationNumber -= this.paginateLeftDisabled
-        ? 0
+        ? 1
         : this.form.paginationLength;
       this.fetch();
     },
     onPaginate_Right() {
       this.form.paginationNumber += this.paginateRightDisabled
-        ? 0
+        ? 1
         : this.form.paginationLength;
       this.fetch();
     }

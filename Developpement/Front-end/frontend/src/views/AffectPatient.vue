@@ -1,11 +1,10 @@
 <template>
-  <v-card color="transparent" outlined class="d-flex flex-column justify-space-around align-center">
-    <div class="d-flex justify-center align-center my-5">
-      <v-card-actions>
-        <v-img width="70px" height="70px" src="@/assets/logos/icons/types/black/patient.png" />
-      </v-card-actions>
-      <v-card-title class="headline-2">{{ patient.first }} {{ patient.lastName }}</v-card-title>
-    </div>
+  <v-card
+    color="transparent"
+    outlined
+    class="d-flex flex-column justify-space-around align-center py-5"
+  >
+    <SelectedPatient />
 
     <v-card outlined width="40%" class="d-flex flex-column justify-center align-center my-5">
       <v-card-title class="headline text-center">Affecter à un personnel médical</v-card-title>
@@ -13,8 +12,10 @@
       <v-card color="transparent" outlined width="70%">
         <v-form ref="form">
           <v-select
-            v-model="form.hospital"
+            v-model="form.hospitalId"
             :items="hospitals"
+            item-text="hospitalName"
+            item-value="hospitalId"
             label="Hôpital"
             outlined
             :rules="$rules('Hospital name')"
@@ -22,8 +23,10 @@
           />
 
           <v-select
-            v-model="form.pole"
+            v-model="form.poleId"
             :items="poles"
+            item-text="poleName"
+            item-value="poleId"
             label="Pôle"
             outlined
             :rules="$rules('Pole name')"
@@ -31,8 +34,10 @@
           />
 
           <v-select
-            v-model="form.sector"
+            v-model="form.sectorId"
             :items="sectors"
+            item-text="sectorName"
+            item-value="sectorId"
             label="Secteur"
             outlined
             :rules="$rules('Sector name')"
@@ -40,10 +45,10 @@
           />
 
           <v-select
-            v-model="form.staff"
+            v-model="form.staffId"
             :items="staff"
-            item-text="text"
-            item-value="value"
+            item-text="staffFullName"
+            item-value="staffId"
             label="Personnel"
             outlined
             :rules="$rules('Staff name')"
@@ -71,17 +76,17 @@
         <v-list-item
           style="width: 100%;"
           class="d-flex justify-space-between"
-          v-for="({text, value, icon}, i) in affectedStaff"
+          v-for="({ staffFullName, staffId, staffTypeIcon }, i) in affectedStaff"
           :key="i"
         >
           <v-avatar class="ma-3" width="60px" height="60px" tile>
-            <v-img :src="icon" />
+            <v-img :src="staffTypeIcon" />
           </v-avatar>
 
-          <v-card-title class="headline black--text">{{ text }}</v-card-title>
+          <v-card-title class="headline black--text">{{ staffFullName }}</v-card-title>
 
           <v-card-actions>
-            <v-btn icon large color="black">
+            <v-btn icon large color="black" @click="onPatientDeleteAffectation(staffId)">
               <v-icon>mdi-account-multiple-remove</v-icon>
             </v-btn>
           </v-card-actions>
@@ -92,14 +97,20 @@
 </template>
 
 <script>
+import { getters } from "@/store.js";
+import SelectedPatient from "@/components/All/SelectedPatient.vue";
+
 export default {
   name: "AffectPatient",
+
+  components: { SelectedPatient },
 
   created() {
     this.fetchHospitals();
     this.fetchPoles();
     this.fetchSectors();
     this.fetchStaff();
+    this.fetchAffectedStaff();
   },
 
   data() {
@@ -109,44 +120,91 @@ export default {
         name: "Bouquet"
       },
       form: {
-        hospital: "",
-        pole: "",
-        sector: "",
-        staff: ""
+        hospitalId: -1,
+        poleId: -1,
+        sectorId: -1,
+        staffId: -1
       },
       staff: [
         {
-          text: "Jean Bourali - Médecin traitant",
-          value: 0,
-          icon: require("@/assets/logos/icons/types/black/doctor.png")
+          staffId: 0,
+          staffFullName: "SFN1 SLN1",
+          staffType: 0
         },
         {
-          text: "Philippe Delacourt - Dentiste",
-          value: 1,
-          icon: require("@/assets/logos/icons/types/black/laboratory-staff.png")
+          staffId: 1,
+          staffFullName: "SFN2 SLN2",
+          staffType: 1
         },
         {
-          text: "Jérôme Garcia - Cardiologue",
-          value: 2,
-          icon: require("@/assets/logos/icons/types/black/doctor.png")
+          staffId: 2,
+          staffFullName: "SFN2 SLN2",
+          staffType: 2
         }
       ],
-      hospitals: ["H1", "H2", "H3", "H4"],
-      poles: ["P1", "P2", "P3", "P4"],
-      sectors: ["S1", "S2", "S3", "S4"],
-      affectedStaff: [
+      hospitals: [
         {
-          text: "Jean Bourali - Médecin traitant",
-          value: 0,
-          icon: require("@/assets/logos/icons/types/black/doctor.png")
+          hospitalId: 0,
+          hospitalName: "H1",
+          hospitalLeaderId: 0,
+          hospitalLeaderFirstName: "HL1 HFN1"
         },
         {
-          text: "Philippe Delacourt - Dentiste",
-          value: 1,
-          icon: require("@/assets/logos/icons/types/black/doctor.png")
+          hospitalId: 1,
+          hospitalName: "H2",
+          hospitalLeaderId: 1,
+          hospitalLeaderFirstName: "HL2 HFN2"
+        }
+      ],
+      poles: [
+        {
+          poleId: 2,
+          poleName: "P1",
+          poleLeaderId: 2,
+          poleLeaderFirstName: "PL1 PFN1"
+        },
+        {
+          poleId: 3,
+          poleName: "P2",
+          poleLeaderId: 3,
+          poleLeaderFirstName: "PL2 PFN2"
+        }
+      ],
+      sectors: [
+        {
+          sectorId: 4,
+          sectorName: "S1",
+          sectorLeaderId: 4,
+          sectorLeaderFirstName: "SL1 SFN1"
+        },
+        {
+          sectorId: 5,
+          sectorName: "S2",
+          sectorLeaderId: 5,
+          sectorLeaderFirstName: "SL2 SFN2"
+        }
+      ],
+      affectedStaff: [
+        {
+          staffId: 0,
+          staffFullName: "SFN1 SLN1",
+          staffType: 0
+        },
+        {
+          staffId: 1,
+          staffFullName: "SFN2 SLN2",
+          staffType: 1
+        },
+        {
+          staffId: 2,
+          staffFullName: "SFN2 SLN2",
+          staffType: 2
         }
       ]
     };
+  },
+  computed: {
+    ...getters
   },
   methods: {
     onHospitalSelectionChange() {
@@ -178,7 +236,9 @@ export default {
       this.$request(
         "GET",
         "/infrastructures/poles",
-        this.form,
+        {
+          hospitalId: this.form.hospitalId
+        },
         // { hospitalId }
         "Les pôles ont été chargés !",
         // { poleId, poleName, poleLeaderId, poleLeaderFirstName, poleLeaderLastName }
@@ -187,31 +247,32 @@ export default {
         () => {}
       );
     },
-    fetchSector() {
+    fetchSectors() {
       this.$request(
         "GET",
         "/infrastructures/sector",
-        this.form,
+        {
+          poleId: this.form.poleId
+        },
         // { poleId }
         "Les secteur ont été chargés !",
         response => (this.sectors = response),
         // { sectorId, sectorName, sectorLeaderId, sectorLeaderFirstName, sectorLeaderLastName }
-        "Echec lors du chargement des secteur !",
+        "Echec lors du chargement des secteurs !",
         () => {}
       );
     },
     fetchStaff() {
       this.$request(
         "GET",
-        "staff/print/unit",
-        this.form,
+        "/staff/print/unit",
+        { nodeId: this.getNodeId(this.form) },
         // { nodeId }
         "Les secteur ont été chargés !",
         response => (this.saff = response),
         // {
         //  staffId
-        //  staffFirstName
-        //  staffLastName
+        //  staffFullName
         //  staffType
         // }
         "Echec lors du chargement des secteurs !",
@@ -223,7 +284,11 @@ export default {
         this.$request(
           "POST",
           "/patient/affect/staff",
-          this.form,
+          {
+            nodeId: this.getNodeId(this.form),
+            staffId: this.form.staffId,
+            patientId: this.selectedPatient.id
+          },
           // {
           //   nodeId
           //   staffId
@@ -236,6 +301,33 @@ export default {
           () => {}
         );
       }
+    },
+    onPatientDeleteAffectation(staffId) {
+      this.$request(
+        "DELETE",
+        "/staff/infos/assignment",
+        {
+          userId: this.selectedPatient.id,
+          staffId
+        },
+        "L'affectation a bien été supprimée !",
+        () => this.$emit("update"),
+        //  empty
+        "Echec de la suppression de l'affectation !",
+        () => {}
+      );
+    },
+    fetchAffectedStaff() {
+      //FORGOT...
+    },
+    deleteAffectation() {
+      //FORGOT...
+    },
+    getNodeId({ hospitalId, poleId, sectorId }) {
+      if (0 <= sectorId) return sectorId;
+      if (0 <= poleId) return poleId;
+      if (0 <= hospitalId) return hospitalId;
+      return -1;
     },
     fileAdded(event) {
       return event;

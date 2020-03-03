@@ -460,7 +460,9 @@ public class SQLManager implements ISingleton {
                 continue;
             }
 
+
             hashMap = new HashMap<String, Object>();
+
 
             hashMap.put("actId", rSet.getInt("idActe"));
             hashMap.put("patientId", rSet.getInt("UUID"));
@@ -807,7 +809,7 @@ public class SQLManager implements ISingleton {
     public List<HashMap<String, Object>> getNodeByTypeAndFather(int type, int father) throws SQLException {
         List<HashMap<String, Object>> hasmaList = new ArrayList<HashMap<String, Object>>();
 
-        final String sqlString = "SELECT idHospital, unit.Name as hospiName,Type, idStaffMember, demoinformations.Name, FirstName From unit, staffMember, demoinformations WHERE Type=? AND ratache=?\r\n" +
+        final String sqlString = "SELECT idHospital, unit.Name as hospiName,Type, idStaffMember, demoinformations.Name, FirstName From unit, staffmember, demoinformations WHERE Type=? AND ratache=?\r\n" +
                 "AND staffmember.idStaffMember=unit.Director AND staffmember.DemoInformations_NumSecu = demoinformations.NumSecu";
         PreparedStatement ps = getCon().prepareStatement(sqlString);
         ps.setInt(1, type);
@@ -833,7 +835,7 @@ public class SQLManager implements ISingleton {
     public List<HashMap<String, Object>> getStaffMemberFromNode(int node) throws SQLException {
         List<HashMap<String, Object>> hasmaList = new ArrayList<HashMap<String, Object>>();
 
-        final String sqlString = "SELECT idStaffMember, demoinformations.Name, FirstName,JobName From unit, staffMember, demoinformations,enumstafftype WHERE \r\n" +
+        final String sqlString = "SELECT idStaffMember, demoinformations.Name, FirstName,JobName From unit, staffmember, demoinformations,enumstafftype WHERE \r\n" +
                 "  staffmember.DemoInformations_NumSecu = demoinformations.NumSecu AND Hospital_idHospital=? AND enumstafftype.idEnumStaffType=staffmember.EnumStaffType_idEnumStaffType;";
         PreparedStatement ps = getCon().prepareStatement(sqlString);
         ps.setInt(1, node);

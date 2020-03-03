@@ -28,7 +28,7 @@ export default {
     requestForm() {
       return {
         ...this.form,
-        patientId: this.user().id
+        patientId: this.user.id
       };
     }
   },
@@ -38,7 +38,7 @@ export default {
       form: {
         search: "",
         sortColumnName: "",
-        paginationNumber: 0,
+        paginationNumber: 1,
         paginationLength: 4
       },
       selectItems: [{ sortColumnName: "test", printableName: "test" }],
@@ -106,7 +106,7 @@ export default {
       this.$request(
         "GET",
         "/dmp/print/all",
-        this.requestForm(),
+        this.requestForm,
         // {
         //   patientId,
         //   sortColumnName,

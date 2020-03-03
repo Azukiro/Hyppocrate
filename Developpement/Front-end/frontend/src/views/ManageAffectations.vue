@@ -131,7 +131,10 @@ export default {
       this.$request(
         "DELETE",
         "/staff/infos/assignment",
-        data,
+        {
+          userId: this.selectedPatient.id,
+          ...data
+        },
         "L'affectation a bien été supprimée !",
         () => this.$emit("update"),
         //  empty

@@ -272,13 +272,13 @@ export const getters = {
       globals.user !== undefined &&
       globals.user.id !== undefined &&
       globals.user.id !== -1 &&
-      globals.user.staff_id !== undefined &&
-      globals.user.staff_id !== -1
+      globals.user.type !== undefined &&
+      globals.user.type !== -1
     );
   },
   canAccessToPage: link => {
-    let staff_id = getters.staff_id();
-    if (staff_id == -1) return false;
+    let type = getters.type();
+    if (type == -1) return false;
     return canAccessToPage_Rec(getters.initial_actions(), link);
   },
   user: () => globals.user,
@@ -288,15 +288,15 @@ export const getters = {
   selectedAct: () => globals.selectedAct,
   selectedUnit: () => globals.selectedUnit,
   selectedDraft: () => globals.selectedDraft,
-  staff_id: () =>
+  type: () =>
     globals.user !== undefined &&
-    0 <= globals.user.staff_id &&
-    globals.user.staff_id < globals.staff.length
-      ? getters.user().staff_id
+    0 <= globals.user.type &&
+    globals.user.type < globals.staff.length
+      ? getters.user().type
       : -1,
   initial_actions: () => {
-    let staff_id = getters.staff_id();
-    return staff_id === -1 ? [] : globals.staff[staff_id].actions;
+    let type = getters.type();
+    return type === -1 ? [] : globals.staff[type].actions;
   },
   staff_actions: link => {
     let actions = getters.initial_actions();
@@ -311,20 +311,16 @@ export const getters = {
         typeId: i
       };
     }),
-  actType_name: id => globals.actTypes[id].name,
-  actType_icon: id => globals.actTypes[id].icon,
-  staffType_name: id => globals.staff[id].name,
-  staffType_icon: id => globals.staff[id].icon,
   addActInformations: acts =>
     acts.map(act => {
       return {
         ...act,
 
-        actIcon: getters.actType_icon(act.actTypeId),
-        actTypeName: getters.actType_name(act.actTypeId),
+        actIcon: globals.actTypes[act.actTypeId].icon,
+        actTypeName: globals.actTypes[act.actTypeId].name,
 
-        staffIcon: getters.staffType_icon(act.staffTypeId),
-        staffTypeName: getters.staffType_name(act.staffTypeId)
+        staffIcon: globals.staff[act.staffTypeId].icon,
+        staffTypeName: globals.staff[act.staffTypeId].name
       };
     })
 };
@@ -333,8 +329,8 @@ export const mutations = {
   setUser: val => {
     globals.user = val;
     globals.user.icon =
-      0 <= globals.user.staff_id && globals.user.staff_id < globals.staff.length
-        ? globals.staff[globals.user.staff_id].icon
+      0 <= globals.user.type && globals.user.type < globals.staff.length
+        ? globals.staff[globals.user.type].icon
         : require("@/assets/logos/icons/types/white/undefined.png");
   },
   addSnack: val => globals.snacks.push(val),
@@ -417,12 +413,12 @@ function getActions(actions, searchLink) {
   return [];
 }
 
-mutations.setUser({
-  id: 0,
-  firstName: "Eric",
-  lastName: "Robert",
-  staff_id: 0
-});
+// mutations.setUser({
+//   id: 0,
+//   firstName: "Eric",
+//   lastName: "Robert",
+//   type: 0
+// });
 
 /*
   Types :

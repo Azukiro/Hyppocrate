@@ -25,7 +25,7 @@ export default {
       form: {
         search: "",
         columnName: "",
-        paginationNumber: 0,
+        paginationNumber: 1,
         paginationLength: 4
       },
       selectItems: ["Prénom", "Nom", "Date de naissance"],
