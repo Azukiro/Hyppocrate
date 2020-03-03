@@ -18,6 +18,7 @@ public class Patient {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response all(@Context final UriInfo ui,
+
                         @QueryParam("sortColumnName") String sortColumnName,
                         @QueryParam("search") String search,
                         @QueryParam("paginationNumber") int paginationNumber,

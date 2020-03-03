@@ -292,7 +292,7 @@ public class SQLManager implements ISingleton {
             resultSet = pStatement.executeQuery();
 
             resultSet.next();
-            result.put("name", resultSet.getString("FirstName"));
+            result.put("firstName", resultSet.getString("FirstName"));
             result.put("lastName", resultSet.getString("Name"));
 
             return result;
@@ -459,9 +459,11 @@ public class SQLManager implements ISingleton {
             if (!(count >= (paginationLength * (paginationNumber - 1)))) {
                 continue;
             }
+            
             hashMap = new HashMap<String, Object>();
+
             hashMap.put("actId", rSet.getInt("idActe"));
-            hashMap.put("patientId", rSet.getString("UUID"));
+            hashMap.put("patientId", rSet.getInt("UUID"));
             hashMap.put("staffId", rSet.getString("Responsable"));
             hashMap.put("staffName", rSet.getString("Name"));
             hashMap.put("staffFirstName", rSet.getString("FirstName"));
@@ -473,6 +475,17 @@ public class SQLManager implements ISingleton {
             hashMap.put("title", rSet.getString("Nom"));
             list.add(hashMap);
 
+        }
+        for (HashMap<String, Object> hashMap2 : list) {
+            String demoPatient = "SELECT demoinformations.Name, demoinformations.FirstName FROM dmp, demoinformations WHERE dmp.DemoInformations_NumSecu=demoinformations.NumSecu AND dmp.UUID=?";
+
+            PreparedStatement pStatement2 = con.prepareStatement(demoPatient);
+            pStatement2.setInt(1, (int)hashMap2.get("patientId"));
+            ResultSet rSet2 = pStatement.executeQuery();
+            if (rSet2.next()) {
+                hashMap2.put("patientName", rSet2.getString("Name"));
+                hashMap2.put("patientFirstName", rSet2.getString("FirstName"));
+            }
         }
 
         return list;

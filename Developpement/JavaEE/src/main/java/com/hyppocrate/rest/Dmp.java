@@ -49,7 +49,7 @@ public class Dmp {
     public Response sort(@Context final UriInfo ui) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().dmpSortItems());
+            return Responses.objectOrCustomNull(SQLManager.getInstance().printSortDmpItems());
 
         }catch (final SQLException e){
             return Responses.errorResponse(e.toString());
