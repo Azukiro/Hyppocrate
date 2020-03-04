@@ -80,14 +80,14 @@ public class Draft {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response printAll(@Context final UriInfo ui,
-                             @QueryParam("patientId") int patientId,
+                             @QueryParam("staffId") int staffId,
                              @QueryParam("paginationNumber") int paginationNumber,
                              @QueryParam("paginationLength") int paginationLength,
                              @QueryParam("search") String search,
                              @QueryParam("sortItem") String sortItem) {
 
         try {
-            return Response.ok(SQLManager.getInstance().printActe(patientId,search,sortItem,paginationNumber,paginationLength)).build();
+            return Response.ok(SQLManager.getInstance().printDraft(staffId,search,sortItem,paginationNumber,paginationLength)).build();
         } catch (final SQLException e) {
             return Responses.errorResponse(e.toString());
         }

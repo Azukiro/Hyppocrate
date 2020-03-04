@@ -227,9 +227,9 @@ public class SQLManager implements ISingleton {
             }
             hashMap = new HashMap<String, Object>();
             hashMap.put("patientId", rSet.getInt("UUID"));
-            hashMap.put("firstname", rSet.getString("FirstName"));
-            hashMap.put("lastname", rSet.getString("Name"));
-            hashMap.put("birthdayDate ", rSet.getString("BirthDate"));
+            hashMap.put("firstName", rSet.getString("FirstName"));
+            hashMap.put("lastName", rSet.getString("Name"));
+            hashMap.put("birthdayDate", rSet.getString("BirthDate"));
             list.add(hashMap);
 
         }
@@ -361,9 +361,9 @@ public class SQLManager implements ISingleton {
             }
             hashMap = new HashMap<String, Object>();
             hashMap.put("patientId", rSet.getInt("idStaffMember"));
-            hashMap.put("firstname", rSet.getString("FirstName"));
-            hashMap.put("lastname", rSet.getString("Name"));
-            hashMap.put("birthdayDate ", rSet.getString("BirthDate"));
+            hashMap.put("firstName", rSet.getString("FirstName"));
+            hashMap.put("lastName", rSet.getString("Name"));
+            hashMap.put("birthdayDate", rSet.getString("BirthDate"));
             hashMap.put("type", rSet.getString("BirthDate"));
             list.add(hashMap);
 
@@ -407,23 +407,28 @@ public class SQLManager implements ISingleton {
                 "    Nom,\r\n" +
                 "    Responsable,\r\n" +
                 "    dmp.UUID,\r\n" +
+                "    applicationuser.Mail,\r\n" +
                 "    demoinformations.Name,\r\n" +
                 "    demoinformations.FirstName,\r\n" +
-                "    enumstafftype.JobName,\r\n" +
+                "    demoinformations.FirstName,\r\n" +
+                "    demoinformations.PhoneNumber,\r\n" +
+                "    enumstafftype.idEnumStaffType,\r\n" +
                 "    DateDebut,\r\n" +
                 "    Description,\r\n" +
                 "    DocumentLink,\r\n" +
-                "    documenttype.Name as document\r\n" +
+                "     documenttype.idDocumentType as document\r\n" +
                 "FROM\r\n" +
                 "    acte,\r\n" +
                 "    dmp,\r\n" +
                 "    staffmember,\r\n" +
                 "    documenttype,\r\n" +
                 "    demoinformations,\r\n" +
-                "    enumstafftype\r\n" +
+                "    enumstafftype," +
+                "applicationuser\r\n" +
                 "WHERE\r\n" +
                 "    acte.MedicalFolder_idFolder = dmp.UUID \r\n" +
                 "    AND acte.Responsable = staffmember.idStaffMember \r\n" +
+                "    AND applicationuser.Login = staffmember.Login \r\n" +
                 "    AND demoinformations.NumSecu = staffmember.DemoInformations_NumSecu \r\n" +
                 "    AND enumstafftype.idEnumStaffType = staffmember.EnumStaffType_idEnumStaffType \r\n" +
                 "    AND IsADraft = ? \r\n" +
@@ -459,17 +464,23 @@ public class SQLManager implements ISingleton {
             if (!(count >= (paginationLength * (paginationNumber - 1)))) {
                 continue;
             }
-        hashMap = new HashMap<>();
+
+
+            hashMap = new HashMap<String, Object>();
+
+
             hashMap.put("actId", rSet.getInt("idActe"));
             hashMap.put("patientId", rSet.getInt("UUID"));
             hashMap.put("staffId", rSet.getString("Responsable"));
-            hashMap.put("staffName", rSet.getString("Name"));
+            hashMap.put("staffLastName", rSet.getString("Name"));
             hashMap.put("staffFirstName", rSet.getString("FirstName"));
-            hashMap.put("staffJob", rSet.getString("JobName"));
-            hashMap.put("description ", rSet.getString("Description"));
+            hashMap.put("staffPhoneNumber", rSet.getString("PhoneNumber"));
+            hashMap.put("staffEmail", rSet.getString("Mail"));
+            hashMap.put("staffType", rSet.getInt("idEnumStaffType"));
+            hashMap.put("description", rSet.getString("Description"));
             hashMap.put("date", rSet.getTimestamp("DateDebut"));
-            hashMap.put("link", rSet.getString("DocumentLink").split("|"));
-            hashMap.put("type", rSet.getString("document"));
+            hashMap.put("link", rSet.getString("DocumentLink").split("\\|"));
+            hashMap.put("acteType", rSet.getString("document"));
             hashMap.put("title", rSet.getString("Nom"));
             list.add(hashMap);
 
@@ -663,17 +674,17 @@ public class SQLManager implements ISingleton {
     }
 
 
-    public boolean affecterPatient(int nodeId, int staffId, int patientId) throws SQLException {
-        final String requestString = "INSERT INTO affectation (idAffectation, Symptome, unit_idHospital, StaffID, PatientId) VALUES (NULL, NULL, ?, ?, ?);";
+    public boolean affecterPatient(int staffId, int patientId) throws SQLException {
+        final String requestString = "INSERT INTO affectation (idAffectation, Symptome, unit_idHospital, StaffID, PatientId) VALUES (NULL, NULL, 11, ?, ?);";
         PreparedStatement rStatement = getCon().prepareStatement(requestString);
-        rStatement.setInt(1, nodeId);
-        rStatement.setInt(2, staffId);
-        rStatement.setInt(3, patientId);
+
+        rStatement.setInt(1, staffId);
+        rStatement.setInt(2, patientId);
 
         return !rStatement.execute();
     }
 
-    public boolean unAffecterPatient(int nodeId, int staffId, int patientId) throws SQLException {
+    public boolean unAffecterPatient(int staffId, int patientId) throws SQLException {
         final String requestString = "DELETE FROM affectation WHERE StaffID=? AND PatientId=?;";
         PreparedStatement rStatement = getCon().prepareStatement(requestString);
         rStatement.setInt(1, staffId);
@@ -944,7 +955,7 @@ public class SQLManager implements ISingleton {
             hashMap = new HashMap<String, Object>();
             hashMap.put("id", rSet.getInt("idStaffMember"));
             hashMap.put("name", rSet.getString("FirstName"));
-            hashMap.put("lastname", rSet.getString("Name"));
+            hashMap.put("lastName", rSet.getString("Name"));
             hashMap.put("type", rSet.getString("JobName"));
             list.add(hashMap);
 
@@ -966,11 +977,11 @@ public class SQLManager implements ISingleton {
         return rs.getInt(0);
     }
 
-    public boolean modifyInfoStaff(int idPeople, String name, String firstname, String birthday) throws SQLException {
+    public boolean modifyInfoStaff(int idPeople, String name, String firstName, String birthday) throws SQLException {
         final String string = "UPDATE demoinformations SET Name = ?, FirstName = ?, BirthDate = ? WHERE demoinformations.NumSecu = (SELECT staffmember.DemoInformations_NumSecu FROM staffmember WHERE staffmember.idStaffMember=?);";
         PreparedStatement ps1 = getCon().prepareStatement(string);
         ps1.setString(1, name);
-        ps1.setString(2, firstname);
+        ps1.setString(2, firstName);
         ps1.setString(3, birthday);
         ps1.setInt(4, idPeople);
         System.out.println(ps1);
