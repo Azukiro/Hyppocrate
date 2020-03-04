@@ -43,56 +43,7 @@ export default {
         paginationLength: 3
       },
       selectItems: [],
-      drafts: [
-        {
-          actId: 1,
-          actTypeId: 0,
-          title: "Résultats médicaux",
-          staffId: 0,
-          staffTypeId: 0,
-          staffEmail: "Serge.gas@gmail.com",
-          staffPhoneNumber: "01561309",
-          description: "Rien à noter",
-          date: "01/11/2019",
-          link: "test/file.txt",
-          staffFirstName: "Ewen",
-          staffLastName: "Bouquet",
-          patientFirstName: "Jean",
-          patientLastName: "Dujardin"
-        },
-        {
-          actId: 2,
-          actTypeId: 1,
-          title: "Examen médical",
-          staffId: 0,
-          staffTypeId: 1,
-          staffEmail: "Serge.gas@gmail.com",
-          staffPhoneNumber: "01561309",
-          description: "Rien à noter",
-          date: "01/10/2019",
-          link: "test/file.txt",
-          staffFirstName: "Ewen",
-          staffLastName: "Bouquet",
-          patientFirstName: "Jacques",
-          patientLastName: "Dujardin"
-        },
-        {
-          actId: 2,
-          actTypeId: 2,
-          title: "Résultats de radio",
-          staffId: 0,
-          staffTypeId: 3,
-          staffEmail: "Serge.gas@gmail.com",
-          staffPhoneNumber: "01561309",
-          description: "Rien à noter",
-          date: "17/01/2020",
-          link: "test/file.txt",
-          staffFirstName: "Ewen",
-          staffLastName: "Bouquet",
-          patientFirstName: "Gilles",
-          patientLastName: "Dujardin"
-        }
-      ]
+      drafts: []
     };
   },
   methods: {
@@ -132,7 +83,7 @@ export default {
         //     type,
         //     title,
         //     staffId,
-        //     staffTypeId, // Ajout get icon + descriptif type en string
+        //     staffType, // Ajout get icon + descriptif type en string
         //     staffEmail, // Ajout popup contact
         //     staffPhoneNumber, // Au niveau de print act
         //     description,
@@ -144,8 +95,7 @@ export default {
         //     patientLastName
         //   }
         // ]
-        () => {},
-        // response => (this.drafts = response),
+        response => (this.drafts = response),
         "Aucun brouillé ne correspond à vos critères !",
         () => {}
       );

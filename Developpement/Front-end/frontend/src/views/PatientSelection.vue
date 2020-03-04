@@ -31,32 +31,7 @@ export default {
         paginationLength: 4
       },
       selectItems: [],
-      patients: [
-        {
-          id: 0,
-          lastName: "Ewen",
-          firstName: "Bouquet",
-          birthdayDate: "22/11/2000"
-        },
-        {
-          id: 1,
-          lastName: "Lucas",
-          firstName: "Billard",
-          birthdayDate: "10/01/2000"
-        },
-        {
-          id: 2,
-          lastName: "Vincent",
-          firstName: "Buisset",
-          birthdayDate: "24/05/2000"
-        },
-        {
-          id: 3,
-          lastName: "Naoufal",
-          firstName: "Arradi",
-          birthdayDate: "01/01/2000"
-        }
-      ]
+      patients: []
     };
   },
   methods: {
@@ -90,8 +65,7 @@ export default {
         //   firstName,
         //   birthdayDate
         // }
-        () => {},
-        // response => (this.patients = response),
+        response => (this.patients = response),
         "Aucun DMP ne correspond à vos critères !",
         () => {}
       );

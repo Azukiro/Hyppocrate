@@ -19,6 +19,7 @@ export default {
   components: { PatientSelectionForm },
   created() {
     this.fetchSortItems();
+    this.fetchStaff();
   },
   data() {
     return {
@@ -28,33 +29,8 @@ export default {
         paginationNumber: 1,
         paginationLength: 4
       },
-      selectItems: ["Prénom", "Nom", "Date de naissance"],
-      staff: [
-        {
-          firstName: "Ewen",
-          lastName: "Bouquet",
-          birthday: "22/11/2000",
-          icon: require("@/assets/logos/icons/types/black/doctor.png")
-        },
-        {
-          firstName: "Lucas",
-          lastName: "Billard",
-          birthday: "10/01/2000",
-          icon: require("@/assets/logos/icons/types/black/doctor.png")
-        },
-        {
-          firstName: "Vincent",
-          lastName: "Buisset",
-          birthday: "24/05/2000",
-          icon: require("@/assets/logos/icons/types/black/nurse.png")
-        },
-        {
-          firstName: "Naoufal",
-          lastName: "Arradi",
-          birthday: "01/01/2000",
-          icon: require("@/assets/logos/icons/types/black/doctor.png")
-        }
-      ]
+      selectItems: [],
+      staff: []
     };
   },
   methods: {
@@ -75,7 +51,7 @@ export default {
     fetchStaff() {
       this.$request(
         "GET",
-        "/patient/search/all",
+        "/staff/search/all",
         this.form,
         // {
         //   sortColumnName,
@@ -84,7 +60,7 @@ export default {
         //   paginationLength
         // },
         "Le personnel a été chargé !",
-        response => (this.selectItems = response),
+        response => (this.staff = response),
         // {
         //   id,
         //   typeId

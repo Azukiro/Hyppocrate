@@ -316,11 +316,20 @@ export const getters = {
       return {
         ...act,
 
-        actIcon: globals.actTypes[act.actTypeId].icon,
-        actTypeName: globals.actTypes[act.actTypeId].name,
+        actIcon: globals.actTypes[act.actType].icon,
+        actTypeName: globals.actTypes[act.actType].name,
 
-        staffIcon: globals.staff[act.staffTypeId].icon,
-        staffTypeName: globals.staff[act.staffTypeId].name
+        staffIcon: globals.staff[act.staffType].icon,
+        staffTypeName: globals.staff[act.staffType].name
+      };
+    }),
+  addStaffInformations: personnals =>
+    personnals.map(staff => {
+      return {
+        ...staff,
+
+        staffIcon: globals.staff[staff.staffType].icon,
+        staffTypeName: globals.staff[staff.staffType].name
       };
     })
 };
@@ -413,12 +422,15 @@ function getActions(actions, searchLink) {
   return [];
 }
 
-// mutations.setUser({
-//   id: 0,
-//   firstName: "Eric",
-//   lastName: "Robert",
-//   type: 0
-// });
+mutations.setUser({
+  id: 12,
+  firstName: "Eric",
+  lastName: "Robert",
+  type: 4
+});
+
+// aDupont
+// Posson
 
 /*
   Types :

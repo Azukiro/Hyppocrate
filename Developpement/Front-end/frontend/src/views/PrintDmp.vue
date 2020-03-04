@@ -18,8 +18,8 @@ export default {
   name: "PrintDmp",
   components: { PrintDmpForm },
   created() {
-    // this.fetchSortItems();
-    // this.fetchActs();
+    this.fetchSortItems();
+    this.fetchActs();
     this.acts = getters.addActInformations(this.acts);
   },
 
@@ -28,7 +28,7 @@ export default {
     requestForm() {
       return {
         ...this.form,
-        patientId: this.user.id
+        patientId: this.selectedPatient.patientId
       };
     }
   },
@@ -41,51 +41,8 @@ export default {
         paginationNumber: 1,
         paginationLength: 4
       },
-      selectItems: [{ sortColumnName: "test", printableName: "test" }],
-      acts: [
-        {
-          actId: 1,
-          actTypeId: 0,
-          title: "Résultats médicaux",
-          staffId: 0,
-          staffTypeId: 0,
-          staffEmail: "Serge.gas@gmail.com",
-          staffPhoneNumber: "01561309",
-          description: "Rien à noter",
-          date: "01/11/2019",
-          link: "test/file.txt",
-          staffFirstName: "Ewen",
-          staffLastName: "Bouquet"
-        },
-        {
-          actId: 2,
-          actTypeId: 1,
-          title: "Examen médical",
-          staffId: 0,
-          staffTypeId: 1,
-          staffEmail: "Serge.gas@gmail.com",
-          staffPhoneNumber: "01561309",
-          description: "Rien à noter",
-          date: "01/10/2019",
-          link: "test/file.txt",
-          staffFirstName: "Ewen",
-          staffLastName: "Bouquet"
-        },
-        {
-          actId: 2,
-          actTypeId: 2,
-          title: "Résultats de radio",
-          staffId: 0,
-          staffTypeId: 3,
-          staffEmail: "Serge.gas@gmail.com",
-          staffPhoneNumber: "01561309",
-          description: "Rien à noter",
-          date: "17/01/2020",
-          link: "test/file.txt",
-          staffFirstName: "Ewen",
-          staffLastName: "Bouquet"
-        }
-      ]
+      selectItems: [],
+      acts: []
     };
   },
   methods: {
@@ -115,21 +72,17 @@ export default {
         //   paginationLength
         // },
         "Chargement des actes du DMP effectué !",
-        // response => (this.acts = response),
-        response => {
-          this.acts = response.map(act => {
-            return act;
-          });
-        },
+        response => (this.acts = response),
         "Impossible de charger les actes du DMP !",
         () => {}
         // [
         //   {
         //     actId,
+        //     actType,
         //     type,
         //     title,
         //     staffId,
-        //     staffTypeId, // Ajout get icon + descriptif type en string
+        //     staffType, // Ajout get icon + descriptif type en string #TODO#
         //     staffEmail, // Ajout popup contact
         //     staffPhoneNumber, // Au niveau de print act
         //     description,

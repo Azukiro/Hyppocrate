@@ -52,9 +52,9 @@
             <v-img src="@/assets/logos/icons/types/black/patient.png" />
           </v-avatar>
 
-          <v-card-title class="headline black--text">{{ firstName }} {{ lastName }}</v-card-title>
-
-          <v-card-title class="headline black--text">{{ birthdayDate }}</v-card-title>
+          <v-card-title
+            class="headline black--text"
+          >{{ firstName }} {{ lastName }}, {{ birthdayDate }}</v-card-title>
         </v-list-item>
       </v-card>
 

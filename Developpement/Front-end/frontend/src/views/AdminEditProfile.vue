@@ -32,7 +32,8 @@
             <v-text-field
               outlined
               label="Date de naissance"
-              v-model="form.birthday"
+              type="date"
+              v-model="form.birthdayDate"
               :rules="$rules('Birthday')"
             />
           </v-form>
@@ -151,7 +152,9 @@ export default {
       this.$request(
         "GET",
         "/staff/print/all",
-        this.form,
+        {
+          id: this.selectedStaff.staffId
+        },
         // {
         //   staffId
         // }
@@ -175,7 +178,12 @@ export default {
         this.$request(
           "PUT",
           "/staff/general",
-          this.form,
+          {
+            staffId: this.selectedStaff.staffId,
+            firstName: this.form.firstName,
+            lastName: this.form.lastName,
+            birthdayDate: this.form.birthdayDate
+          },
           // {
           //   staffId,
           //   firstName,
@@ -195,7 +203,12 @@ export default {
         this.$request(
           "GET",
           "/staff/contact",
-          this.form,
+          {
+            staffId: this.selectedStaff.staffId,
+            phone: this.form.phoneLandline,
+            address: this.form.address,
+            email: this.form.email
+          },
           // {
           //   staffId,
           //   phone,
@@ -215,7 +228,12 @@ export default {
         this.$request(
           "GET",
           "/staff/pwd",
-          this.form,
+          {
+            staffId: this.selectedStaff.staffId,
+            oldPwd: this.form.oldPwd,
+            newPwd: this.form.newPwd,
+            newPwdAgain: this.form.newPwdAgain
+          },
           // {
           //   staffId,
           //   oldPwd: "Admin"

@@ -59,8 +59,8 @@ export default {
     },
     requestForm() {
       return {
-        staffId: getters.user().id,
-        patientId: getters.selectedPatient().id,
+        staffId: this.user.id,
+        patientId: this.selectedPatient.patientId,
         ...this.form
       };
     }

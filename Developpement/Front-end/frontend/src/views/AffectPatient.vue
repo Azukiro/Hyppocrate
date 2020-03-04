@@ -7,7 +7,7 @@
     <SelectedPatient />
 
     <v-card outlined width="40%" class="d-flex flex-column justify-center align-center my-5">
-      <v-card-title class="headline text-center">Affecter à un personnel médical</v-card-title>
+      <v-card-title class="headline text-center">Affecter le patient à du personnel</v-card-title>
 
       <v-card color="transparent" outlined width="70%">
         <v-form ref="form">
@@ -76,11 +76,11 @@
         <v-list-item
           style="width: 100%;"
           class="d-flex justify-space-between"
-          v-for="({ staffFullName, staffId, staffTypeIcon }, i) in affectedStaff"
+          v-for="({ staffFullName, staffId, staffIcon }, i) in affectedStaff"
           :key="i"
         >
           <v-avatar class="ma-3" width="60px" height="60px" tile>
-            <v-img :src="staffTypeIcon" />
+            <v-img :src="staffIcon" />
           </v-avatar>
 
           <v-card-title class="headline black--text">{{ staffFullName }}</v-card-title>
@@ -318,6 +318,7 @@ export default {
       );
     },
     fetchAffectedStaff() {
+      this.affectedStaff = getters.addStaffInformations(this.affectedStaff);
       //FORGOT...
     },
     deleteAffectation() {

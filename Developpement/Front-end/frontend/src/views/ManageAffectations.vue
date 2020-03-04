@@ -132,7 +132,7 @@ export default {
         "DELETE",
         "/staff/infos/assignment",
         {
-          userId: this.selectedPatient.id,
+          userId: this.selectedPatient.patientId,
           ...data
         },
         "L'affectation a bien été supprimée !",

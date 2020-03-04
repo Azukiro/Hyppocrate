@@ -33,54 +33,7 @@ export default {
   },
   data() {
     return {
-      structure: [
-        {
-          hospitalName: "Hôpital 1",
-          poles: [
-            {
-              poleName: "Pole 1",
-              sectors: [
-                {
-                  sectorName: "Secteur 1"
-                },
-                {
-                  sectorName: "Secteur 2"
-                },
-                {
-                  sectorName: "Secteur 3"
-                }
-              ]
-            },
-            {
-              poleName: "Pole 2",
-              sectors: [
-                {
-                  sectorName: "Secteur 4"
-                },
-                {
-                  sectorName: "Secteur 5"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          hospitalName: "Hôpital 2",
-          poles: [
-            {
-              poleName: "Pole 3"
-            },
-            {
-              poleName: "Pole 4",
-              sectors: [
-                {
-                  sectorName: "Secteur 6"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      structure: []
     };
   },
   methods: {
@@ -92,7 +45,9 @@ export default {
         {},
         // empty
         "L'infrastructure de l'APHP a été chargée !",
-        () => {},
+        structure => {
+          this.structure = structure;
+        },
         // [
         //   {
         //     hospitalId: 0,

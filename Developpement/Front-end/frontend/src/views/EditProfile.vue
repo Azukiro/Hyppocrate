@@ -121,10 +121,10 @@ export default {
         "GET",
         "/staff/all",
         {
-          patientId: this.user.id
+          id: this.user.id
         },
         // {
-        //   patientId
+        //   id
         // }
         "Vos informations personnelles ont été chargées !",
         response =>
@@ -149,10 +149,10 @@ export default {
     onContactButtonClick() {
       if (this.$refs.contactForm.validate()) {
         this.$request(
-          "GET",
+          "POST",
           "/staff/contact",
           {
-            id: this.form.id,
+            id: this.user.id,
             phone: this.form.phone,
             address: this.form.address,
             email: this.form.email
@@ -174,10 +174,10 @@ export default {
     onPwdButtonClick() {
       if (this.$refs.pwdForm.validate()) {
         this.$request(
-          "GET",
+          "POST",
           "/staff/pwd",
           {
-            id: this.form.id,
+            id: this.user.id,
             oldPwd: this.form.oldPwd,
             newPwd: this.form.newPwd,
             newPwdAgain: this.form.newPwdAgain

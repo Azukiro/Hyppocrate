@@ -8,6 +8,8 @@
           <v-select
             v-model="form.type"
             :items="staffTypes"
+            item-text="printableName"
+            item-value="sortColumnName"
             label="Type"
             outlined
             :rules="$rules('Type')"
@@ -24,6 +26,7 @@
 
           <v-text-field
             label="Date de naissance"
+            type="date"
             outlined
             v-model="form.birthdayDate"
             :rules="$rules('birthdayDate')"
@@ -81,10 +84,10 @@ export default {
       form: {
         type: "",
         lastName: "",
-        name: "",
+        firstName: "",
         birthdayDate: "",
         address: "",
-        phone: "",
+        phoneLandline: "",
         email: "",
         socialNumber: ""
       },
@@ -118,7 +121,9 @@ export default {
         this.$request(
           "POST",
           "/staff/create",
-          {},
+          {
+            ...this.form
+          },
           // {
           //   typeId,
           //   firstName,

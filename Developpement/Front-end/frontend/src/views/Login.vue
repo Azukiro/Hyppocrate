@@ -75,7 +75,7 @@ export default {
           login: this.form.email,
           pwd: this.form.pwd
         },
-        "Bienvenue " + this.user.firstName + " " + this.user.lastName + " !",
+        "Bienvenue !",
         response => {
           this.setUser(response);
           this.$router.push("/actions");
