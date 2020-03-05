@@ -1,6 +1,7 @@
 <template>
   <v-card color="transparent" outlined height="90%" class="d-flex justify-center align-center">
     <PatientSelectionForm
+      :hasNext="hasNext"
       :form="form"
       :selectItems="selectItems"
       :patients="patients"
@@ -24,6 +25,7 @@ export default {
   },
   data() {
     return {
+      hasNext: false,
       form: {
         search: "",
         sortColumnName: "",
@@ -65,7 +67,10 @@ export default {
         //   firstName,
         //   birthdayDate
         // }
-        response => (this.patients = response),
+        response => {
+          this.patients = response.result;
+          this.hasNext = response.hasNext;
+        },
         "Aucun DMP ne correspond à vos critères !",
         () => {}
       );

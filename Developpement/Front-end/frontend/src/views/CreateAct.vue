@@ -8,10 +8,10 @@
       <v-card color="transparent" outlined width="70%">
         <v-form ref="form">
           <v-select
-            v-model="form.typeId"
+            v-model="form.actType"
             :items="actTypes"
             item-text="typeName"
-            item-value="typeId"
+            item-value="actType"
             label="Type"
             outlined
             :rules="$rules('Type')"
@@ -69,7 +69,7 @@ export default {
     return {
       form: {
         title: "",
-        typeId: "", // Ajout liste déroulante
+        actType: "", // Ajout liste déroulante
         description: "",
         file: {}
       }
@@ -85,7 +85,7 @@ export default {
         //   staffId,
         //   patientId,
         //   title,
-        //   typeId,
+        //   actType,
         //   description,
         //   file: "chemin fichier 1|chemin fichier 2"
         // },
@@ -106,7 +106,7 @@ export default {
           //   staffId,
           //   patientId,
           //   title,
-          //   typeId,
+          //   actType,
           //   description,
           //   file: "chemin fichier 1|chemin fichier 2"
           // },

@@ -125,7 +125,7 @@ export default {
             ...this.form
           },
           // {
-          //   typeId,
+          //   actType,
           //   firstName,
           //   lastName,
           //   birthdayDate,

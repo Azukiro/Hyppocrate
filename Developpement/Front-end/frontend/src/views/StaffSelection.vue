@@ -63,7 +63,7 @@ export default {
         response => (this.staff = response),
         // {
         //   id,
-        //   typeId
+        //   actType
         //   lastName,
         //   firstName,
         //   birthdayDate
