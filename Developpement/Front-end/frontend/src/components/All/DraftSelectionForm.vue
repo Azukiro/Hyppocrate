@@ -32,7 +32,7 @@
     <div class="d-flex flex-row justify-space-around align-center">
       <v-card color="transparent" outlined width="20%" class="d-flex justify-end">
         <v-btn icon color="black" @click="onPaginate_Left">
-          <v-icon large>mdi-arrow-left-bold</v-icon>
+          <v-icon large :disabled="paginateLeftDisabled">mdi-arrow-left-bold</v-icon>
         </v-btn>
       </v-card>
 
@@ -86,7 +86,7 @@
 
       <v-card color="transparent" outlined width="20%">
         <v-btn icon color="black" @click="onPaginate_Right">
-          <v-icon large>mdi-arrow-right-bold</v-icon>
+          <v-icon large :disabled="paginateRightDisabled">mdi-arrow-right-bold</v-icon>
         </v-btn>
       </v-card>
     </div>
@@ -96,7 +96,15 @@
 <script>
 export default {
   name: "DraftSelectionForm",
-  props: ["form", "selectItems", "drafts"],
+  props: ["form", "selectItems", "drafts", "hasNext"],
+  computed: {
+    paginateLeftDisabled() {
+      return this.form.paginationNumber <= 1;
+    },
+    paginateRightDisabled() {
+      return !this.hasNext;
+    }
+  },
   methods: {
     fetch() {
       this.$emit("change");
@@ -105,15 +113,11 @@ export default {
       this.$emit("selection", i);
     },
     onPaginate_Left() {
-      this.form.paginationNumber -=
-        this.form.paginationNumber <= 1 ? 1 : this.form.paginationLength;
+      this.form.paginationNumber -= this.paginateLeftDisable ? 0 : 1;
       this.fetch();
     },
     onPaginate_Right() {
-      this.form.paginationNumber +=
-        this.drafts.length < this.form.paginationLength
-          ? 1
-          : this.form.paginationLength;
+      this.form.paginationNumber += this.paginateRightDisabled ? 0 : 1;
       this.fetch();
     }
   }

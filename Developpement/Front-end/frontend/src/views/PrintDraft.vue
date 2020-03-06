@@ -8,13 +8,14 @@
       <v-card color="transparent" outlined width="70%">
         <v-form ref="form">
           <v-select
-            v-model="form.typeId"
+            v-model="form.actType"
             :items="actTypes"
             item-text="typeName"
-            item-value="typeId"
+            item-value="actType"
             label="Type"
             outlined
             :rules="$rules('Type')"
+            :disabled="true"
           ></v-select>
 
           <v-text-field label="Titre" outlined v-model="form.title" :rules="$rules('Title')"></v-text-field>
@@ -63,7 +64,7 @@ export default {
       return {
         actId: this.selectedDraft.actId,
         title: this.selectedDraft.title,
-        typeId: this.selectedDraft.typeId,
+        actType: this.selectedDraft.actType,
         description: this.selectedDraft.description,
         file: this.selectedDraft.file
       };
@@ -87,7 +88,7 @@ export default {
         // {
         //   actId
         //   title,
-        //   typeId,
+        //   actType,
         //   description,
         //   file: "chemin fichier 1|chemin fichier 2"
         // },
@@ -106,7 +107,7 @@ export default {
           // {
           //   actId
           //   title,
-          //   typeId,
+          //   actType,
           //   description,
           //   file: "chemin fichier 1|chemin fichier 2"
           // },

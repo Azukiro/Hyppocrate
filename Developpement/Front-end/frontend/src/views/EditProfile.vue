@@ -119,9 +119,9 @@ export default {
     fetchPersonnalInformations() {
       this.$request(
         "GET",
-        "/staff/all",
+        "/staff/print/all",
         {
-          id: this.user.id
+          staffId: this.user.id
         },
         // {
         //   id
@@ -149,10 +149,10 @@ export default {
     onContactButtonClick() {
       if (this.$refs.contactForm.validate()) {
         this.$request(
-          "POST",
+          "PUT",
           "/staff/contact",
           {
-            id: this.user.id,
+            staffId: this.user.id,
             phone: this.form.phone,
             address: this.form.address,
             email: this.form.email
@@ -174,10 +174,10 @@ export default {
     onPwdButtonClick() {
       if (this.$refs.pwdForm.validate()) {
         this.$request(
-          "POST",
+          "PUT",
           "/staff/pwd",
           {
-            id: this.user.id,
+            staffId: this.user.id,
             oldPwd: this.form.oldPwd,
             newPwd: this.form.newPwd,
             newPwdAgain: this.form.newPwdAgain

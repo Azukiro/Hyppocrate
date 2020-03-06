@@ -4,6 +4,7 @@
       :form="form"
       :selectItems="selectItems"
       :acts="acts"
+      :hasNext="hasNext"
       @change="fetchActs"
       @selection="onActClick"
     />
@@ -20,7 +21,6 @@ export default {
   created() {
     this.fetchSortItems();
     this.fetchActs();
-    this.acts = getters.addActInformations(this.acts);
   },
 
   computed: {
@@ -35,6 +35,7 @@ export default {
 
   data() {
     return {
+      hasNext: false,
       form: {
         search: "",
         sortColumnName: "",
@@ -72,7 +73,10 @@ export default {
         //   paginationLength
         // },
         "Chargement des actes du DMP effectué !",
-        response => (this.acts = response),
+        response => {
+          this.hasNext = response.hasNext;
+          this.acts = getters.addActInformations(response.result);
+        },
         "Impossible de charger les actes du DMP !",
         () => {}
         // [

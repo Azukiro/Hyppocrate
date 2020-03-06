@@ -1,6 +1,7 @@
 <template>
   <v-card color="transparent" outlined height="90%" class="d-flex justify-center align-center">
     <DraftSelectionForm
+      :hasNext="hasNext"
       :form="form"
       :selectItems="selectItems"
       :drafts="drafts"
@@ -21,7 +22,6 @@ export default {
   created() {
     this.fetchSortItems();
     this.fetchDrafts();
-    this.drafts = getters.addActInformations(this.drafts);
   },
 
   computed: {
@@ -36,6 +36,7 @@ export default {
 
   data() {
     return {
+      hasNext: false,
       form: {
         search: "",
         sortColumnName: "",
@@ -95,7 +96,10 @@ export default {
         //     patientLastName
         //   }
         // ]
-        response => (this.drafts = response),
+        response => {
+          this.drafts = getters.addActInformations(response.result);
+          this.hasNext = response.hasNext;
+        },
         "Aucun brouillé ne correspond à vos critères !",
         () => {}
       );

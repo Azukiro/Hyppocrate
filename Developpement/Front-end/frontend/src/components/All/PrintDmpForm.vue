@@ -84,14 +84,14 @@ import SelectedPatient from "@/components/All/SelectedPatient.vue";
 export default {
   name: "PrintDmp",
   components: { SelectedPatient },
-  props: ["form", "selectItems", "acts"],
+  props: ["form", "selectItems", "acts", "hasNext"],
   computed: {
     ...getters,
     paginateLeftDisabled() {
       return this.form.paginationNumber <= 1;
     },
     paginateRightDisabled() {
-      return this.form.paginationLength < this.acts.length;
+      return !this.hasNext;
     }
   },
   methods: {
@@ -102,15 +102,11 @@ export default {
       this.$emit("selection", i);
     },
     onPaginate_Left() {
-      this.form.paginationNumber -= this.paginateLeftDisabled
-        ? 1
-        : this.form.paginationLength;
+      this.form.paginationNumber -= this.paginateLeftDisabled ? 0 : 1;
       this.fetch();
     },
     onPaginate_Right() {
-      this.form.paginationNumber += this.paginateRightDisabled
-        ? 1
-        : this.form.paginationLength;
+      this.form.paginationNumber += this.paginateRightDisabled ? 0 : 1;
       this.fetch();
     }
   }

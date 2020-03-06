@@ -308,7 +308,7 @@ export const getters = {
     globals.actTypes.map(({ name }, i) => {
       return {
         typeName: name,
-        typeId: i
+        actType: i
       };
     }),
   addActInformations: acts =>
@@ -426,7 +426,7 @@ mutations.setUser({
   id: 12,
   firstName: "Eric",
   lastName: "Robert",
-  type: 4
+  type: 0
 });
 
 // aDupont
