@@ -70,9 +70,13 @@ public class Infrastructure {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response sector(@Context final UriInfo ui,
-                           @QueryParam("nodeId") int nodeId) {
+                           @QueryParam("nodeId") int nodeId,
+                           @QueryParam("isLaboratory") boolean isLaboratory) {
 
         try {
+            if(isLaboratory){
+                return Responses.objectOrCustomNull(SQLManager.getInstance().getAllLabo(nodeId));
+            }
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllSector(nodeId));
         } catch (final SQLException e) {
             return Responses.errorResponse(e.toString());

@@ -43,11 +43,25 @@ public class Patient {
         }
     }
 
-    @Path("/affect/staff")
+    @Path("/print/staff")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response affect(@Context final UriInfo ui, @QueryParam("nodeId") int nodeId,
+    public Response sortItems(@Context final UriInfo ui,
+                              @QueryParam("patientId") int patientId
+                              ) {
 
+        try {
+            return Response.ok(SQLManager.getInstance().getPersonnalForPatient(patientId)).build();
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
+        }
+    }
+
+    @Path("/affect/staff")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response affect(@Context final UriInfo ui,
+                           @QueryParam("nodeId") int nodeId,
                            @QueryParam("staffId") int staffId,
                            @QueryParam("patientId") int patientId) {
 

@@ -133,7 +133,7 @@ public class Connection {
         x.add("histoire");
         String voiture3 = SQLUnitTest.TestFonction(SQLUnitTest::getString, "Voiture", new TestParameters(x,null));
         */
-        listResult.add(SQLManager.getInstance());
+        listResult.add(SQLManager.getInstance().getAllArchitecture());
             final ArrayList<Exception> exceptions=new ArrayList<Exception>();
             exceptions.add(new IllegalAccessException());
         //listResult.add(Utils.UnitTest(()-> {
