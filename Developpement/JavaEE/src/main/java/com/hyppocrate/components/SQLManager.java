@@ -913,24 +913,38 @@ public class SQLManager implements ISingleton {
 
     public List<HashMap<String, Object>> getAllArchitecture() throws SQLException {
         List<HashMap<String, Object>> hasmaList = new ArrayList<>();
-        for (HashMap<String, Object> hospi : getAllHospital()) {
+       for (HashMap<String, Object> hospi : getAllHospital()) {
 
 
-            List<HashMap<String, Object>> hasmaListPole = new ArrayList<>();
+             List<HashMap<String, Object>> hasmaListPole = new ArrayList<>();
             hospi.put("poles", hasmaListPole);
             hasmaList.add(hospi);
-            for (HashMap<String, Object> pole : getAllPole((int) (hospi.get("hospitalId")))) {
+           List<HashMap<String, Object>> polee=getAllPole((int) (hospi.get("hospitalId")));
+            if(polee==null || polee.size()==0){
+                continue;
+            }
+            for (HashMap<String, Object> pole : polee) {
                 List<HashMap<String, Object>> hasmaSector = new ArrayList<>();
                 pole.put("sectors", hasmaSector);
                 List<HashMap<String, Object>> hasmaLabo = new ArrayList<>();
                 pole.put("labos", hasmaLabo);
                 hasmaListPole.add(pole);
-                for (HashMap<String, Object> sector : getAllSector((int) (pole.get("poleId")))) {
+
+                List<HashMap<String, Object>> sectorr=getAllSector((int) (pole.get("poleId")));
+                if(sectorr==null || sectorr.size()==0){
+                    continue;
+                }
+                for (HashMap<String, Object> sector : sectorr ) {
                     System.out.println(sector);
                     sector.put("staff", getStaffMemberFromNode((int) (sector.get("sectorId"))));
                     hasmaSector.add(sector);
                 }
-                for (HashMap<String, Object> labo : getAllLabo((int) (pole.get("poleId")))) {
+
+                List<HashMap<String, Object>> laboo=getAllLabo((int) (pole.get("poleId")));
+                if(laboo==null || laboo.size()==0){
+                    continue;
+                }
+                for (HashMap<String, Object> labo :laboo ) {
 
                     labo.put("staff", getStaffMemberFromNode((int) (labo.get("laboId"))));
                     hasmaLabo.add(labo);
