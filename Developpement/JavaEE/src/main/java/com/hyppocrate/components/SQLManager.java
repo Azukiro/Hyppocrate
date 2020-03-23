@@ -17,7 +17,7 @@ public class SQLManager implements ISingleton {
     private static final String username = "hyppocrytos";
     private static final String password = "hyppocrytos-SQL2019"; // le mien c'était le mot de passe de mon compte windows
     private static final String serverName = "localhost";
-    private static final String database = "hyppocrate";
+    private static final String database = "hyppocrytos";
 
     //https://stackoverflow.com/questions/2839321/connect-java-to-a-mysql-database/2839563#2839563
     Context context;
