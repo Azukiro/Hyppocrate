@@ -11,48 +11,7 @@
 
       <v-card color="transparent" outlined width="70%">
         <v-form ref="form">
-          <v-select
-            v-model="form.hospitalId"
-            :items="hospitals"
-            item-text="hospitalName"
-            item-value="hospitalId"
-            label="Hôpital"
-            outlined
-            :rules="$rules('Hospital name')"
-            @change="onHospitalSelectionChange"
-          />
-
-          <v-select
-            v-model="form.poleId"
-            :items="poles"
-            item-text="poleName"
-            item-value="poleId"
-            label="Pôle"
-            outlined
-            :rules="$rules('Pole name')"
-            @change="onPoleSelectionChange"
-          />
-
-          <v-select
-            v-model="form.sectorId"
-            :items="sectors"
-            item-text="sectorName"
-            item-value="sectorId"
-            label="Secteur"
-            outlined
-            :rules="$rules('Sector name')"
-            @change="onSectorSelectionChange"
-          />
-
-          <v-select
-            v-model="form.staffId"
-            :items="staff"
-            item-text="staffFullName"
-            item-value="staffId"
-            label="Personnel"
-            outlined
-            :rules="$rules('Staff name')"
-          />
+          <NodeSelection :form="form" :selectUnit="true" />
         </v-form>
       </v-card>
 
@@ -99,17 +58,14 @@
 <script>
 import { getters } from "@/store.js";
 import SelectedPatient from "@/components/All/SelectedPatient.vue";
+import NodeSelection from "@/components/All/NodeSelection.vue";
 
 export default {
   name: "AffectPatient",
 
-  components: { SelectedPatient },
+  components: { SelectedPatient, NodeSelection },
 
   created() {
-    this.fetchHospitals();
-    this.fetchPoles();
-    this.fetchSectors();
-    this.fetchStaff();
     this.fetchAffectedStaff();
   },
 
@@ -120,174 +76,28 @@ export default {
         name: "Bouquet"
       },
       form: {
+        isLaboratory: false,
         hospitalId: -1,
         poleId: -1,
         sectorId: -1,
         staffId: -1
       },
-      staff: [
-        {
-          staffId: 0,
-          staffFullName: "SFN1 SLN1",
-          staffType: 0
-        },
-        {
-          staffId: 1,
-          staffFullName: "SFN2 SLN2",
-          staffType: 1
-        },
-        {
-          staffId: 2,
-          staffFullName: "SFN2 SLN2",
-          staffType: 2
-        }
-      ],
-      hospitals: [
-        {
-          hospitalId: 0,
-          hospitalName: "H1",
-          hospitalLeaderId: 0,
-          hospitalLeaderFirstName: "HL1 HFN1"
-        },
-        {
-          hospitalId: 1,
-          hospitalName: "H2",
-          hospitalLeaderId: 1,
-          hospitalLeaderFirstName: "HL2 HFN2"
-        }
-      ],
-      poles: [
-        {
-          poleId: 2,
-          poleName: "P1",
-          poleLeaderId: 2,
-          poleLeaderFirstName: "PL1 PFN1"
-        },
-        {
-          poleId: 3,
-          poleName: "P2",
-          poleLeaderId: 3,
-          poleLeaderFirstName: "PL2 PFN2"
-        }
-      ],
-      sectors: [
-        {
-          sectorId: 4,
-          sectorName: "S1",
-          sectorLeaderId: 4,
-          sectorLeaderFirstName: "SL1 SFN1"
-        },
-        {
-          sectorId: 5,
-          sectorName: "S2",
-          sectorLeaderId: 5,
-          sectorLeaderFirstName: "SL2 SFN2"
-        }
-      ],
-      affectedStaff: [
-        {
-          staffId: 0,
-          staffFullName: "SFN1 SLN1",
-          staffType: 0
-        },
-        {
-          staffId: 1,
-          staffFullName: "SFN2 SLN2",
-          staffType: 1
-        },
-        {
-          staffId: 2,
-          staffFullName: "SFN2 SLN2",
-          staffType: 2
-        }
-      ]
+      affectedStaff: []
     };
   },
   computed: {
     ...getters
   },
   methods: {
-    onHospitalSelectionChange() {
-      this.fetchPoles();
-      this.fetchSectors();
-      this.fetchStaff();
-    },
-    onPoleSelectionChange() {
-      this.fetchSectors();
-      this.fetchStaff();
-    },
-    onSectorSelectionChange() {
-      this.fetchStaff();
-    },
-    fetchHospitals() {
-      this.$request(
-        "GET",
-        "/infrastructures/hospital",
-        {},
-        // empty
-        "Les hôpitaux ont été chargés !",
-        response => (this.hospitals = response),
-        // { hospitalId, hospitalName, hospitalLeaderId, hospitalLeaderFirstName, hospitalLeaderLastName }
-        "Echec lors du chargement des hôpitaux !",
-        () => {}
-      );
-    },
-    fetchPoles() {
-      this.$request(
-        "GET",
-        "/infrastructures/poles",
-        {
-          hospitalId: this.form.hospitalId
-        },
-        // { hospitalId }
-        "Les pôles ont été chargés !",
-        // { poleId, poleName, poleLeaderId, poleLeaderFirstName, poleLeaderLastName }
-        response => (this.poles = response),
-        "Echec lors du chargement des pôles !",
-        () => {}
-      );
-    },
-    fetchSectors() {
-      this.$request(
-        "GET",
-        "/infrastructures/sector",
-        {
-          poleId: this.form.poleId
-        },
-        // { poleId }
-        "Les secteur ont été chargés !",
-        response => (this.sectors = response),
-        // { sectorId, sectorName, sectorLeaderId, sectorLeaderFirstName, sectorLeaderLastName }
-        "Echec lors du chargement des secteurs !",
-        () => {}
-      );
-    },
-    fetchStaff() {
-      this.$request(
-        "GET",
-        "/staff/print/unit",
-        { nodeId: this.getNodeId(this.form) },
-        // { nodeId }
-        "Les secteur ont été chargés !",
-        response => (this.saff = response),
-        // {
-        //  staffId
-        //  staffFullName
-        //  staffType
-        // }
-        "Echec lors du chargement des secteurs !",
-        () => {}
-      );
-    },
     onPatientAffectation() {
       if (this.$refs.form.validate()) {
         this.$request(
           "POST",
           "/patient/affect/staff",
           {
-            nodeId: this.getNodeId(this.form),
+            nodeId: this.$getNodeId(this.form),
             staffId: this.form.staffId,
-            patientId: this.selectedPatient.id
+            patientId: this.selectedPatient.patientId
           },
           // {
           //   nodeId
@@ -295,7 +105,10 @@ export default {
           //   patientId
           // },
           "L'affectation a été effectuée !",
-          response => (this.saff = response),
+          response => {
+            this.staff = response;
+            this.fetchAffectedStaff();
+          },
           //  empty
           "Echec de l'affectation !",
           () => {}
@@ -305,30 +118,36 @@ export default {
     onPatientDeleteAffectation(staffId) {
       this.$request(
         "DELETE",
-        "/staff/infos/assignment",
+        "/staff/assignment/delete",
         {
-          userId: this.selectedPatient.id,
+          patientId: this.selectedPatient.patientId,
           staffId
         },
         "L'affectation a bien été supprimée !",
-        () => this.$emit("update"),
+        () => {
+          this.fetchAffectedStaff();
+        },
         //  empty
         "Echec de la suppression de l'affectation !",
         () => {}
       );
     },
     fetchAffectedStaff() {
+      this.$request(
+        "GET",
+        "/patient/print/staff",
+        {
+          patientId: this.selectedPatient.patientId
+        },
+        "Le personnel affecté a bien été chargé !",
+        response => {
+          this.affectedStaff = response;
+        },
+        //  empty
+        "Echec du chargement du personnel affecté !",
+        () => {}
+      );
       this.affectedStaff = getters.addStaffInformations(this.affectedStaff);
-      //FORGOT...
-    },
-    deleteAffectation() {
-      //FORGOT...
-    },
-    getNodeId({ hospitalId, poleId, sectorId }) {
-      if (0 <= sectorId) return sectorId;
-      if (0 <= poleId) return poleId;
-      if (0 <= hospitalId) return hospitalId;
-      return -1;
     },
     fileAdded(event) {
       return event;

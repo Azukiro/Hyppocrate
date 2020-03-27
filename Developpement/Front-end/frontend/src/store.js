@@ -123,6 +123,23 @@ export const globals = Vue.observable({
                   link: "/print-act"
                 }
               ]
+            },
+            {
+              name: "Publier un acte médical",
+              icon: require("@/assets/logos/icons/actions/black/download-file.png"),
+              link: "/create-act"
+            }
+          ]
+        },
+        {
+          name: "Gérer un brouillon",
+          icon: require("@/assets/logos/icons/actions/black/download-file.png"),
+          link: "/select-draft",
+          actions: [
+            {
+              name: "Consulter un brouillon",
+              icon: require("@/assets/logos/icons/actions/black/download-file.png"),
+              link: "/print-draft"
             }
           ]
         },
@@ -331,7 +348,25 @@ export const getters = {
         staffIcon: globals.staff[staff.staffType].icon,
         staffTypeName: globals.staff[staff.staffType].name
       };
-    })
+    }),
+  addAPHPStructureInformations: hospitals => {
+    return hospitals.map(hospital => {
+      return {
+        ...hospital,
+        poles: hospital.poles.map(pole => {
+          return {
+            ...pole,
+            sectors: pole.sectors.map(sector => {
+              return {
+                ...sector,
+                staff: getters.addStaffInformations(sector.staff)
+              };
+            })
+          };
+        })
+      };
+    });
+  }
 };
 
 export const mutations = {
@@ -351,56 +386,6 @@ export const mutations = {
   setSelectedDraft: val => (globals.selectedDraft = val),
   setSelectedUnit: val => (globals.selectedUnit = val)
 };
-
-// /
-//     /select-patient
-//         /print-dmp
-//             /print-act
-//         /create-act
-//         /select-draft
-//             /print-draft
-//     /edit-profile
-//     /calendar
-
-// /
-//     /select-patient
-//         /print-dmp
-//             /print-act
-//         /create-act
-//         /select-draft
-//             /print-draft
-//     /edit-profile
-//     /calendar
-
-// /
-//     /select-patient
-//         /print-dmp
-//             /print-act
-//                 /create-act
-//     /edit-profile
-//     /calendar
-
-// /
-//     /select-patient
-//         /create-patient
-//         /affect-patient
-//         /print-dmp
-//             /print-act
-//     /edit-profile
-//     /calendar
-
-// /
-//     /select-patient
-//         /create-staff
-//             /select-staff
-//                 /admin-edit-profile
-//     /structurate-aphp
-//         /create-hospital
-//         /create-sector
-//         /create-pole
-//         /affect-staff
-//     /edit-profile
-//     /calendar
 
 function canAccessToPage_Rec(actions, searchLink) {
   for (const { link, actions: subactions } of actions) {
@@ -426,9 +411,10 @@ mutations.setUser({
   id: 12,
   firstName: "Eric",
   lastName: "Robert",
-  type: 0
+  type: 4
 });
 
+//icone personnel affecté
 // aDupont
 // Posson
 

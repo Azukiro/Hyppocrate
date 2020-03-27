@@ -35,7 +35,7 @@
           <v-text-field
             label="Téléphone portable"
             outlined
-            v-model="form.phoneLandline"
+            v-model="form.phoneNumber"
             :rules="$rules('Phone landliner')"
           />
 
@@ -87,7 +87,7 @@ export default {
         firstName: "",
         birthdayDate: "",
         address: "",
-        phoneLandline: "",
+        phoneNumber: "",
         email: "",
         socialNumber: ""
       },

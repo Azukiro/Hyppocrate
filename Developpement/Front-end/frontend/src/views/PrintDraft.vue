@@ -1,5 +1,5 @@
 <template>
-  <v-card color="transparent" outlined height="90%" class="d-flex justify-center align-center">
+  <v-card color="transparent" outlined class="my-2 d-flex justify-center align-center">
     <v-card outlined width="40%" class="d-flex flex-column justify-center align-center">
       <v-card-title class="headline text-center">Mon brouillon</v-card-title>
 
@@ -62,7 +62,7 @@ export default {
     ...getters,
     form() {
       return {
-        actId: this.selectedDraft.actId,
+        draftId: this.selectedDraft.actId,
         title: this.selectedDraft.title,
         actType: this.selectedDraft.actType,
         description: this.selectedDraft.description,
@@ -83,7 +83,7 @@ export default {
     saveAsDraft() {
       this.$request(
         "POST",
-        "/draft/actions/publish",
+        "/draft/actions/update",
         this.form,
         // {
         //   actId
@@ -102,7 +102,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.$request(
           "POST",
-          "/draft/actions/update",
+          "/draft/actions/publish",
           this.form,
           // {
           //   actId
@@ -122,7 +122,9 @@ export default {
       this.$request(
         "DELETE",
         "/draft/actions/delete",
-        this.form,
+        {
+          draftId: this.form.draftId
+        },
         // {
         //   draftId
         // },

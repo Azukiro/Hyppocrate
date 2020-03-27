@@ -1,10 +1,12 @@
 <template>
-  <v-card color="transparent" outlined height="90%" class="d-flex justify-center align-center">
+  <v-card color="transparent" outlined class="d-flex justify-center align-center">
     <PatientSelectionForm
+      title="Choix du personnel"
+      :hasNext="hasNext"
       :form="form"
       :selectItems="selectItems"
       :patients="staff"
-      @change="fetchSortItems"
+      @change="fetchStaff"
       @selection="onStaffClick"
     />
   </v-card>
@@ -29,6 +31,7 @@ export default {
         paginationNumber: 1,
         paginationLength: 4
       },
+      hasNext: false,
       selectItems: [],
       staff: []
     };
@@ -60,10 +63,13 @@ export default {
         //   paginationLength
         // },
         "Le personnel a été chargé !",
-        response => (this.staff = response),
+        response => {
+          this.hasNext = response.hasNext;
+          this.staff = response.result;
+        },
         // {
-        //   id,
-        //   actType
+        //   staffId,
+        //   staffType
         //   lastName,
         //   firstName,
         //   birthdayDate

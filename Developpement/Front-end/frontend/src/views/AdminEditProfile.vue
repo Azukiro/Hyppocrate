@@ -55,7 +55,7 @@
             <v-text-field
               label="Téléphone portable"
               outlined
-              v-model="form.phoneLandline"
+              v-model="form.phone"
               :rules="$rules('Phone landline')"
             />
 
@@ -153,14 +153,14 @@ export default {
         "GET",
         "/staff/print/all",
         {
-          id: this.selectedStaff.staffId
+          staffId: this.selectedStaff.staffId
         },
         // {
         //   staffId
         // }
         "Vos informations personnelles ont été chargées !",
         // response => (this.form = response),
-        () => {},
+        response => (this.form = response),
         // {
         //   firstName,
         //   lastName,
@@ -201,11 +201,11 @@ export default {
     onContactButtonClick() {
       if (this.$refs.contactForm.validate()) {
         this.$request(
-          "GET",
+          "PUT",
           "/staff/contact",
           {
             staffId: this.selectedStaff.staffId,
-            phone: this.form.phoneLandline,
+            phone: this.form.phone,
             address: this.form.address,
             email: this.form.email
           },
@@ -226,11 +226,11 @@ export default {
     onPwdButtonClick() {
       if (this.$refs.accountForm.validate()) {
         this.$request(
-          "GET",
+          "PUT",
           "/staff/pwd",
           {
             staffId: this.selectedStaff.staffId,
-            oldPwd: this.form.oldPwd,
+            oldPwd: "Admin",
             newPwd: this.form.newPwd,
             newPwdAgain: this.form.newPwdAgain
           },
