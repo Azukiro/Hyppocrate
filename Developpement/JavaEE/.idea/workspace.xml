@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e70d126e-214a-4ad8-8551-8b3aa381fa84" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/components/SQLManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Dmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Dmp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Draft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Draft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Infrastructure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Infrastructure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/MedicalAct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/MedicalAct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Profile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hyppocrate/rest/Staff.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,12 +130,12 @@
       <screen x="0" y="0" width="1366" height="736" />
     </state>
     <state x="488" y="84" key="#com.intellij.ide.util.MemberChooser/0.0.1366.736@0.0.1366.736" timestamp="1582055897662" />
-    <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583334950597">
-      <screen x="0" y="0" width="1366" height="736" />
+    <state x="739" y="363" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1584793511040">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="526" y="254" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.728@0.0.1366.728" timestamp="1579859539764" />
     <state x="526" y="257" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.736@0.0.1366.736" timestamp="1583334950597" />
-    <state x="739" y="363" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1582379723280" />
+    <state x="739" y="363" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1584793511040" />
     <state x="826" y="143" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1579896273590">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

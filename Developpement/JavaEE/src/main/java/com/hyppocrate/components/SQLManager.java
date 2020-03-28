@@ -17,7 +17,7 @@ public class SQLManager implements ISingleton {
     private static final String username = "hyppocrytos";
     private static final String password = "hyppocrytos-SQL2019"; // le mien c'était le mot de passe de mon compte windows
     private static final String serverName = "localhost";
-    private static final String database = "hyppocrate";
+    private static final String database = "hyppocrytos";
 
     //https://stackoverflow.com/questions/2839321/connect-java-to-a-mysql-database/2839563#2839563
     Context context;
@@ -185,12 +185,15 @@ public class SQLManager implements ISingleton {
     }
 
 
-    public List<HashMap<String, Object>> printDMP(String search, String sortitem, int paginationNumber,
+    public HashMap<String, Object> printDMP(String search, String sortitem, int paginationNumber,
                                                   int paginationLength) throws SQLException {
 
         List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
         if (search == null) {
             search = "";
+        }
+        if (sortitem == null || sortitem.equals("")) {
+            sortitem = "FirstName";
         }
         search = "%" + search + "%";
 
@@ -206,35 +209,43 @@ public class SQLManager implements ISingleton {
                 "    OR FirstName LIKE ? \r\n" +
                 "    OR BirthDate LIKE ?)\r\n" +
                 "    AND demoinformations.NumSecu=dmp.DemoInformations_NumSecu\r\n" +
-                "ORDER BY ?\r\n" +
-                "LIMIT ?; ";
+                "ORDER BY "+sortitem;
         PreparedStatement pStatement = getCon().prepareStatement(reqString);
         pStatement.setString(1, search);
         pStatement.setString(2, search);
         pStatement.setString(3, search);
-        pStatement.setString(4, sortitem);
-
-        pStatement.setInt(5, paginationLength * paginationNumber);
         System.out.println(pStatement);
         ResultSet rSet = pStatement.executeQuery();
         int count = 0;
 
-        HashMap<String, Object> hashMap;
+        HashMap<String, Object>  hashMap = new HashMap<String, Object>();
+        boolean hasNext=false;
         while (rSet.next()) {
-            count++;
-            if (!(count >= (paginationLength * (paginationNumber - 1)))) {
+            if ((count < (paginationLength * (paginationNumber-1)))) {
+                count++;
                 continue;
+            }else if(count >= (paginationLength * (paginationNumber))){
+                hasNext=true;
+                break;
             }
+
             hashMap = new HashMap<String, Object>();
             hashMap.put("patientId", rSet.getInt("UUID"));
             hashMap.put("firstName", rSet.getString("FirstName"));
             hashMap.put("lastName", rSet.getString("Name"));
             hashMap.put("birthdayDate", rSet.getString("BirthDate"));
+
+            count++;
             list.add(hashMap);
 
-        }
 
-        return list;
+        }
+        HashMap<String, Object> hashMap2 = new HashMap<String, Object>();
+        hashMap2.put("result", list);
+        hashMap2.put("hasNext", hasNext);
+
+
+        return hashMap2;
     }
 
 
@@ -319,13 +330,13 @@ public class SQLManager implements ISingleton {
         return res;
     }
 
-    public List<HashMap<String, Object>> printStaff(String sortItem, String search, int paginationNumber,
+    public HashMap<String, Object> printStaff(String sortItem, String search, int paginationNumber,
                                                     int paginationLength) throws SQLException {
         List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
         if (search == null) {
             search = "";
         }
-        if (sortItem == null) {
+        if (sortItem == null || sortItem.equals("")) {
             sortItem = "Name";
         }
         search = "%" + search + "%";
@@ -334,45 +345,52 @@ public class SQLManager implements ISingleton {
                 "    ,\r\n" +
                 "    FirstName,\r\n" +
                 "    BirthDate,\r\n" +
-                "    idStaffMember\r\n" +
+                "    idStaffMember,enumstafftype.idEnumStaffType\r\n" +
                 "FROM\r\n" +
-                "    dmp,\r\n" +
-                "    demoinformations\r\n" +
-                "WHERE NAME LIKE ?\r\n" +
+                "    staffmember,\r\n" +
+                "    demoinformations," +
+                "enumstafftype\r\n" +
+                "WHERE (NAME LIKE ?\r\n" +
                 "    OR FirstName LIKE ? \r\n" +
-                "    OR BirthDate LIKE ?\r\n" +
-                "ORDER BY NAME\r\n" +
-                "LIMIT ?; ";
+                "    OR BirthDate LIKE ?)  AND enumstafftype.idEnumStaffType = staffmember.EnumStaffType_idEnumStaffType AND demoinformations.NumSecu = staffmember.DemoInformations_NumSecu \r\n" +
+                "ORDER BY "+sortItem;
         PreparedStatement pStatement = getCon().prepareStatement(reqString);
         pStatement.setString(1, search);
         pStatement.setString(2, search);
         pStatement.setString(3, search);
 
-        pStatement.setInt(4, paginationLength * paginationNumber);
         System.out.println(pStatement);
         ResultSet rSet = pStatement.executeQuery();
         int count = 0;
 
         HashMap<String, Object> hashMap;
+        boolean hasNext=false;
         while (rSet.next()) {
-            count++;
-            if (!(count >= (paginationLength * (paginationNumber - 1)))) {
+            if ((count < (paginationLength * (paginationNumber-1)))) {
+                count++;
                 continue;
+            }else if(count >= (paginationLength * (paginationNumber))){
+                hasNext=true;
+                break;
             }
             hashMap = new HashMap<String, Object>();
-            hashMap.put("patientId", rSet.getInt("idStaffMember"));
+            hashMap.put("staffId", rSet.getInt("idStaffMember"));
             hashMap.put("firstName", rSet.getString("FirstName"));
             hashMap.put("lastName", rSet.getString("Name"));
             hashMap.put("birthdayDate", rSet.getString("BirthDate"));
-            hashMap.put("type", rSet.getString("BirthDate"));
+            hashMap.put("staffType", rSet.getString("idEnumStaffType"));
             list.add(hashMap);
+            count++;
 
         }
+         HashMap<String, Object> hashMap2 = new HashMap<String, Object>();
+        hashMap2.put("result",list);
+        hashMap2.put("hasNext",hasNext);
 
-        return list;
+        return hashMap2;
     }
 
-    public List<HashMap<String, Object>> printDraft(int staffId, String search, String sortItems,
+    public HashMap<String, Object> printDraft(int staffId, String search, String sortItems,
                                                     int paginationNumber, int paginationLength) throws SQLException {
         return printActe(staffId, search, sortItems, paginationNumber, paginationLength, true);
     }
@@ -389,14 +407,14 @@ public class SQLManager implements ISingleton {
         return list;
     }
 
-    private List<HashMap<String, Object>> printActe(int patientId, String search, String sortItem, int paginationNumber,
+    private HashMap<String, Object>  printActe(int patientId, String search, String sortItem, int paginationNumber,
                                                     int paginationLength, boolean draft) throws SQLException {
         List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 
         if (search == null) {
             search = "";
         }
-        if (sortItem == null) {
+        if (sortItem == null || sortItem.equals("")) {
             sortItem = "DateDebut";
         }
         search = search.toUpperCase();
@@ -440,18 +458,14 @@ public class SQLManager implements ISingleton {
         }
 
         reqString += "	AND (UPPER(Nom) LIKE ? OR UPPER(documenttype.Name) LIKE ?) \r\n" +
-                "ORDER BY\r\n" +
-                "    ?\r\n " +
-                "LIMIT ?;";
+                "ORDER BY " +sortItem+";";
         PreparedStatement pStatement = getCon().prepareStatement(reqString);
         pStatement.setInt(1, draft ? 1 : 0);
 
         pStatement.setInt(2, patientId);
         pStatement.setString(3, search);
         pStatement.setString(4, search);
-        pStatement.setString(5, sortItem);
 
-        pStatement.setInt(6, paginationLength * paginationNumber);
 
 
         System.out.println(pStatement);
@@ -459,10 +473,15 @@ public class SQLManager implements ISingleton {
         int count = 0;
 
         HashMap<String, Object> hashMap;
+        boolean hasNext=false;
         while (rSet.next()) {
-            count++;
-            if (!(count >= (paginationLength * (paginationNumber - 1)))) {
+
+            if ((count < (paginationLength * (paginationNumber-1)))) {
+                count++;
                 continue;
+            }else if(count >= (paginationLength * (paginationNumber))){
+                hasNext=true;
+                break;
             }
 
 
@@ -478,10 +497,11 @@ public class SQLManager implements ISingleton {
             hashMap.put("staffEmail", rSet.getString("Mail"));
             hashMap.put("staffType", rSet.getInt("idEnumStaffType"));
             hashMap.put("description", rSet.getString("Description"));
-            hashMap.put("date", rSet.getTimestamp("DateDebut"));
+            hashMap.put("date", rSet.getString("DateDebut"));
             hashMap.put("link", rSet.getString("DocumentLink").split("\\|"));
-            hashMap.put("acteType", rSet.getString("document"));
+            hashMap.put("actType", rSet.getInt("document"));
             hashMap.put("title", rSet.getString("Nom"));
+            count++;
             list.add(hashMap);
 
         }
@@ -496,8 +516,11 @@ public class SQLManager implements ISingleton {
                 hashMap2.put("patientFirstName", rSet2.getString("FirstName"));
             }
         }
+        HashMap<String, Object> hashMap3 = new HashMap<String, Object>();
+        hashMap3.put("result",list);
+        hashMap3.put("hasNext",hasNext);
 
-        return list;
+        return hashMap3;
     }
 
     public List<HashMap<String, Object>> printDocumentType() throws SQLException {
@@ -526,7 +549,7 @@ public class SQLManager implements ISingleton {
         return list;
     }
 
-    public List<HashMap<String, Object>> printActe(int patientId, String search, String sortItem, int paginationNumber,
+    public HashMap<String, Object> printActe(int patientId, String search, String sortItem, int paginationNumber,
                                                    int paginationLength) throws SQLException {
 
         return printActe(patientId, search, sortItem, paginationNumber, paginationLength, false);
@@ -601,7 +624,7 @@ public class SQLManager implements ISingleton {
         pStatement.setString(3, name);
         pStatement.setString(4, birthday);
         pStatement.setString(5, Adress);
-        pStatement.setString(6, name);
+        pStatement.setString(6, phone);
         return !pStatement.execute();
 
     }
@@ -610,24 +633,26 @@ public class SQLManager implements ISingleton {
     public boolean modifyContactStaff(int idPeople, String phoneNumber, String Adress, String email) throws SQLException {
         final String string = "UPDATE demoinformations SET Adress = ?, PhoneNumber = ? WHERE demoinformations.NumSecu = (SELECT staffmember.DemoInformations_NumSecu FROM staffmember WHERE staffmember.idStaffMember=?);";
         final String logString = "UPDATE applicationuser SET applicationuser.Mail = ? WHERE applicationuser.Login = (SELECT staffmember.Login FROM staffmember WHERE staffmember.idStaffMember=?);";
-        PreparedStatement ps1 = getCon().prepareStatement(string);
-        PreparedStatement ps2 = getCon().prepareStatement(logString);
+        PreparedStatement ps1 = con.prepareStatement(string);
         ps1.setString(1, Adress);
         ps1.setString(2, phoneNumber);
         ps1.setInt(3, idPeople);
+
+        boolean x=ps1.execute() ;
+        PreparedStatement ps2 = con.prepareStatement(logString);
+
         ps2.setString(1, email);
         ps2.setInt(2, idPeople);
-        System.out.println(ps1);
-        return !(ps1.execute() && ps2.execute());
+        System.out.println(ps2);
+        return !(ps2.execute()&&x);
     }
 
     public boolean ResetPassword(int idPeople, String oldPwd, String newPwd, String newPwdAgain) throws SQLException {
 
 
-        final String getOld = "SELECT applicationuser.Login,PassWord FROM applicationuser, staffmember WHERE idstaffmember=?";
+        final String getOld = "SELECT applicationuser.Login,PassWord FROM applicationuser, staffmember WHERE idstaffmember=?  AND applicationuser.Login=staffmember.Login";
         PreparedStatement ps2 = getCon().prepareStatement(getOld);
         ps2.setInt(1, idPeople);
-        ps2.setString(2, oldPwd);
         ResultSet rSet = ps2.executeQuery();
         if (rSet.next()) {
             if ((oldPwd.equals("Admin") || rSet.getString("PassWord").equals(oldPwd)) && newPwd.equals(newPwdAgain)) {
@@ -674,12 +699,12 @@ public class SQLManager implements ISingleton {
     }
 
 
-    public boolean affecterPatient(int staffId, int patientId) throws SQLException {
-        final String requestString = "INSERT INTO affectation (idAffectation, Symptome, unit_idHospital, StaffID, PatientId) VALUES (NULL, NULL, 11, ?, ?);";
+    public boolean affecterPatient(int nodeId,int staffId, int patientId) throws SQLException {
+        final String requestString = "INSERT INTO affectation (idAffectation, Symptome, unit_idHospital, StaffID, PatientId) VALUES (NULL, NULL, ?, ?, ?);";
         PreparedStatement rStatement = getCon().prepareStatement(requestString);
-
-        rStatement.setInt(1, staffId);
-        rStatement.setInt(2, patientId);
+        rStatement.setInt(1, nodeId);
+        rStatement.setInt(2, staffId);
+        rStatement.setInt(3, patientId);
 
         return !rStatement.execute();
     }
@@ -710,7 +735,7 @@ public class SQLManager implements ISingleton {
     }
 
     public Boolean createUnit(String name, int idRattache, int idStaffMember) throws SQLException {
-        int type = 0;
+        int type = 1;
         PreparedStatement ps;
         if (idRattache != -1) {
             final String result = "";
@@ -733,7 +758,7 @@ public class SQLManager implements ISingleton {
             ps.setLong(4, idRattache);
             System.out.println(ps);
         } else {
-            final String sqlRequest = "INSERT INTO unit(Name, Type, Director) VALUES (?, ?, ?); ";
+            final String sqlRequest = "INSERT INTO unit(Name, Type, Director, ratache) VALUES (?, ?, ?, 17); ";
             System.err.println(con);
             ps = getCon().prepareStatement(sqlRequest);
             ps.setString(1, name);
@@ -797,7 +822,7 @@ public class SQLManager implements ISingleton {
         System.out.println(ps);
         ResultSet rSet = ps.executeQuery();
 
-        if (rSet.next()) {
+        while (rSet.next()) {
             HashMap<String, Object> hashMap = new HashMap<>();
             String name = IntToTypeStringConverter(rSet.getInt("Type"));
             hashMap.put(name + "Id", rSet.getInt("idHospital"));
@@ -806,8 +831,6 @@ public class SQLManager implements ISingleton {
             hashMap.put(name + "LeaderName", rSet.getString("Name"));
             hashMap.put(name + "LeaderFirstName", rSet.getString("FirstName"));
             hasmaList.add(hashMap);
-        } else {
-            return null;
         }
 
         return hasmaList;
@@ -842,7 +865,7 @@ public class SQLManager implements ISingleton {
     public List<HashMap<String, Object>> getStaffMemberFromNode(int node) throws SQLException {
         List<HashMap<String, Object>> hasmaList = new ArrayList<HashMap<String, Object>>();
 
-        final String sqlString = "SELECT idStaffMember, demoinformations.Name, FirstName,JobName From unit, staffmember, demoinformations,enumstafftype WHERE \r\n" +
+        final String sqlString = "SELECT idStaffMember, demoinformations.Name, FirstName, idEnumStaffType From unit, staffmember, demoinformations,enumstafftype WHERE \r\n" +
                 "  staffmember.DemoInformations_NumSecu = demoinformations.NumSecu AND Hospital_idHospital=? AND enumstafftype.idEnumStaffType=staffmember.EnumStaffType_idEnumStaffType;";
         PreparedStatement ps = getCon().prepareStatement(sqlString);
         ps.setInt(1, node);
@@ -850,10 +873,9 @@ public class SQLManager implements ISingleton {
 
         if (rSet.next()) {
             HashMap<String, Object> hashMap = new HashMap<String, Object>();
-            hashMap.put("staffId", rSet.getString("idStaffMember"));
-            hashMap.put("staffLastName", rSet.getString("Name"));
-            hashMap.put("staffFirstName", rSet.getString("FirstName"));
-            hashMap.put("staffType", rSet.getString("JobName"));
+            hashMap.put("staffId", rSet.getInt("idStaffMember"));
+            hashMap.put("staffFullName", rSet.getString("FirstName")+" "+ rSet.getString("Name") );
+            hashMap.put("staffType", rSet.getInt("idEnumStaffType"));
 
             hasmaList.add(hashMap);
         } else {
@@ -868,39 +890,63 @@ public class SQLManager implements ISingleton {
     }
 
     public List<HashMap<String, Object>> getAllPole(int hospitalId) throws SQLException {
+        if(hospitalId==-1){
+            return getNodeByType(2);
+        }
+
         return getNodeByTypeAndFather(2, hospitalId);
     }
 
     public List<HashMap<String, Object>> getAllSector(int poleId) throws SQLException {
+        if(poleId==-1){
+            return getNodeByType(3);
+        }
         return getNodeByTypeAndFather(3, poleId);
     }
 
     public List<HashMap<String, Object>> getAllLabo(int poleId) throws SQLException {
+        if(poleId==-1){
+            return getNodeByType(4);
+        }
         return getNodeByTypeAndFather(4, poleId);
     }
 
     public List<HashMap<String, Object>> getAllArchitecture() throws SQLException {
         List<HashMap<String, Object>> hasmaList = new ArrayList<>();
-        for (HashMap<String, Object> hospi : getAllHospital()) {
+       for (HashMap<String, Object> hospi : getAllHospital()) {
 
 
-            List<HashMap<String, Object>> hasmaListPole = new ArrayList<>();
-            hospi.put("pole", hasmaListPole);
+             List<HashMap<String, Object>> hasmaListPole = new ArrayList<>();
+            hospi.put("poles", hasmaListPole);
             hasmaList.add(hospi);
-            for (HashMap<String, Object> pole : getAllPole((int) (hospi.get("hospitalId")))) {
+           List<HashMap<String, Object>> polee=getAllPole((int) (hospi.get("hospitalId")));
+            if(polee==null || polee.size()==0){
+                continue;
+            }
+            for (HashMap<String, Object> pole : polee) {
                 List<HashMap<String, Object>> hasmaSector = new ArrayList<>();
-                pole.put("sector", hasmaSector);
+                pole.put("sectors", hasmaSector);
                 List<HashMap<String, Object>> hasmaLabo = new ArrayList<>();
-                pole.put("Labo", hasmaLabo);
+                pole.put("labos", hasmaLabo);
                 hasmaListPole.add(pole);
-                for (HashMap<String, Object> sector : getAllSector((int) (pole.get("poleId")))) {
+
+                List<HashMap<String, Object>> sectorr=getAllSector((int) (pole.get("poleId")));
+                if(sectorr==null || sectorr.size()==0){
+                    continue;
+                }
+                for (HashMap<String, Object> sector : sectorr ) {
                     System.out.println(sector);
-                    sector.put("Personnals", getStaffMemberFromNode((int) (sector.get("sectorId"))));
+                    sector.put("staff", getStaffMemberFromNode((int) (sector.get("sectorId"))));
                     hasmaSector.add(sector);
                 }
-                for (HashMap<String, Object> labo : getAllLabo((int) (pole.get("poleId")))) {
 
-                    labo.put("Personnals", getStaffMemberFromNode((int) (labo.get("laboId"))));
+                List<HashMap<String, Object>> laboo=getAllLabo((int) (pole.get("poleId")));
+                if(laboo==null || laboo.size()==0){
+                    continue;
+                }
+                for (HashMap<String, Object> labo :laboo ) {
+
+                    labo.put("staff", getStaffMemberFromNode((int) (labo.get("laboId"))));
                     hasmaLabo.add(labo);
                 }
             }
@@ -934,29 +980,19 @@ public class SQLManager implements ISingleton {
 
         List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
         HashMap<String, Object> hashMap;
-        final String idsActe = "SELECT\r\n" +
-                "    staffmember.idStaffMember,\r\n" +
-                "    enumstafftype.JobName,\r\n" +
-                "    demoinformations.Name,\r\n" +
-                "    demoinformations.FirstName\r\n" +
-                "FROM\r\n" +
-                "    staffmember,\r\n" +
-                "    acte,\r\n" +
-                "    demoinformations,\r\n" +
-                "    enumstafftype\r\n" +
-                "WHERE\r\n" +
-                "    acte.Responsable = staffmember.idStaffMember AND demoinformations.NumSecu = staffmember.DemoInformations_NumSecu \r\n" +
-                "AND acte.MedicalFolder_idFolder = ? \r\n" +
-                "AND enumstafftype.idEnumStaffType = staffmember.EnumStaffType_idEnumStaffType;";
+        final String idsActe =
+                "SELECT idStaffMember, FirstName, demoinformations.Name  FROM hyppocrate.affectation, dmp, demoinformations, staffmember \n" +
+                        "WHERE affectation.PatientId = dmp.UUID AND demoinformations.NumSecu = staffmember.DemoInformations_NumSecu\n" +
+                        "AND staffmember.idStaffMember = affectation.StaffID AND dmp.UUID =?\n";
+
         PreparedStatement ps = getCon().prepareStatement(idsActe);
         ps.setInt(1, patientId);
         ResultSet rSet = ps.executeQuery();
         while (rSet.next()) {
             hashMap = new HashMap<String, Object>();
-            hashMap.put("id", rSet.getInt("idStaffMember"));
-            hashMap.put("name", rSet.getString("FirstName"));
-            hashMap.put("lastName", rSet.getString("Name"));
-            hashMap.put("type", rSet.getString("JobName"));
+            hashMap.put("staffId", rSet.getInt("idStaffMember"));
+            hashMap.put("staffFullName", rSet.getString("FirstName")+" "+ rSet.getString("Name"));
+
             list.add(hashMap);
 
         }

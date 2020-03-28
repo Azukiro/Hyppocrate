@@ -26,6 +26,20 @@ public class Staff {
         }
     }
 
+    @Path("/print/unit")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response printNode(@Context final UriInfo ui,
+                          @QueryParam("nodeId") int nodeId) throws SQLException {
+
+        try {
+            return Response.ok(SQLManager.getInstance().getStaffMemberFromNode(nodeId)).build();
+
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
+        }
+    }
+
     @Path("/general")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
@@ -94,6 +108,21 @@ public class Staff {
         }
     }
 
+    @Path("/affect")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response newPatient(@Context final UriInfo ui,
+                               @QueryParam("staffId") int staffId,
+                               @QueryParam("nodeId") int nodeId,
+                               @QueryParam("isLeader") boolean isLeader) throws SQLException {
+
+        try {
+            return Response.ok(SQLManager.getInstance().affecterPersonnel(staffId,nodeId,isLeader)).build();
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
+        }
+    }
+
     @Path("/create")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -127,14 +156,45 @@ public class Staff {
         }
     }
 
-    @Path("/infos/assignment")
+    @Path("/search/all")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response searchALL(@Context final UriInfo ui,
+                              @QueryParam("sortColumnName") String sortColumnName,
+                              @QueryParam("search") String search,
+                              @QueryParam("paginationNumber") int paginationNumber,
+                              @QueryParam("paginationLength") int paginationLength) throws SQLException {
+        //A faire
+        try {
+            return Response.ok(SQLManager.getInstance().printStaff(search,sortColumnName,paginationNumber,paginationLength)).build();
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
+        }
+    }
+
+    @Path("/unAffect")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response assignmentdelete(@Context final UriInfo ui,
                                    @QueryParam("staffId") int staffId) throws SQLException {
         //A faire
         try {
-            return Response.ok(SQLManager.getInstance().getStaffMember(staffId)).build();
+            return Response.ok(SQLManager.getInstance().unAffecterPatient(staffId,-1)).build();
+        } catch (final SQLException e) {
+            return Responses.errorResponse(e.toString());
+        }
+    }
+
+
+    @Path("/assignment/delete")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response assignmentdelete2(@Context final UriInfo ui,
+                                     @QueryParam("staffId") int staffId,
+                                    @QueryParam("patientId") int patientId) throws SQLException {
+        //A faire
+        try {
+            return Response.ok(SQLManager.getInstance().unAffecterPatient(staffId,patientId)).build();
         } catch (final SQLException e) {
             return Responses.errorResponse(e.toString());
         }
