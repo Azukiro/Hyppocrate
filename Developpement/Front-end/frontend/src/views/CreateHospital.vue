@@ -11,13 +11,6 @@
             v-model="form.hospitalName"
             :rules="$rules('Hospital name')"
           ></v-text-field>
-
-          <v-text-field
-            label="Emplacement"
-            outlined
-            v-model="form.localisation"
-            :rules="$rules('Localisation')"
-          ></v-text-field>
         </v-form>
       </v-card>
 
@@ -32,23 +25,31 @@
 </template>
 
 <script>
+import { getters } from "@/store.js";
+
 export default {
   name: "CreateHospital",
   data() {
     return {
       form: {
-        hospitalName: "",
-        localisation: ""
+        hospitalName: ""
       }
     };
+  },
+  computed: {
+    ...getters
   },
   methods: {
     create() {
       if (this.$refs.form.validate()) {
         this.$request(
           "POST",
-          "/infrastructures/unit",
-          this.form,
+          "/infrastructure/unit",
+          {
+            fatherId: -1,
+            name: this.form.hospitalName,
+            staffLeaderId: this.user.id
+          },
           // {
           //   fatherId: -1
           //   name,

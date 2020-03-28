@@ -1,6 +1,7 @@
 <template>
   <v-card color="transparent" outlined height="90%" class="d-flex justify-center align-center">
     <PatientSelectionForm
+      title="Choix du dossier médical"
       :hasNext="hasNext"
       :form="form"
       :selectItems="selectItems"

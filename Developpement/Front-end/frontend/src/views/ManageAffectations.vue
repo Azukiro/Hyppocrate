@@ -7,9 +7,13 @@
   >
     <v-card-title class="headline py-6">Gérer les affectations</v-card-title>
     <SelectedStaff />
+    <v-card-actions class="d-flex justify-space-around align-center">
+      <v-btn text @click="addAffectation({})">Ajouter une affectation</v-btn>
+    </v-card-actions>
     <v-card color="transparent" outlined width="30%">
+      <v-checkbox v-model="displayLabo" @change="fetchAffectations" label="Laboratoire"></v-checkbox>
       <APHPStructure
-        :structure="structure"
+        ref="APHPStructure"
         :infrastructureAddHandler="addAffectation"
         :infrastructureDeleteHandler="suppressAffectation"
         :staffDeleteHandler="suppressAffectation"
@@ -23,7 +27,8 @@
 <script>
 import APHPStructure from "@/components/All/APHPStructure.vue";
 import SelectedStaff from "@/components/All/SelectedStaff.vue";
-import { mutations } from "@/store.js";
+
+import { getters, mutations } from "@/store.js";
 
 export default {
   name: "ManageAffectations",
@@ -33,55 +38,11 @@ export default {
   },
   data() {
     return {
-      structure: [
-        {
-          hospitalName: "Hôpital 1",
-          poles: [
-            {
-              poleName: "Pole 1",
-              sectors: [
-                {
-                  sectorName: "Secteur 1"
-                },
-                {
-                  sectorName: "Secteur 2"
-                },
-                {
-                  sectorName: "Secteur 3"
-                }
-              ]
-            },
-            {
-              poleName: "Pole 2",
-              sectors: [
-                {
-                  sectorName: "Secteur 4"
-                },
-                {
-                  sectorName: "Secteur 5"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          hospitalName: "Hôpital 2",
-          poles: [
-            {
-              poleName: "Pole 3"
-            },
-            {
-              poleName: "Pole 4",
-              sectors: [
-                {
-                  sectorName: "Secteur 6"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      displayLabo: false
     };
+  },
+  computed: {
+    ...getters
   },
   methods: {
     ...mutations,
@@ -89,12 +50,20 @@ export default {
       this.$request(
         "GET",
         "/staff/infos/assignment",
-        {},
+        {
+          staffId: this.selectedStaff.staffId
+        },
         // {
         //   staffId
         // },
         "Les affectations du personnel sélectionné ont été chargées !",
-        response => (this.staffTypes = response),
+        response => {
+          this.$refs.AHPHPStructure.$emit(
+            "fetch",
+            getters.addAPHPStructureInformations(response),
+            this.displayLabo
+          );
+        },
         // [
         //   {
         //     hospitalId: 0,

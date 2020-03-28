@@ -3,14 +3,15 @@
     <v-card color="transparent" outlined width="50%" class="my-5">
       <v-card-actions class="d-flex justify-space-around align-center">
         <v-btn text to="/create-hospital">Ajouter un hôpital</v-btn>
-        <v-btn text to="/create-sector">Créer un secteur</v-btn>
         <v-btn text to="/create-pole">Saisir un pôle</v-btn>
+        <v-btn text to="/create-sector">Créer un secteur</v-btn>
       </v-card-actions>
     </v-card>
 
     <v-card color="transparent" outlined width="50%">
+      <v-checkbox v-model="displayLabo" @change="fetchStructure" label="Laboratoire"></v-checkbox>
       <APHPStructure
-        :structure="structure"
+        ref="AHPHPStructure"
         :infrastructureAddHandler="onInfrastructureCreate"
         :infrastructureDeleteHandler="onInfrastructureDelete"
         :staffDeleteHandler="onAffectationDelete"
@@ -23,7 +24,7 @@
 
 <script>
 import APHPStructure from "@/components/All/APHPStructure.vue";
-import { mutations } from "@/store.js";
+import { getters, mutations } from "@/store.js";
 
 export default {
   name: "StructurateAPHP",
@@ -33,7 +34,7 @@ export default {
   },
   data() {
     return {
-      structure: []
+      displayLabo: false
     };
   },
   methods: {
@@ -45,8 +46,12 @@ export default {
         {},
         // empty
         "L'infrastructure de l'APHP a été chargée !",
-        structure => {
-          this.structure = structure;
+        response => {
+          this.$refs.AHPHPStructure.$emit(
+            "fetch",
+            getters.addAPHPStructureInformations(response),
+            this.displayLabo
+          );
         },
         // [
         //   {

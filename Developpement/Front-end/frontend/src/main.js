@@ -67,6 +67,13 @@ Vue.prototype.$downloadFile = (url, fileName) => {
   link.click();
 };
 
+Vue.prototype.$getNodeId = function({ sectorId, poleId, hospitalId }) {
+  if (0 <= sectorId) return sectorId;
+  if (0 <= poleId) return poleId;
+  if (0 <= hospitalId) return hospitalId;
+  return -1;
+};
+
 Vue.prototype.$rules = name => [v => !!v || v === 0 || name + " is required!"];
 
 Vue.config.productionTip = false;

@@ -68,9 +68,9 @@ export default {
       items: [
         {
           link: require("@/assets/pictures/doctor.png"),
-          title: "Une gestion des dossiers médicaux en ligne",
+          title: "Une gestion des dossiers médicaux",
           label:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "Hippocrate est conçue dans le but de faire gagner du temps aux différents intervenants. \n En clair, les documents médicaux des patients sont enregistrés en ligne et chaque type d’utilisateur visualise les données qui le concernent.",
           width: "150px",
           height: "350px"
         },
@@ -78,7 +78,7 @@ export default {
           link: require("@/assets/logos/icons/actions/white/time.png"),
           title: "Un accès n'importe où, n'importe quand",
           label:
-            "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "Hippocrate simplifie donc la gestion des données médicales et leur partage en faisant en sorte que chaque personne concernée trouve rapidement l’information qu’il cherche.",
           width: "150px",
           height: "150px"
         }
@@ -87,15 +87,15 @@ export default {
       listItems: [
         {
           link: require("@/assets/logos/icons/list-items/1.png"),
-          title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          title: "Visualiser un DMP en respectant le secret médical."
         },
         {
           link: require("@/assets/logos/icons/list-items/2.png"),
-          title: "Ut enim ad minim veniam, quis nostrud exercitation."
+          title: " Permettre une saisie efficace des informations."
         },
         {
           link: require("@/assets/logos/icons/list-items/3.png"),
-          title: "Duis aute irure dolor in reprehenderit in voluptate."
+          title: "Gérer un partage sécurisé des données."
         }
       ]
     };

@@ -8,17 +8,22 @@
           <v-select
             label="Nom de l'hôpital"
             :items="hospitals"
+            item-text="hospitalName"
+            item-value="hospitalId"
             outlined
-            v-model="form.hospital"
+            v-model="form.hospitalId"
             :rules="$rules('Hospital name')"
+            @change="fetchPoles"
           ></v-select>
 
           <v-select
             label="Nom du pôle"
             outlined
-            v-model="form.pole"
+            v-model="form.poleId"
             :rules="$rules('Pole name')"
             :items="poles"
+            item-text="poleName"
+            item-value="poleId"
           ></v-select>
 
           <v-text-field
@@ -26,13 +31,6 @@
             outlined
             v-model="form.sectorName"
             :rules="$rules('Sector name')"
-          ></v-text-field>
-
-          <v-text-field
-            label="Emplacement"
-            outlined
-            v-model="form.localisation"
-            :rules="$rules('Localisation')"
           ></v-text-field>
         </v-form>
       </v-card>
@@ -64,15 +62,15 @@ export default {
   },
   data() {
     return {
-      hospitals: ["Hospital 1", "Hospital 2", "Hospital 3"],
-      poles: ["Pole 1", "Pole 2", "Pole 3"] // Ajouter type labo
+      hospitals: [],
+      poles: [] // Ajouter type labo
     };
   },
   methods: {
     fetchHospitals() {
       this.$request(
         "GET",
-        "/infrastructures/hospital",
+        "/infrastructure/hospital",
         {},
         // empty
         "Les hôpitaux ont été chargés !",
@@ -85,8 +83,10 @@ export default {
     fetchPoles() {
       this.$request(
         "GET",
-        "/infrastructures/poles",
-        this.form,
+        "/infrastructure/pole",
+        {
+          nodeId: this.form.hospitalId
+        },
         // { hospitalId }
         "Les pôles ont été chargés !",
         // { poleId, poleName, poleLeaderId, poleLeaderFirstName, poleLeaderLastName }
@@ -99,8 +99,12 @@ export default {
       if (this.$refs.form.validate()) {
         this.$request(
           "POST",
-          "/infrastructures/sectorLabo",
-          this.form,
+          "/infrastructure/unit",
+          {
+            fatherId: this.form.poleId,
+            name: this.form.poleName,
+            staffLeaderId: this.user.id
+          },
           // {
           //   fatherId: (poleId)
           //   name,

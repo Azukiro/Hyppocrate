@@ -1,5 +1,5 @@
 <template>
-  <v-card color="transparent" outlined height="100%" class="d-flex justify-center align-center">
+  <v-card color="transparent" outlined class="my-2 d-flex justify-center align-center">
     <v-card outlined width="40%" class="d-flex flex-column justify-center align-center">
       <v-card-title class="headline text-center">Saisir un acte médical</v-card-title>
 

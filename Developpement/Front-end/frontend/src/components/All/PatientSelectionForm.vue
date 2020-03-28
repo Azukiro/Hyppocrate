@@ -1,7 +1,7 @@
 <template>
   <v-card color="transparent" outlined width="90%">
     <div>
-      <p class="headline py-5 text-center black--text">Choix du dossier médical</p>
+      <p class="headline py-5 text-center black--text">{{ title }}</p>
 
       <div class="d-flex justify-center align-center">
         <v-card
@@ -71,7 +71,7 @@
 export default {
   firstName: "PatientSelectionForm",
 
-  props: ["form", "selectItems", "patients", "hasNext"],
+  props: ["form", "selectItems", "patients", "hasNext", "title"],
 
   computed: {
     paginateLeftDisabled() {

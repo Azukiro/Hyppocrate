@@ -8,8 +8,10 @@
           <v-select
             label="Nom de l'hôpital"
             :items="hospitals"
+            item-text="hospitalName"
+            item-value="hospitalId"
             outlined
-            v-model="form.hospital"
+            v-model="form.hospitalId"
             :rules="$rules('Hospital name')"
           ></v-select>
 
@@ -18,13 +20,6 @@
             outlined
             v-model="form.poleName"
             :rules="$rules('Pole name')"
-          ></v-text-field>
-
-          <v-text-field
-            label="Emplacement"
-            outlined
-            v-model="form.localisation"
-            :rules="$rules('Localisation')"
           ></v-text-field>
         </v-form>
       </v-card>
@@ -55,14 +50,14 @@ export default {
   },
   data() {
     return {
-      hospitals: ["Hospital 1", "Hospital 2", "Hospital 3"]
+      hospitals: []
     };
   },
   methods: {
     fetchHospitals() {
       this.$request(
         "GET",
-        "/infrastructures/hospital",
+        "/infrastructure/hospital",
         {},
         // empty
         "Les hôpitaux ont été chargés !",
@@ -75,9 +70,13 @@ export default {
     create() {
       if (this.$refs.form.validate()) {
         this.$request(
-          "GET",
-          "/infrastructures/unit",
-          this.form,
+          "POST",
+          "/infrastructure/unit",
+          {
+            fatherId: this.form.hospitalId,
+            name: this.form.poleName,
+            staffLeaderId: this.user.id
+          },
           // {
           //   fatherId: (hospitalId)
           //   name,

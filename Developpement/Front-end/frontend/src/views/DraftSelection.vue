@@ -91,7 +91,7 @@ export default {
         //     date,
         //     link,
         //     staffFirstName,
-        //     staffLastName,
+        //     staffName,
         //     patientFirstName,
         //     patientLastName
         //   }
@@ -108,7 +108,7 @@ export default {
       this.setSelectedDraft(this.drafts[i]);
       this.setSelectedPatient({
         firstName: this.drafts[i].patientFirstName,
-        lastName: this.drafts[i].patientLastName
+        lastName: this.drafts[i].patientName
       });
       this.$router.push("/print-draft");
     }
