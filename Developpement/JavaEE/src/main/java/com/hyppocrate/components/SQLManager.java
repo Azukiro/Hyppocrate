@@ -105,7 +105,7 @@ public class SQLManager implements ISingleton {
 
         PreparedStatement pStatement = getCon().prepareStatement(update);
 
-        pStatement.setInt(4, draftId);
+        pStatement.setInt(1, draftId);
 
         return !pStatement.execute();
     }
@@ -243,6 +243,7 @@ public class SQLManager implements ISingleton {
         HashMap<String, Object> hashMap2 = new HashMap<String, Object>();
         hashMap2.put("result", list);
         hashMap2.put("hasNext", hasNext);
+        hashMap2.put("SQL", pStatement.toString());
 
 
         return hashMap2;
@@ -981,7 +982,7 @@ public class SQLManager implements ISingleton {
         List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
         HashMap<String, Object> hashMap;
         final String idsActe =
-                "SELECT idStaffMember, FirstName, demoinformations.Name  FROM hyppocrate.affectation, dmp, demoinformations, staffmember \n" +
+                "SELECT idStaffMember, FirstName, demoinformations.Name  FROM affectation, dmp, demoinformations, staffmember \n" +
                         "WHERE affectation.PatientId = dmp.UUID AND demoinformations.NumSecu = staffmember.DemoInformations_NumSecu\n" +
                         "AND staffmember.idStaffMember = affectation.StaffID AND dmp.UUID =?\n";
 
