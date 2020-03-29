@@ -377,7 +377,9 @@ export const mutations = {
         ? globals.staff[globals.user.type].icon
         : require("@/assets/logos/icons/types/white/undefined.png");
   },
-  addSnack: val => globals.snacks.push(val),
+  addSnack: val => {
+    globals.snacks.push(val);
+  },
   removeSnack: val =>
     (globals.snacks = globals.snacks.filter(value => value != val)),
   setSelectedPatient: val => (globals.selectedPatient = val),
@@ -407,24 +409,9 @@ function getActions(actions, searchLink) {
   return [];
 }
 
-mutations.setUser({
-  id: 12,
-  firstName: "Eric",
-  lastName: "Robert",
-  type: 4
-});
-
-//icone personnel affecté
-// aDupont
-// Posson
-
-/*
-  Types :
-  
-  0 : Ordonnance
-  1 : Rapport d'analyse
-  2 : Resultat d'examens
-  3 : Radiologie
-  4 : Compte rendu
-  5 : Autre
-*/
+// mutations.setUser({
+//   id: 12,
+//   firstName: "Eric",
+//   lastName: "Robert",
+//   type: 4
+// });
