@@ -19,12 +19,13 @@ public class Langue {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getString(@Context final UriInfo ui,
-                             @QueryParam("langue") String idString,
-                             @HeaderParam("langue") String langueHeader) {
+        @QueryParam("langue") String idString,
+        @HeaderParam("langue") String langueHeader) {
 
         if (Str.isNullOrEmpty(idString)) return Responses.errorResponse(ERRORS.ARGS_NULL);
 
         final LangManager lm = new LangManager();
 
         return Response.ok(lm.getString(idString)).build();
-    }}
+    }
+}

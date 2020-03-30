@@ -21,12 +21,12 @@ public class MedicalAct {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response draft(@Context final UriInfo ui,
-                          @QueryParam("staffId") int staffId,
-                          @QueryParam("patientId") int patientId,
-                          @QueryParam("title") String title,
-                          @QueryParam("type") int type,
-                          @QueryParam("description") String description,
-                          @QueryParam("file") String file) {
+        @QueryParam("staffId") int staffId,
+        @QueryParam("patientId") int patientId,
+        @QueryParam("title") String title,
+        @QueryParam("type") int type,
+        @QueryParam("description") String description,
+        @QueryParam("file") String file) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().CreateDraftt(staffId, patientId, title, type, description, file));
@@ -39,12 +39,12 @@ public class MedicalAct {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response publish(@Context final UriInfo ui,
-                          @QueryParam("staffId") int staffId,
-                          @QueryParam("patientId") int patientId,
-                          @QueryParam("title") String title,
-                          @QueryParam("type") int type,
-                          @QueryParam("description") String description,
-                          @QueryParam("file") String file) {
+        @QueryParam("staffId") int staffId,
+        @QueryParam("patientId") int patientId,
+        @QueryParam("title") String title,
+        @QueryParam("type") int type,
+        @QueryParam("description") String description,
+        @QueryParam("file") String file) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().publishActe(staffId, patientId, title, type, description, file));
@@ -59,15 +59,15 @@ public class MedicalAct {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response draft(@Context final UriInfo ui,
-                          @QueryParam("content") String content,
-                          @QueryParam("file") File file) {
+        @QueryParam("content") String content,
+        @QueryParam("file") File file) {
 
 
-        final ArrayList<Object> result = new ArrayList<>();
+        final ArrayList < Object > result = new ArrayList < > ();
         result.add(content);
         result.add(file);
         return Response.ok(result).build();
     }
 
-    
+
 }

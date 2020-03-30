@@ -19,13 +19,13 @@ public class Patient {
     @Produces(MediaType.APPLICATION_JSON)
     public Response all(@Context final UriInfo ui,
 
-                        @QueryParam("sortColumnName") String sortColumnName,
-                        @QueryParam("search") String search,
-                        @QueryParam("paginationNumber") int paginationNumber,
-                        @QueryParam("paginationLength") int paginationLength) {
+        @QueryParam("sortColumnName") String sortColumnName,
+        @QueryParam("search") String search,
+        @QueryParam("paginationNumber") int paginationNumber,
+        @QueryParam("paginationLength") int paginationLength) {
 
         try {
-              return Responses.objectOrCustomNull(SQLManager.getInstance().printDMP(search,sortColumnName,paginationNumber,paginationLength));
+            return Responses.objectOrCustomNull(SQLManager.getInstance().printDMP(search, sortColumnName, paginationNumber, paginationLength));
         } catch (final SQLException e) {
             return Responses.errorResponse(e.toString());
         }
@@ -47,8 +47,8 @@ public class Patient {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response sortItems(@Context final UriInfo ui,
-                              @QueryParam("patientId") int patientId
-                              ) {
+        @QueryParam("patientId") int patientId
+    ) {
 
         try {
             return Response.ok(SQLManager.getInstance().getPersonnalForPatient(patientId)).build();
@@ -61,12 +61,12 @@ public class Patient {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response affect(@Context final UriInfo ui,
-                           @QueryParam("nodeId") int nodeId,
-                           @QueryParam("staffId") int staffId,
-                           @QueryParam("patientId") int patientId) {
+        @QueryParam("nodeId") int nodeId,
+        @QueryParam("staffId") int staffId,
+        @QueryParam("patientId") int patientId) {
 
         try {
-            return Response.ok(SQLManager.getInstance().affecterPatient(nodeId,staffId,patientId)).build();
+            return Response.ok(SQLManager.getInstance().affecterPatient(nodeId, staffId, patientId)).build();
         } catch (final SQLException e) {
             return Responses.errorResponse(e.toString());
         }
