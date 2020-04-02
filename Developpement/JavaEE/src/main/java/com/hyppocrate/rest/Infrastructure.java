@@ -29,8 +29,7 @@ public class Infrastructure {
     @Path("/delete")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response all(@Context final UriInfo ui, @QueryParam("nodeId") int nodeId
-                        ) {
+    public Response all(@Context final UriInfo ui, @QueryParam("nodeId") int nodeId) {
 
 
         try {
@@ -57,7 +56,7 @@ public class Infrastructure {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response pole(@Context final UriInfo ui,
-                         @QueryParam("nodeId") int id) {
+        @QueryParam("nodeId") int id) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllPole(id));
@@ -70,11 +69,11 @@ public class Infrastructure {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response sector(@Context final UriInfo ui,
-                           @QueryParam("nodeId") int nodeId,
-                           @QueryParam("isLaboratory") boolean isLaboratory) {
+        @QueryParam("nodeId") int nodeId,
+        @QueryParam("isLaboratory") boolean isLaboratory) {
 
         try {
-            if(isLaboratory){
+            if (isLaboratory) {
                 return Responses.objectOrCustomNull(SQLManager.getInstance().getAllLabo(nodeId));
             }
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllSector(nodeId));
@@ -87,7 +86,7 @@ public class Infrastructure {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response labo(@Context final UriInfo ui,
-                           @QueryParam("nodeId") int nodeId) {
+        @QueryParam("nodeId") int nodeId) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().getAllLabo(nodeId));
@@ -100,9 +99,9 @@ public class Infrastructure {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response createUnit(@Context final UriInfo ui,
-                                @QueryParam("fatherId") int fatherId,
-                                @QueryParam("name") String name,
-                                @QueryParam("staffLeaderId") int staffLeaderId) {
+        @QueryParam("fatherId") int fatherId,
+        @QueryParam("name") String name,
+        @QueryParam("staffLeaderId") int staffLeaderId) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().createUnit(name, fatherId, staffLeaderId));
@@ -114,13 +113,13 @@ public class Infrastructure {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response createSectorLabo(@Context final UriInfo ui,
-                               @QueryParam("fatherId") int fatherId,
-                               @QueryParam("name") String name,
-                                     @QueryParam("isLaboratory") boolean isLaboratory,
-                               @QueryParam("staffLeaderId") int staffLeaderId) {
+        @QueryParam("fatherId") int fatherId,
+        @QueryParam("name") String name,
+        @QueryParam("isLaboratory") boolean isLaboratory,
+        @QueryParam("staffLeaderId") int staffLeaderId) {
 
         try {
-            return Responses.objectOrCustomNull(SQLManager.getInstance().createSector(name,fatherId,staffLeaderId,isLaboratory));
+            return Responses.objectOrCustomNull(SQLManager.getInstance().createSector(name, fatherId, staffLeaderId, isLaboratory));
         } catch (final SQLException e) {
             return Responses.errorResponse(e.toString());
         }
@@ -129,7 +128,7 @@ public class Infrastructure {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteUnit(@Context final UriInfo ui,
-                               @QueryParam("nodeId") int nodeId) {
+        @QueryParam("nodeId") int nodeId) {
 
         try {
             return Responses.objectOrCustomNull(SQLManager.getInstance().deleteUnit(nodeId));

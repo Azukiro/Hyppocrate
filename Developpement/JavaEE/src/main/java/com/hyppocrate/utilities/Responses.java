@@ -9,7 +9,7 @@ public class Responses {
 
     private static final LangManager langManager = new LangManager();
 
-    public static final Object GENERIC_NULL = new HashMap<String, Object>();
+    public static final Object GENERIC_NULL = new HashMap < String, Object > ();
 
     // des méthodes de développeur vraiment très fainéant
     // ouais je suis un fainéant j'ai fait ça juste pour avoir à écrire moins de code
@@ -21,7 +21,7 @@ public class Responses {
 
 
     public static Response errorResponse(final String idErrorMessage) {
-        final HashMap<String, Object> result = new HashMap<>();
+        final HashMap < String, Object > result = new HashMap < > ();
         result.put("error", idErrorMessage);
         return Response.ok(result).build();
     }
@@ -36,7 +36,7 @@ public class Responses {
         return Response.ok(object).build();
     }
 
-    public static Response objectOrCustomNull(final HashMap<String, Object> object) {
+    public static Response objectOrCustomNull(final HashMap < String, Object > object) {
         if (object == null) return Responses.nullResponse();
         return Response.ok(object).build();
     }
