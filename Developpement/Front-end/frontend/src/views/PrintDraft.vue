@@ -75,7 +75,7 @@ export default {
   },
   data() {
     return {
-      file: {}
+      file: " "
     };
   },
   methods: {

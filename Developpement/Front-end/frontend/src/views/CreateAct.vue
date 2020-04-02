@@ -71,7 +71,7 @@ export default {
         title: "",
         actType: "", // Ajout liste déroulante
         description: "",
-        file: {}
+        file: " "
       }
     };
   },

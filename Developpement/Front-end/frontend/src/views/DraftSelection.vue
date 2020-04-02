@@ -106,6 +106,10 @@ export default {
     },
     onDraftClick(i) {
       this.setSelectedDraft(this.drafts[i]);
+      console.log({
+        firstName: this.drafts[i].patientFirstName,
+        lastName: this.drafts[i].patientName
+      });
       this.setSelectedPatient({
         firstName: this.drafts[i].patientFirstName,
         lastName: this.drafts[i].patientName

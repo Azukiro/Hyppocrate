@@ -40,7 +40,7 @@ export default {
         search: "",
         sortColumnName: "",
         paginationNumber: 1,
-        paginationLength: 4
+        paginationLength: 2
       },
       selectItems: [],
       acts: []

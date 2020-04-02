@@ -22,12 +22,12 @@ Vue.prototype.$request = function(
     console_log(response);
     error_action(response);
 
-    mutations.addSnack({
-      color: "red",
-      text: error_message,
-      buttonText: "Ok",
-      timeout: 5000
-    });
+    // mutations.addSnack({
+    //   color: "red",
+    //   text: error_message,
+    //   buttonText: "Ok",
+    //   timeout: 5000
+    // });
     return {};
   }
 

@@ -47,7 +47,7 @@ export default {
     onStaffAffectation() {
       this.$request(
         "POST",
-        "/staff/infos/assignment",
+        "/staff/affect",
         {
           staffId: this.selectedStaff.staffId,
           nodeId: this.$getNodeId(this.form)
